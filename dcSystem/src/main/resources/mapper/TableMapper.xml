@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.TableMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.Table">
+    <id column="dc_id" jdbcType="VARCHAR" property="dcId" />
+    <result column="dc_name" jdbcType="VARCHAR" property="dcName" />
+    <result column="dc_specifications" jdbcType="INTEGER" property="dcSpecifications" />
+    <result column="dc_shop" jdbcType="VARCHAR" property="dcShop" />
+    <result column="dc_companies" jdbcType="VARCHAR" property="dcCompanies" />
+    <result column="dc_form" jdbcType="INTEGER" property="dcForm" />
+    <result column="dc_useStatus" jdbcType="INTEGER" property="dcUsestatus" />
+    <result column="dc_createTime" jdbcType="TIMESTAMP" property="dcCreatetime" />
+    <result column="dc_updateTime" jdbcType="TIMESTAMP" property="dcUpdatetime" />
+    <result column="dc_updateReason" jdbcType="VARCHAR" property="dcUpdatereason" />
+    <result column="dc_QRcode" jdbcType="VARCHAR" property="dcQrcode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dc_id, dc_name, dc_specifications, dc_shop, dc_companies, dc_form, dc_useStatus, 
+    dc_createTime, dc_updateTime, dc_updateReason, dc_QRcode
+  </sql>
+  <select id="selectTableAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from dc_tablemanagement
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_tablemanagement
+    where dc_id = #{dcId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dc_tablemanagement
+    where dc_id = #{dcId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hx.entity.Table">
+    insert into dc_tablemanagement (dc_id, dc_name, dc_specifications, 
+      dc_shop, dc_companies, dc_form, 
+      dc_useStatus, dc_createTime, dc_updateTime, 
+      dc_updateReason, dc_QRcode)
+    values (#{dcId,jdbcType=VARCHAR}, #{dcName,jdbcType=VARCHAR}, #{dcSpecifications,jdbcType=INTEGER}, 
+      #{dcShop,jdbcType=VARCHAR}, #{dcCompanies,jdbcType=VARCHAR}, #{dcForm,jdbcType=INTEGER}, 
+      #{dcUsestatus,jdbcType=INTEGER}, #{dcCreatetime,jdbcType=TIMESTAMP}, #{dcUpdatetime,jdbcType=TIMESTAMP}, 
+      #{dcUpdatereason,jdbcType=VARCHAR}, #{dcQrcode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hx.entity.Table">
+    insert into dc_tablemanagement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dcId != null">
+        dc_id,
+      </if>
+      <if test="dcName != null">
+        dc_name,
+      </if>
+      <if test="dcSpecifications != null">
+        dc_specifications,
+      </if>
+      <if test="dcShop != null">
+        dc_shop,
+      </if>
+      <if test="dcCompanies != null">
+        dc_companies,
+      </if>
+      <if test="dcForm != null">
+        dc_form,
+      </if>
+      <if test="dcUsestatus != null">
+        dc_useStatus,
+      </if>
+      <if test="dcCreatetime != null">
+        dc_createTime,
+      </if>
+      <if test="dcUpdatetime != null">
+        dc_updateTime,
+      </if>
+      <if test="dcUpdatereason != null">
+        dc_updateReason,
+      </if>
+      <if test="dcQrcode != null">
+        dc_QRcode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dcId != null">
+        #{dcId,jdbcType=VARCHAR},
+      </if>
+      <if test="dcName != null">
+        #{dcName,jdbcType=VARCHAR},
+      </if>
+      <if test="dcSpecifications != null">
+        #{dcSpecifications,jdbcType=INTEGER},
+      </if>
+      <if test="dcShop != null">
+        #{dcShop,jdbcType=VARCHAR},
+      </if>
+      <if test="dcCompanies != null">
+        #{dcCompanies,jdbcType=VARCHAR},
+      </if>
+      <if test="dcForm != null">
+        #{dcForm,jdbcType=INTEGER},
+      </if>
+      <if test="dcUsestatus != null">
+        #{dcUsestatus,jdbcType=INTEGER},
+      </if>
+      <if test="dcCreatetime != null">
+        #{dcCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dcUpdatetime != null">
+        #{dcUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dcUpdatereason != null">
+        #{dcUpdatereason,jdbcType=VARCHAR},
+      </if>
+      <if test="dcQrcode != null">
+        #{dcQrcode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.Table">
+    update dc_tablemanagement
+    <set>
+      <if test="dcName != null">
+        dc_name = #{dcName,jdbcType=VARCHAR},
+      </if>
+      <if test="dcSpecifications != null">
+        dc_specifications = #{dcSpecifications,jdbcType=INTEGER},
+      </if>
+      <if test="dcShop != null">
+        dc_shop = #{dcShop,jdbcType=VARCHAR},
+      </if>
+      <if test="dcCompanies != null">
+        dc_companies = #{dcCompanies,jdbcType=VARCHAR},
+      </if>
+      <if test="dcForm != null">
+        dc_form = #{dcForm,jdbcType=INTEGER},
+      </if>
+      <if test="dcUsestatus != null">
+        dc_useStatus = #{dcUsestatus,jdbcType=INTEGER},
+      </if>
+      <if test="dcCreatetime != null">
+        dc_createTime = #{dcCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dcUpdatetime != null">
+        dc_updateTime = #{dcUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dcUpdatereason != null">
+        dc_updateReason = #{dcUpdatereason,jdbcType=VARCHAR},
+      </if>
+      <if test="dcQrcode != null">
+        dc_QRcode = #{dcQrcode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dc_id = #{dcId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.Table">
+    update dc_tablemanagement
+    set dc_name = #{dcName,jdbcType=VARCHAR},
+      dc_specifications = #{dcSpecifications,jdbcType=INTEGER},
+      dc_shop = #{dcShop,jdbcType=VARCHAR},
+      dc_companies = #{dcCompanies,jdbcType=VARCHAR},
+      dc_form = #{dcForm,jdbcType=INTEGER},
+      dc_useStatus = #{dcUsestatus,jdbcType=INTEGER},
+      dc_createTime = #{dcCreatetime,jdbcType=TIMESTAMP},
+      dc_updateTime = #{dcUpdatetime,jdbcType=TIMESTAMP},
+      dc_updateReason = #{dcUpdatereason,jdbcType=VARCHAR},
+      dc_QRcode = #{dcQrcode,jdbcType=VARCHAR}
+    where dc_id = #{dcId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAll" parameterType="Table" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />
+    from dc_tablemanagement
+    <where>
+      <if test="dcId!=null">and dc_id = #{dcId}</if>
+      <if test="dcName!=null">and dc_name = #{dcName}</if>
+      <if test="dcForm!=0">and dc_form = #{dcForm}</if>
+      <if test="dcUsestatus!=0">and dc_useStatus = #{dcUsestatus}</if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.SystemParametersMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.SystemParameters">
+    <id column="st_id" jdbcType="INTEGER" property="stId" />
+    <result column="st_field" jdbcType="VARCHAR" property="stField" />
+    <result column="st_value" jdbcType="VARCHAR" property="stValue" />
+    <result column="st_text" jdbcType="VARCHAR" property="stText" />
+    <result column="st_type" jdbcType="VARCHAR" property="stType" />
+  </resultMap>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> FROM dc_systemparameters
+  </select>
+  <sql id="Base_Column_List">
+    st_id, st_field, st_value, st_text, st_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_systemparameters
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dc_systemparameters
+    where st_id = #{stId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hx.entity.SystemParameters">
+    insert into dc_systemparameters (st_id, st_field, st_value, 
+      st_text, st_type)
+    values (#{stId,jdbcType=INTEGER}, #{stField,jdbcType=VARCHAR}, #{stValue,jdbcType=VARCHAR}, 
+      #{stText,jdbcType=VARCHAR}, #{stType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hx.entity.SystemParameters">
+    insert into dc_systemparameters
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stId != null">
+        st_id,
+      </if>
+      <if test="stField != null">
+        st_field,
+      </if>
+      <if test="stValue != null">
+        st_value,
+      </if>
+      <if test="stText != null">
+        st_text,
+      </if>
+      <if test="stType != null">
+        st_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stId != null">
+        #{stId,jdbcType=INTEGER},
+      </if>
+      <if test="stField != null">
+        #{stField,jdbcType=VARCHAR},
+      </if>
+      <if test="stValue != null">
+        #{stValue,jdbcType=VARCHAR},
+      </if>
+      <if test="stText != null">
+        #{stText,jdbcType=VARCHAR},
+      </if>
+      <if test="stType != null">
+        #{stType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.SystemParameters">
+    update dc_systemparameters
+    <set>
+      <if test="stField != null">
+        st_field = #{stField,jdbcType=VARCHAR},
+      </if>
+      <if test="stValue != null">
+        st_value = #{stValue,jdbcType=VARCHAR},
+      </if>
+      <if test="stText != null">
+        st_text = #{stText,jdbcType=VARCHAR},
+      </if>
+      <if test="stType != null">
+        st_type = #{stType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where st_id = #{stId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.SystemParameters">
+    update dc_systemparameters
+    set st_field = #{stField,jdbcType=VARCHAR},
+      st_value = #{stValue,jdbcType=VARCHAR},
+      st_text = #{stText,jdbcType=VARCHAR},
+      st_type = #{stType,jdbcType=VARCHAR}
+    where st_id = #{stId,jdbcType=INTEGER}
+  </update>
+</mapper>

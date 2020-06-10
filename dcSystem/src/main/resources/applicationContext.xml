@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!-- 配置数据源，记得去掉myBatis-config.xml的数据源相关配置 -->
+    <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
+          destroy-method="close">
+        <!-- 数据库驱动 -->
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <!-- 相应驱动的jdbcUrl -->
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mybatis?useUnicode=true&amp;characterEncoding=UTF-8" />
+        <!-- 数据库的用户名 -->
+        <property name="username" value="root" />
+        <!-- 数据库的密码 -->
+        <property name="password" value="123456" />
+        <!-- 每个分区最大的连接数 -->
+        <property name="maxConnectionsPerPartition" value="3" />
+        <!-- 每个分区最小的连接数 -->
+        <property name="minConnectionsPerPartition" value="2" />
+    </bean>
+
+    <!-- 配置session工厂 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+        <!--配置mapper映射文件，可以去掉mybatis-config.xml的文件-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="typeAliasesPackage" value="com.hx.entity"/>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <value>
+                            helperDialect=mysql
+                            reasonable=true
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+    <!-- 配置事务管理器,管理数据源事务处理-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <!-- 配置事务通知 -->
+    <tx:advice id="advice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- 默认只处理运行时异常，可加rollback-for="Exception/Throwable"等处理所有异常或包括错误 -->
+            <tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="*" propagation="SUPPORTS"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- 配置切面织入的范围,后边要把事务边界定在service层 -->
+    <aop:config>
+        <aop:advisor advice-ref="advice" pointcut="execution(* com.hx.service.Impl.*.*(..))"/>
+    </aop:config>
+    <!-- 配置SessionTemplate，已封装了繁琐的数据操作-->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
+    <context:component-scan base-package="com.hx">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="basePackage" value="com.hx.mapper"/>
+    </bean>
+
+</beans>
