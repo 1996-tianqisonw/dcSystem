@@ -16,8 +16,7 @@ import java.util.Set;
 /**
  * Created by admin on 2020/5/22.
  */
-public class BaseServiceImpl{
-
+public class BaseServiceImpl {
     @Resource
     private SPMapperService spMapperService;
 
