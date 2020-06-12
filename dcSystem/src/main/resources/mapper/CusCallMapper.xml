@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.CusCallMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.CusCall">
+    <id column="call_id" jdbcType="INTEGER" property="callId" />
+    <result column="dp_id" jdbcType="INTEGER" property="dpId" />
+    <result column="cz_id" jdbcType="INTEGER" property="czId" />
+    <result column="cz_name" jdbcType="VARCHAR" property="czName" />
+    <result column="cust_id" jdbcType="VARCHAR" property="custId" />
+    <result column="call_text" jdbcType="VARCHAR" property="callText" />
+    <result column="deal_state" jdbcType="CHAR" property="dealState" />
+    <result column="begin_time" jdbcType="DATE" property="beginTime" />
+    <result column="deal_time" jdbcType="DATE" property="dealTime" />
+    <result column="deal_peple_Id" jdbcType="INTEGER" property="dealPepleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    call_id, dp_id, cz_id, cz_name, cust_id,call_text, deal_state, begin_time, deal_time, deal_peple_Id
+  </sql>
+
+  <select id="selectPage" parameterType="com.hx.entity.CusCall" resultMap="BaseResultMap">
+    select<include refid="Base_Column_List" />
+    from cus_call <where> <if test="dpId != null">
+    dp_id = #{dpId,jdbcType=INTEGER}
+  </if>
+    <if test="czId != null">
+      and cz_id = #{czId,jdbcType=INTEGER}
+    </if>
+    <if test="czName != null and czName != ''">
+      and  cz_name = #{czName,jdbcType=VARCHAR}
+    </if>
+    <if test="callText != null">
+      and  call_text = #{callText,jdbcType=VARCHAR}
+    </if>
+    <if test="dealState != null">
+      and  deal_state = #{dealState,jdbcType=CHAR}
+    </if>
+    <if test="beginTime != null">
+      and   begin_time = #{beginTime,jdbcType=DATE}
+    </if>
+    <if test="dealTime != null">
+      and  deal_time = #{dealTime,jdbcType=DATE}
+    </if>
+    <if test="dealPepleId != null">
+      and  deal_peple_Id = #{dealPepleId,jdbcType=INTEGER}
+    </if></where>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cus_call
+    where call_id = #{callId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cus_call
+    where call_id = #{callId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hx.entity.CusCall">
+    insert into cus_call (call_id, dp_id, cz_id, 
+      cz_name, call_text, deal_state, 
+      begin_time, deal_time, deal_peple_Id
+      )
+    values (#{callId,jdbcType=INTEGER}, #{dpId,jdbcType=INTEGER}, #{czId,jdbcType=INTEGER}, 
+      #{czName,jdbcType=VARCHAR}, #{callText,jdbcType=VARCHAR}, #{dealState,jdbcType=CHAR}, 
+      #{beginTime,jdbcType=DATE}, #{dealTime,jdbcType=DATE}, #{dealPepleId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hx.entity.CusCall">
+    insert into cus_call
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="callId != null">
+        call_id,
+      </if>
+      <if test="dpId != null">
+        dp_id,
+      </if>
+      <if test="czId != null">
+        cz_id,
+      </if>
+      <if test="czName != null">
+        cz_name,
+      </if><if test="custId != null">
+    cust_id,
+  </if>
+      <if test="callText != null">
+        call_text,
+      </if>
+      <if test="dealState != null">
+        deal_state,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="dealTime != null">
+        deal_time,
+      </if>
+      <if test="dealPepleId != null">
+        deal_peple_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="callId != null">
+        #{callId,jdbcType=INTEGER},
+      </if>
+      <if test="dpId != null">
+        #{dpId,jdbcType=INTEGER},
+      </if>
+      <if test="czId != null">
+        #{czId,jdbcType=INTEGER},
+      </if>
+      <if test="czName != null">
+        #{czName,jdbcType=VARCHAR},
+      </if><if test="custId != null">
+    #{custId},
+  </if>
+      <if test="callText != null">
+        #{callText,jdbcType=VARCHAR},
+      </if>
+      <if test="dealState != null">
+        #{dealState,jdbcType=CHAR},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime},
+      </if>
+      <if test="dealTime != null">
+        #{dealTime},
+      </if>
+      <if test="dealPepleId != null">
+        #{dealPepleId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.CusCall">
+    update cus_call
+    <set>
+      <if test="dpId != null">
+        dp_id = #{dpId,jdbcType=INTEGER},
+      </if>
+      <if test="czId != null">
+        cz_id = #{czId,jdbcType=INTEGER},
+      </if>
+      <if test="czName != null">
+        cz_name = #{czName,jdbcType=VARCHAR},
+      </if>
+      <if test="callText != null">
+        call_text = #{callText,jdbcType=VARCHAR},
+      </if>
+      <if test="dealState != null">
+        deal_state = #{dealState,jdbcType=CHAR},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime},
+      </if>
+      <if test="dealTime != null">
+        deal_time = #{dealTime},
+      </if>
+      <if test="dealPepleId != null">
+        deal_peple_Id = #{dealPepleId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where call_id in (<foreach collection="ids" separator="," item="id">#{id}</foreach>)
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.CusCall">
+    update cus_call
+    set dp_id = #{dpId,jdbcType=INTEGER},
+      cz_id = #{czId,jdbcType=INTEGER},
+      cz_name = #{czName,jdbcType=VARCHAR},
+      call_text = #{callText,jdbcType=VARCHAR},
+      deal_state = #{dealState,jdbcType=CHAR},
+      begin_time = #{beginTime,jdbcType=DATE},
+      deal_time = #{dealTime,jdbcType=DATE},
+      deal_peple_Id = #{dealPepleId,jdbcType=INTEGER}
+    where call_id = #{callId,jdbcType=INTEGER}
+  </update>
+</mapper>
