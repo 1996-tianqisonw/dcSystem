@@ -21,4 +21,6 @@ public interface BaseMapper<T> {
     int updateByPrimaryKey(T record);
 
     List<T> selectAll(T table);
+
+    List<T> selectPage(T t);
 }

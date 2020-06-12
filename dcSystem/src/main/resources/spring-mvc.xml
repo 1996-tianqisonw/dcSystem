@@ -19,11 +19,11 @@
 
     <!--<mvc:default-servlet-handler/>-->
     <!-- 支持servlet与jsp视图解析，可进行进一步处理，此步可省略， -->
-    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        &lt;!&ndash; 可以加前缀或后缀 &ndash;&gt;
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 可以加前缀或后缀 -->
         <property name="prefix" value="/WEB-INF/"/>
         <property name="suffix" value=".jsp"/>
-    </bean>-->
+    </bean>
     <!-- 配置类型转换器工厂 -->
     <!--  <bean id="converterService"
             class="org.springframework.context.support.ConversionServiceFactoryBean">

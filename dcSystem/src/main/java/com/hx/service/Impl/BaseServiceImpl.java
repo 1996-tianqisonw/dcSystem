@@ -21,16 +21,7 @@ import java.util.Set;
 /**
  * Created by admin on 2020/5/22.
  */
-public class BaseServiceImpl<T> implements BaseService<T>{
-    private BaseMapper<T> baseMapper;
-    @Autowired
-    CookingMapper cookingMapper;
-    @Autowired
-    TableStateMapper tableStateMapper;
-    @Autowired
-    TableMapper tableMapper;
-    @Autowired
-    CookDetailMapper cookDetailMapper;
+public class BaseServiceImpl implements BaseService<T>{
     @Resource
     private SPMapperService spMapperService;
     @Autowired
@@ -113,7 +104,6 @@ public class BaseServiceImpl<T> implements BaseService<T>{
         }
         return null;
     }
-
     @Override
     public <K> int deleteByPrimaryKey(K dcId) {
         return 0;

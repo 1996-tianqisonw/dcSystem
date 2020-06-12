@@ -2,6 +2,7 @@ package com.hx.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.hx.service.*;
+import com.hx.util.EasyUIResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,26 +36,35 @@ public class BaseController {
     GoodsService goodsService;
 
      //这是分页的json数据转换的方法
-    public <T> Map<String,Object> getPageMap(PageInfo<T> pageInfo){
-        Map<String,Object> tableMap = new HashMap<>();
-        tableMap.put("total",pageInfo.getTotal());
-        tableMap.put("rows",pageInfo.getList());
-        return tableMap;
-    }
+    public <T> Map<String,Object> getPageMap(PageInfo<T> pageInfo) {
+        Map<String, Object> tableMap = new HashMap<>();
+        tableMap.put("total", pageInfo.getTotal());
+        tableMap.put("rows", pageInfo.getList());
+        //这是分页的json数据转换的方法
+        public <T> Map<String, Object> getPageMap (PageInfo < T > pageInfo) {
+            Map<String, Object> tableMap = new HashMap<>();
+            tableMap.put("total", pageInfo.getTotal());
+            tableMap.put("rows", pageInfo.getList());
+            return tableMap;
+        }
 
-    //这是公共路径发起请求的方法
-    @RequestMapping("/path/{bag}/{file}")
-    public String getPath(@PathVariable("bag") String bag, @PathVariable("file") String file,HttpSession session,@RequestParam("ID")String ID){
-        String path =null;
+        //这是公共路径发起请求的方法
+ /*   @RequestMapping("/path/{bag}/{file}")*/
+  /*  public String getPath(@PathVariable("bag") String bag, @PathVariable("file") String file, HttpSession session, @RequestParam("ID") String ID) {
+        String path = null;
+        System.out.println(file);*/
+
+    public String getPath(@PathVariable("bag") String bag, @PathVariable("file") String file, HttpSession session, @RequestParam("ID") String ID) {
+        String path = null;
         //当ID传过来的等于0时，为没ID的,取非时，证明有ID，把Id传给页面。
-        if(!(ID.equals("0"))){
+        if (!(ID.equals("0"))) {
             System.out.println(ID);
-            session.setAttribute("Id",ID);
+            session.setAttribute("Id", ID);
         }
 
         //如果有包名的情况下
-        if(bag!=null&&file!=null){
-            path = "forward:/"+bag+"/"+file+".jsp";
+        if (bag != null && file != null) {
+            path = "forward:/" + bag + "/" + file + ".jsp";
             //如果在没包名的情况下
         }
         return path;
@@ -72,4 +82,20 @@ public class BaseController {
     //由此就要抽离这个容器的最一般的特性，比如储存功能，那么储存的类型是否受限，如受限就只能存取一种或多种
     //无法实现存取所有数据类型的目的，泛型可以有效的解决该问题。
     //另一个就是与外部对象的数据传输的耦合程度的问题，如何高度耦合，哪怕即使实现了数据存取广泛性，也无法实现理想的状态。
+
+    /**
+     * 在原基础加入分页工具类，余忠
+     */
+    public <T> EasyUIResult<T> getEasyUIResult(PageInfo<T> pageInfo) {
+        EasyUIResult easyUIResult = new EasyUIResult();
+        easyUIResult.setTotal(pageInfo.getTotal());
+        easyUIResult.setRows(pageInfo.getList());
+        return easyUIResult;
+    }
+
+    @RequestMapping(value = "/findUrl/{folder}/{file}")
+    public String findUrl(@PathVariable String folder, @PathVariable String file) {
+        return folder + "/" + file;
+    }
+
 }

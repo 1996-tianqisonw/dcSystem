@@ -58,7 +58,7 @@ public class SPMapperServiceImpl implements SPMapperService{
     public void generationPice() throws Exception {
         //这是查询数据库的字符串,把它们遍历出来放入生成器。
         List<Table> table = tableMapper.selectTableAll();
-        String path = "E:/work/repo/git-repo/dcSystem/src/main/webapp/erweima";
+        String path = "E:/JAVA/GIT/Repo/dc/dcSystem/src/main/webapp/erweima";
         for(Table tab : table){
             //这是生成二维码的图片
             Erweima.create(tab.getDcQrcode(),tab.getDcId(),path);
