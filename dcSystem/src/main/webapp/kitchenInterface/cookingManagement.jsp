@@ -15,11 +15,11 @@
 <form id="ff" method="post">
     <div>
     <label for="kcOrdernumber">订单号:</label>
-    <input type="text" class="easyui-validatebox" name="kcOrdernumber">
+    <input type="text" class="easyui-validatebox" name="kcOrdernumber" id="kcOrdernumber">
     </div>
     <div>
     <label for="kcCooking">订单状态:</label>
-    <select class="easyui-combobox" name="kcCooking">
+    <select class="easyui-combobox" name="kcCooking" id="kcCooking">
         <option value="0">请选择</option>
         <option value="1">未处理</option>
         <option value="2">处理中</option>
@@ -69,17 +69,12 @@
             iconCls:'icon-add',
             handler:function () {
                 cooking("/cooking/orderProcessing.mvc","Processing")
-                /*alert('订单处理'),
-                    $('#cooking').datagrid({
-                         href: '/cooking/orderProcessing.mvc?ID=' + $('#cooking').datagrid('getSelected').kcOrdernumber,
-                    });*/
             }
         },'-',{
             text:'订单详情',
             iconCls:'icon-add',
             handler:function () {
                 alert('订单详情')
-
                 if ($('#cooking').datagrid('getSelected') != null) {
                     $('#win').window({
                         text: '订单详情',
