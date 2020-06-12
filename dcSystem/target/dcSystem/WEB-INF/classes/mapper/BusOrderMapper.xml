@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.BusOrderMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.BusOrder">
+    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="sys_param_id" jdbcType="BIGINT" property="sysParamId" />
+    <result column="shop_cart_id" jdbcType="VARCHAR" property="shopCartId" />
+    <result column="current_dining_id" jdbcType="VARCHAR" property="currentDiningId" />
+    <result column="current_dining_name" jdbcType="VARCHAR" property="currentDiningName" />
+    <result column="pay_type" jdbcType="VARCHAR" property="payType" />
+    <result column="whether_pay" jdbcType="VARCHAR" property="whetherPay" />
+    <result column="pay_way" jdbcType="VARCHAR" property="payWay" />
+    <result column="order_type" jdbcType="VARCHAR" property="orderType" />
+    <result column="relevance_id" jdbcType="VARCHAR" property="relevanceId" />
+    <result column="order_total" jdbcType="INTEGER" property="orderTotal" />
+    <result column="pay_money" jdbcType="INTEGER" property="payMoney" />
+    <result column="order_status" jdbcType="VARCHAR" property="orderStatus" />
+    <result column="cancel_status" jdbcType="VARCHAR" property="cancelStatus" />
+    <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="expense_id" jdbcType="VARCHAR" property="expenseId" />
+    <result column="clerk_id" jdbcType="VARCHAR" property="clerkId" />
+    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="explains" jdbcType="VARCHAR" property="explains" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, sys_param_id, shop_cart_id, current_dining_id, current_dining_name, pay_type, 
+    whether_pay, pay_way, order_type, relevance_id, order_total, pay_money, order_status, 
+    cancel_status, creation_time, end_time, expense_id, clerk_id, phone, address, explains
+  </sql>
+
+  <!-- 分页查询,sql不用分页的信息，留给插件处理 -->
+  <select id="selectPage" parameterType="BusOrder" resultMap="BaseResultMap">
+    select order_id,current_dining_id,current_dining_name,whether_pay,pay_way,order_type,
+    order_total,pay_money,order_status,creation_time,end_time
+    from bus_order
+    <where>
+      <if test="orderId!=null">and order_id = #{orderId}</if>
+      <if test="currentDiningId!=null">and current_dining_id = #{currentDiningId}</if>
+      <if test="currentDiningName!=null">and current_dining_name = #{currentDiningName}</if>
+      <if test="whetherPay!=null">and whether_pay = #{whetherPay}</if>
+      <if test="payWay!=null">and pay_way = #{payWay}</if>
+      <!--<if test="orderType!=null">and order_type = #{orderType}</if>-->
+      <if test="orderTotal!=null">and order_total = #{orderTotal}</if>
+      <if test="payMoney!=null">and pay_money = #{payMoney}</if>
+      <if test="orderStatus!=null">and order_status = #{orderStatus}</if>
+      <if test="creationTime!=null">and creation_time = #{creationTime}</if>
+      <if test="endTime!=null">and end_time = #{endTime}</if>
+    </where>
+    <!-- 使用分页插件后，这句：limit start,pageSize不用再写了  -->
+  </select>
+
+  <!-- 查询需要字段,没参数 -->
+  <select id="selectList" resultMap="BaseResultMap">
+    select order_id,current_dining_id,current_dining_name,whether_pay,pay_way,order_type,
+    order_total,pay_money,order_status,creation_time,end_time
+    from bus_order
+
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bus_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from bus_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hx.entity.BusOrder">
+    insert into bus_order (order_id, sys_param_id, shop_cart_id, 
+      current_dining_id, current_dining_name, pay_type, 
+      whether_pay, pay_way, order_type, 
+      relevance_id, order_total, pay_money, 
+      order_status, cancel_status, creation_time, 
+      end_time, expense_id, clerk_id, 
+      phone, address, explains
+      )
+    values (#{orderId,jdbcType=VARCHAR}, #{sysParamId,jdbcType=BIGINT}, #{shopCartId,jdbcType=VARCHAR}, 
+      #{currentDiningId,jdbcType=VARCHAR}, #{currentDiningName,jdbcType=VARCHAR}, #{payType,jdbcType=VARCHAR}, 
+      #{whetherPay,jdbcType=VARCHAR}, #{payWay,jdbcType=VARCHAR}, #{orderType,jdbcType=VARCHAR}, 
+      #{relevanceId,jdbcType=VARCHAR}, #{orderTotal,jdbcType=INTEGER}, #{payMoney,jdbcType=INTEGER},
+      #{orderStatus,jdbcType=VARCHAR}, #{cancelStatus,jdbcType=VARCHAR}, #{creationTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{expenseId,jdbcType=VARCHAR}, #{clerkId,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{explains,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hx.entity.BusOrder">
+    insert into bus_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="sysParamId != null">
+        sys_param_id,
+      </if>
+      <if test="shopCartId != null">
+        shop_cart_id,
+      </if>
+      <if test="currentDiningId != null">
+        current_dining_id,
+      </if>
+      <if test="currentDiningName != null">
+        current_dining_name,
+      </if>
+      <if test="payType != null">
+        pay_type,
+      </if>
+      <if test="whetherPay != null">
+        whether_pay,
+      </if>
+      <if test="payWay != null">
+        pay_way,
+      </if>
+      <if test="orderType != null">
+        order_type,
+      </if>
+      <if test="relevanceId != null">
+        relevance_id,
+      </if>
+      <if test="orderTotal != null">
+        order_total,
+      </if>
+      <if test="payMoney != null">
+        pay_money,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="cancelStatus != null">
+        cancel_status,
+      </if>
+      <if test="creationTime != null">
+        creation_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="expenseId != null">
+        expense_id,
+      </if>
+      <if test="clerkId != null">
+        clerk_id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="explains != null">
+        explains,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="sysParamId != null">
+        #{sysParamId,jdbcType=BIGINT},
+      </if>
+      <if test="shopCartId != null">
+        #{shopCartId,jdbcType=VARCHAR},
+      </if>
+      <if test="currentDiningId != null">
+        #{currentDiningId,jdbcType=VARCHAR},
+      </if>
+      <if test="currentDiningName != null">
+        #{currentDiningName,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherPay != null">
+        #{whetherPay,jdbcType=VARCHAR},
+      </if>
+      <if test="payWay != null">
+        #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="relevanceId != null">
+        #{relevanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTotal != null">
+        #{orderTotal,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null">
+        #{payMoney,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelStatus != null">
+        #{cancelStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTime != null">
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expenseId != null">
+        #{expenseId,jdbcType=VARCHAR},
+      </if>
+      <if test="clerkId != null">
+        #{clerkId,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="explains != null">
+        #{explains,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.BusOrder">
+    update bus_order
+    <set>
+      <if test="sysParamId != null">
+        sys_param_id = #{sysParamId,jdbcType=BIGINT},
+      </if>
+      <if test="shopCartId != null">
+        shop_cart_id = #{shopCartId,jdbcType=VARCHAR},
+      </if>
+      <if test="currentDiningId != null">
+        current_dining_id = #{currentDiningId,jdbcType=VARCHAR},
+      </if>
+      <if test="currentDiningName != null">
+        current_dining_name = #{currentDiningName,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherPay != null">
+        whether_pay = #{whetherPay,jdbcType=VARCHAR},
+      </if>
+      <if test="payWay != null">
+        pay_way = #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        order_type = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="relevanceId != null">
+        relevance_id = #{relevanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTotal != null">
+        order_total = #{orderTotal,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null">
+        pay_money = #{payMoney,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelStatus != null">
+        cancel_status = #{cancelStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTime != null">
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expenseId != null">
+        expense_id = #{expenseId,jdbcType=VARCHAR},
+      </if>
+      <if test="clerkId != null">
+        clerk_id = #{clerkId,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="explains != null">
+        explains = #{explains,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.BusOrder">
+    update bus_order
+    set sys_param_id = #{sysParamId,jdbcType=BIGINT},
+      shop_cart_id = #{shopCartId,jdbcType=VARCHAR},
+      current_dining_id = #{currentDiningId,jdbcType=VARCHAR},
+      current_dining_name = #{currentDiningName,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      whether_pay = #{whetherPay,jdbcType=VARCHAR},
+      pay_way = #{payWay,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=VARCHAR},
+      relevance_id = #{relevanceId,jdbcType=VARCHAR},
+      order_total = #{orderTotal,jdbcType=INTEGER},
+      pay_money = #{payMoney,jdbcType=INTEGER},
+      order_status = #{orderStatus,jdbcType=VARCHAR},
+      cancel_status = #{cancelStatus,jdbcType=VARCHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      expense_id = #{expenseId,jdbcType=VARCHAR},
+      clerk_id = #{clerkId,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      explains = #{explains,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

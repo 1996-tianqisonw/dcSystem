@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.BusRefundMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.BusRefund">
+    <result column="sys_param_id" jdbcType="BIGINT" property="sysParamId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="refund_id" jdbcType="VARCHAR" property="refundId" />
+    <result column="refund_order_id" jdbcType="VARCHAR" property="refundOrderId" />
+    <result column="original_order_id" jdbcType="VARCHAR" property="originalOrderId" />
+    <result column="current_dining_id" jdbcType="VARCHAR" property="currentDiningId" />
+    <result column="current_dining_name" jdbcType="VARCHAR" property="currentDiningName" />
+    <result column="refund_money" jdbcType="INTEGER" property="refundMoney" />
+    <result column="refund_status" jdbcType="VARCHAR" property="refundStatus" />
+    <result column="audit_status" jdbcType="VARCHAR" property="auditStatus" />
+    <result column="order_status" jdbcType="VARCHAR" property="orderStatus" />
+    <result column="pay_way" jdbcType="VARCHAR" property="payWay" />
+    <result column="refund_time" jdbcType="TIMESTAMP" property="refundTime" />
+    <result column="refund_cause" jdbcType="VARCHAR" property="refundCause" />
+    <result column="client_id" jdbcType="VARCHAR" property="clientId" />
+    <result column="explains" jdbcType="VARCHAR" property="explains" />
+  </resultMap>
+
+  <!-- 添加单个 -->
+  <insert id="insert" parameterType="com.hx.entity.BusRefund">
+    insert into bus_refund(order_id, refund_id,refund_order_id,
+    original_order_id,current_dining_id, current_dining_name, refund_money,
+    refund_status,audit_status,pay_way,refund_time
+    )
+    values (#{orderId}, #{refundId},
+      #{refundOrderId}, #{originalOrderId},#{currentDiningId},
+      #{currentDiningName}, #{refundMoney},#{refundStatus},
+      #{auditStatus},#{payWay},#{refundTime}
+      )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="insertBatch">
+    insert into bus_refund(order_id, refund_id,refund_order_id,
+    original_order_id,current_dining_id, current_dining_name, refund_money,
+    refund_status,audit_status,pay_way,refund_time
+    )
+    values
+    <foreach collection="list" item="de" separator=",">
+      (#{de.orderId}, #{de.refundId},
+      #{de.refundOrderId}, #{de.originalOrderId},#{de.currentDiningId},
+      #{de.currentDiningName}, #{de.refundMoney},#{de.refundStatus},
+      #{de.auditStatus},#{de.payWay},#{de.refundTime}
+      )
+    </foreach>
+  </insert>
+
+  <!-- 查询需要字段,没参数 -->
+  <select id="selectList" resultMap="BaseResultMap">
+    select refund_id from bus_refund
+
+  </select>
+
+
+  <!-- 分页查询,sql不用分页的信息，留给插件处理 -->
+  <select id="selectPage" parameterType="BusRefund" resultMap="BaseResultMap">
+    select refund_order_id,
+    original_order_id, current_dining_id, current_dining_name, refund_money,
+    refund_status, audit_status, pay_way, refund_time
+    from bus_refund
+    <where>
+      <if test="refundOrderId!=null">and refund_order_id = #{refundOrderId}</if>
+      <if test="originalOrderId!=null">and original_order_id = #{originalOrderId}</if>
+      <if test="currentDiningName!=null">and current_dining_name = #{currentDiningName}</if>
+      <if test="currentDiningId!=null">and current_dining_id = #{currentDiningId}</if>
+      <if test="refundMoney!=null">and refund_money = #{refundMoney}</if>
+      <if test="refundStatus!=null">and refund_status = #{refundStatus}</if>
+      <if test="auditStatus!=null">and audit_status = #{auditStatus}</if>
+      <if test="payWay!=null">and pay_way = #{payWay}</if>
+      <if test="refundTime!=null">and refund_time = #{refundTime}</if>
+    </where>
+    <!-- 使用分页插件后，这句：limit start,pageSize不用再写了  -->
+  </select>
+
+
+  <insert id="insert1" parameterType="com.hx.entity.BusRefund">
+    insert into bus_refund (sys_param_id, order_id, refund_id, 
+      refund_order_id, original_order_id, current_dining_id, 
+      current_dining_name, refund_money, refund_status, 
+      audit_status, order_status, pay_way, 
+      refund_time, refund_cause, client_id, 
+      explains)
+    values (#{sysParamId,jdbcType=BIGINT}, #{orderId,jdbcType=VARCHAR}, #{refundId,jdbcType=VARCHAR}, 
+      #{refundOrderId,jdbcType=VARCHAR}, #{originalOrderId,jdbcType=VARCHAR}, #{currentDiningId,jdbcType=VARCHAR}, 
+      #{currentDiningName,jdbcType=VARCHAR}, #{refundMoney,jdbcType=INTEGER}, #{refundStatus,jdbcType=VARCHAR},
+      #{auditStatus,jdbcType=VARCHAR}, #{orderStatus,jdbcType=VARCHAR}, #{payWay,jdbcType=VARCHAR}, 
+      #{refundTime,jdbcType=TIMESTAMP}, #{refundCause,jdbcType=VARCHAR}, #{clientId,jdbcType=VARCHAR}, 
+      #{explains,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSele
+  ctive" parameterType="com.hx.entity.BusRefund">
+    insert into bus_refund
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sysParamId != null">
+        sys_param_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="refundId != null">
+        refund_id,
+      </if>
+      <if test="refundOrderId != null">
+        refund_order_id,
+      </if>
+      <if test="originalOrderId != null">
+        original_order_id,
+      </if>
+      <if test="currentDiningId != null">
+        current_dining_id,
+      </if>
+      <if test="currentDiningName != null">
+        current_dining_name,
+      </if>
+      <if test="refundMoney != null">
+        refund_money,
+      </if>
+      <if test="refundStatus != null">
+        refund_status,
+      </if>
+      <if test="auditStatus != null">
+        audit_status,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="payWay != null">
+        pay_way,
+      </if>
+      <if test="refundTime != null">
+        refund_time,
+      </if>
+      <if test="refundCause != null">
+        refund_cause,
+      </if>
+      <if test="clientId != null">
+        client_id,
+      </if>
+      <if test="explains != null">
+        explains,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sysParamId != null">
+        #{sysParamId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="refundId != null">
+        #{refundId,jdbcType=VARCHAR},
+      </if>
+      <if test="refundOrderId != null">
+        #{refundOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="originalOrderId != null">
+        #{originalOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="currentDiningId != null">
+        #{currentDiningId,jdbcType=VARCHAR},
+      </if>
+      <if test="currentDiningName != null">
+        #{currentDiningName,jdbcType=VARCHAR},
+      </if>
+      <if test="refundMoney != null">
+        #{refundMoney,jdbcType=INTEGER},
+      </if>
+      <if test="refundStatus != null">
+        #{refundStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="payWay != null">
+        #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="refundTime != null">
+        #{refundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundCause != null">
+        #{refundCause,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null">
+        #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="explains != null">
+        #{explains,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

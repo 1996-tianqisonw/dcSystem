@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.BusShopCartMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.BusShopCart">
+    <id column="shop_cart_id" jdbcType="VARCHAR" property="shopCartId" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+    <result column="goods_count" jdbcType="INTEGER" property="goodsCount" />
+    <result column="goods_unit" jdbcType="INTEGER" property="goodsUnit" />
+    <result column="goods_price" jdbcType="INTEGER" property="goodsPrice" />
+    <result column="total_price" jdbcType="INTEGER" property="totalPrice" />
+    <result column="goods_img_address" jdbcType="VARCHAR" property="goodsImgAddress" />
+    <result column="goods_title" jdbcType="VARCHAR" property="goodsTitle" />
+    <result column="current_dining_id" jdbcType="VARCHAR" property="currentDiningId" />
+    <result column="current_dining_name" jdbcType="VARCHAR" property="currentDiningName" />
+    <result column="explains" jdbcType="VARCHAR" property="explains" />
+
+    <collection property="goods" ofType="Goods" resultMap="com.hx.mapper.GoodsMapper.goodsExtResultMap"/>
+
+    <collection property="dcTablemanagements" ofType="DcTablemanagement" resultMap="com.hx.mapper.DcTablemanagementMapper.dcExtResultMap"/>
+
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    shop_cart_id, customer_id, goods_id, goods_count, goods_unit, goods_price, total_price, 
+    goods_img_address, goods_title, current_dining_id, current_dining_name, explains
+  </sql>
+
+  <!--  三表查询 -->
+<!--  <select id="selectShopGoodsDcListPair" parameterType="BusShopCart" resultMap="BaseResultMap">
+    select s.goods_id,s.goods_count,s.goods_price,s.total_price,s.goods_img_address,s.goods_title,s.current_dining_id,s.current_dining_name,s.explains,
+    from bus_shop_cart s left join goods g on s.goods_id = g.goods_id left join dc_tableManagement d on s.current_dining_id = d.dc_id
+    where s.current_dining_id = d.dc_id
+
+  </select>-->
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bus_shop_cart
+    where shop_cart_id = #{shopCartId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from bus_shop_cart
+    where shop_cart_id = #{shopCartId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hx.entity.BusShopCart">
+    insert into bus_shop_cart (shop_cart_id, customer_id, goods_id, 
+      goods_count, goods_unit, goods_price, 
+      total_price, goods_img_address, goods_title, 
+      current_dining_id, current_dining_name, explains
+      )
+    values (#{shopCartId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, 
+      #{goodsCount,jdbcType=INTEGER}, #{goodsUnit,jdbcType=INTEGER}, #{goodsPrice,jdbcType=INTEGER},
+      #{totalPrice,jdbcType=INTEGER}, #{goodsImgAddress,jdbcType=VARCHAR}, #{goodsTitle,jdbcType=VARCHAR},
+      #{currentDiningId,jdbcType=VARCHAR}, #{currentDiningName,jdbcType=VARCHAR}, #{explains,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hx.entity.BusShopCart">
+    insert into bus_shop_cart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shopCartId != null">
+        shop_cart_id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsCount != null">
+        goods_count,
+      </if>
+      <if test="goodsUnit != null">
+        goods_unit,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="totalPrice != null">
+        total_price,
+      </if>
+      <if test="goodsImgAddress != null">
+        goods_img_address,
+      </if>
+      <if test="goodsTitle != null">
+        goods_title,
+      </if>
+      <if test="currentDiningId != null">
+        current_dining_id,
+      </if>
+      <if test="currentDiningName != null">
+        current_dining_name,
+      </if>
+      <if test="explains != null">
+        explains,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shopCartId != null">
+        #{shopCartId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCount != null">
+        #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodsUnit != null">
+        #{goodsUnit,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="goodsImgAddress != null">
+        #{goodsImgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTitle != null">
+        #{goodsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="currentDiningId != null">
+        #{currentDiningId,jdbcType=VARCHAR},
+      </if>
+      <if test="currentDiningName != null">
+        #{currentDiningName,jdbcType=VARCHAR},
+      </if>
+      <if test="explains != null">
+        #{explains,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.BusShopCart">
+    update bus_shop_cart
+    <set>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCount != null">
+        goods_count = #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodsUnit != null">
+        goods_unit = #{goodsUnit,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="goodsImgAddress != null">
+        goods_img_address = #{goodsImgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTitle != null">
+        goods_title = #{goodsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="currentDiningId != null">
+        current_dining_id = #{currentDiningId,jdbcType=VARCHAR},
+      </if>
+      <if test="currentDiningName != null">
+        current_dining_name = #{currentDiningName,jdbcType=VARCHAR},
+      </if>
+      <if test="explains != null">
+        explains = #{explains,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where shop_cart_id = #{shopCartId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.BusShopCart">
+    update bus_shop_cart
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      goods_count = #{goodsCount,jdbcType=INTEGER},
+      goods_unit = #{goodsUnit,jdbcType=INTEGER},
+      goods_price = #{goodsPrice,jdbcType=INTEGER},
+      total_price = #{totalPrice,jdbcType=INTEGER},
+      goods_img_address = #{goodsImgAddress,jdbcType=VARCHAR},
+      goods_title = #{goodsTitle,jdbcType=VARCHAR},
+      current_dining_id = #{currentDiningId,jdbcType=VARCHAR},
+      current_dining_name = #{currentDiningName,jdbcType=VARCHAR},
+      explains = #{explains,jdbcType=VARCHAR}
+    where shop_cart_id = #{shopCartId,jdbcType=VARCHAR}
+  </update>
+</mapper>

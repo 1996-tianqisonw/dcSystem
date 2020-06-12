@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.TableStateMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.TableState">
+    <id column="dt_id" jdbcType="VARCHAR" property="dtId" />
+    <result column="dt_userName" jdbcType="VARCHAR" property="dtUsername" />
+    <result column="dt_mobilePhoneNumber" jdbcType="VARCHAR" property="dtMobilephonenumber" />
+    <result column="dt_startTime" jdbcType="TIMESTAMP" property="dtStarttime" />
+    <result column="dt_endTime" jdbcType="TIMESTAMP" property="dtEndtime" />
+    <result column="dt_note" jdbcType="VARCHAR" property="dtNote" />
+    <result column="dt_createTime" jdbcType="TIMESTAMP" property="dtCreatetime" />
+    <result column="dt_newTime" jdbcType="TIMESTAMP" property="dtNewtime" />
+    <result column="dt_updateReason" jdbcType="VARCHAR" property="dtUpdatereason" />
+    <result column="dt_environment" jdbcType="INTEGER" property="dtEnvironment" />
+  </resultMap>
+  <select id="selectAll" parameterType="com.hx.entity.TableState" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> FROM dc_tablestate
+    <where>
+      <if test="dtId!=null">and dt_id=#{dtId}</if>
+      <if test="dtEnvironment!=0">and dt_environment=#{dtEnvironment}</if>
+      <if test="dtUsername!=null">and dt_userName=#{dtUsername}</if>
+    </where>
+  </select>
+  <sql id="Base_Column_List">
+    dt_id, dt_userName, dt_mobilePhoneNumber, dt_startTime, dt_endTime, dt_note, dt_createTime, 
+    dt_newTime, dt_updateReason, dt_environment
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_tablestate
+    where dt_id = #{dtId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dc_tablestate
+    where dt_id = #{dtId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hx.entity.TableState">
+    insert into dc_tablestate (dt_id, dt_userName, dt_mobilePhoneNumber,
+      dt_startTime, dt_endTime, dt_note,
+      dt_createTime, dt_newTime, dt_updateReason,
+      dt_environment)
+    values (#{dtId,jdbcType=VARCHAR}, #{dtUsername,jdbcType=VARCHAR}, #{dtMobilephonenumber,jdbcType=VARCHAR},
+      #{dtStarttime,jdbcType=TIMESTAMP}, #{dtEndtime,jdbcType=TIMESTAMP}, #{dtNote,jdbcType=VARCHAR},
+      #{dtCreatetime,jdbcType=TIMESTAMP}, #{dtNewtime,jdbcType=TIMESTAMP}, #{dtUpdatereason,jdbcType=VARCHAR},
+      #{dtEnvironment,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hx.entity.TableState">
+    insert into dc_tablestate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dtId != null">
+        dt_id,
+      </if>
+      <if test="dtUsername != null">
+        dt_userName,
+      </if>
+      <if test="dtMobilephonenumber != null">
+        dt_mobilePhoneNumber,
+      </if>
+      <if test="dtStarttime != null">
+        dt_startTime,
+      </if>
+      <if test="dtEndtime != null">
+        dt_endTime,
+      </if>
+      <if test="dtNote != null">
+        dt_note,
+      </if>
+      <if test="dtCreatetime != null">
+        dt_createTime,
+      </if>
+      <if test="dtNewtime != null">
+        dt_newTime,
+      </if>
+      <if test="dtUpdatereason != null">
+        dt_updateReason,
+      </if>
+      <if test="dtEnvironment != null">
+        dt_environment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dtId != null">
+        #{dtId,jdbcType=VARCHAR},
+      </if>
+      <if test="dtUsername != null">
+        #{dtUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="dtMobilephonenumber != null">
+        #{dtMobilephonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="dtStarttime != null">
+        #{dtStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dtEndtime != null">
+        #{dtEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dtNote != null">
+        #{dtNote,jdbcType=VARCHAR},
+      </if>
+      <if test="dtCreatetime != null">
+        #{dtCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dtNewtime != null">
+        #{dtNewtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dtUpdatereason != null">
+        #{dtUpdatereason,jdbcType=VARCHAR},
+      </if>
+      <if test="dtEnvironment != null">
+        #{dtEnvironment,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.TableState">
+    update dc_tablestate
+    <set>
+      <if test="dtUsername != null">
+        dt_userName = #{dtUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="dtMobilephonenumber != null">
+        dt_mobilePhoneNumber = #{dtMobilephonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="dtStarttime != null">
+        dt_startTime = #{dtStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dtEndtime != null">
+        dt_endTime = #{dtEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dtNote != null">
+        dt_note = #{dtNote,jdbcType=VARCHAR},
+      </if>
+      <if test="dtCreatetime != null">
+        dt_createTime = #{dtCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dtNewtime != null">
+        dt_newTime = #{dtNewtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dtUpdatereason != null">
+        dt_updateReason = #{dtUpdatereason,jdbcType=VARCHAR},
+      </if>
+      <if test="dtEnvironment != null">
+        dt_environment = #{dtEnvironment,jdbcType=INTEGER},
+      </if>
+    </set>
+    where dt_id = #{dtId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.TableState">
+    update dc_tablestate
+    set dt_userName = #{dtUsername,jdbcType=VARCHAR},
+      dt_mobilePhoneNumber = #{dtMobilephonenumber,jdbcType=VARCHAR},
+      dt_startTime = #{dtStarttime,jdbcType=TIMESTAMP},
+      dt_endTime = #{dtEndtime,jdbcType=TIMESTAMP},
+      dt_note = #{dtNote,jdbcType=VARCHAR},
+      dt_createTime = #{dtCreatetime,jdbcType=TIMESTAMP},
+      dt_newTime = #{dtNewtime,jdbcType=TIMESTAMP},
+      dt_updateReason = #{dtUpdatereason,jdbcType=VARCHAR},
+      dt_environment = #{dtEnvironment,jdbcType=INTEGER}
+    where dt_id = #{dtId,jdbcType=VARCHAR}
+  </update>
+  <update id="stateUsedUp" parameterType="com.hx.entity.TableState">
+    UPDATE dc_tablestate
+    set dt_userName = #{dtUsername,jdbcType=VARCHAR},
+      dt_mobilePhoneNumber = #{dtMobilephonenumber,jdbcType=VARCHAR},
+      dt_startTime = #{dtStarttime,jdbcType=TIMESTAMP},
+      dt_endTime = #{dtEndtime,jdbcType=TIMESTAMP},
+      dt_note = #{dtNote,jdbcType=VARCHAR},
+      dt_createTime = #{dtCreatetime,jdbcType=TIMESTAMP},
+      dt_newTime = #{dtNewtime,jdbcType=TIMESTAMP},
+      dt_updateReason = #{dtUpdatereason,jdbcType=VARCHAR},
+      dt_environment = #{dtEnvironment,jdbcType=INTEGER}
+    where dt_id = #{dtId,jdbcType=VARCHAR}
+  </update>
+</mapper>

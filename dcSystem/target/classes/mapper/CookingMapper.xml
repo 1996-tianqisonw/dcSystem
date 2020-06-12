@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.CookingMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.Cooking">
+    <id column="kc_orderNumber" jdbcType="VARCHAR" property="kcOrdernumber" />
+    <result column="kc_placeOrder" jdbcType="INTEGER" property="kcPlaceorder" />
+    <result column="kc_backSingular" jdbcType="INTEGER" property="kcBacksingular" />
+    <result column="kc_rmeountShould" jdbcType="INTEGER" property="kcRmeountshould" />
+    <result column="kc_cooking" jdbcType="INTEGER" property="kcCooking" />
+    <result column="kc_orderTime" jdbcType="VARCHAR" property="kcOrdertime" />
+    <result column="kc_operation" jdbcType="VARCHAR" property="kcOperation" />
+  </resultMap>
+  <select id="selectAll" parameterType="com.hx.entity.Cooking" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> FROM dc_kitchenCooking
+    <where>
+      <if test="kcOrdernumber!=null">and kc_orderNumber=#{kcOrdernumber}</if>
+      <if test="kcCooking!=0">and kc_cooking=#{kcCooking}</if>
+    </where>
+  </select>
+  <sql id="Base_Column_List">
+    kc_orderNumber, kc_placeOrder, kc_backSingular, kc_rmeountShould, kc_cooking, kc_orderTime, 
+    kc_operation
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_kitchencooking
+    where kc_orderNumber = #{kcOrdernumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dc_kitchencooking
+    where kc_orderNumber = #{kcOrdernumber,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hx.entity.Cooking">
+    insert into dc_kitchencooking (kc_orderNumber, kc_placeOrder, kc_backSingular, 
+      kc_rmeountShould, kc_cooking, kc_orderTime, 
+      kc_operation)
+    values (#{kcOrdernumber,jdbcType=VARCHAR}, #{kcPlaceorder,jdbcType=INTEGER}, #{kcBacksingular,jdbcType=INTEGER}, 
+      #{kcRmeountshould,jdbcType=INTEGER}, #{kcCooking,jdbcType=INTEGER}, #{kcOrdertime,jdbcType=VARCHAR}, 
+      #{kcOperation,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hx.entity.Cooking">
+    insert into dc_kitchencooking
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kcOrdernumber != null">
+        kc_orderNumber,
+      </if>
+      <if test="kcPlaceorder != null">
+        kc_placeOrder,
+      </if>
+      <if test="kcBacksingular != null">
+        kc_backSingular,
+      </if>
+      <if test="kcRmeountshould != null">
+        kc_rmeountShould,
+      </if>
+      <if test="kcCooking != null">
+        kc_cooking,
+      </if>
+      <if test="kcOrdertime != null">
+        kc_orderTime,
+      </if>
+      <if test="kcOperation != null">
+        kc_operation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kcOrdernumber != null">
+        #{kcOrdernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="kcPlaceorder != null">
+        #{kcPlaceorder,jdbcType=INTEGER},
+      </if>
+      <if test="kcBacksingular != null">
+        #{kcBacksingular,jdbcType=INTEGER},
+      </if>
+      <if test="kcRmeountshould != null">
+        #{kcRmeountshould,jdbcType=INTEGER},
+      </if>
+      <if test="kcCooking != null">
+        #{kcCooking,jdbcType=INTEGER},
+      </if>
+      <if test="kcOrdertime != null">
+        #{kcOrdertime,jdbcType=VARCHAR},
+      </if>
+      <if test="kcOperation != null">
+        #{kcOperation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.Cooking">
+    update dc_kitchencooking
+    <set>
+      <if test="kcPlaceorder != null">
+        kc_placeOrder = #{kcPlaceorder,jdbcType=INTEGER},
+      </if>
+      <if test="kcBacksingular != null">
+        kc_backSingular = #{kcBacksingular,jdbcType=INTEGER},
+      </if>
+      <if test="kcRmeountshould != null">
+        kc_rmeountShould = #{kcRmeountshould,jdbcType=INTEGER},
+      </if>
+      <if test="kcCooking != null">
+        kc_cooking = #{kcCooking,jdbcType=INTEGER},
+      </if>
+      <if test="kcOrdertime != null">
+        kc_orderTime = #{kcOrdertime,jdbcType=VARCHAR},
+      </if>
+      <if test="kcOperation != null">
+        kc_operation = #{kcOperation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where kc_orderNumber = #{kcOrdernumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.Cooking">
+    update dc_kitchencooking
+    set kc_placeOrder = #{kcPlaceorder,jdbcType=INTEGER},
+      kc_backSingular = #{kcBacksingular,jdbcType=INTEGER},
+      kc_rmeountShould = #{kcRmeountshould,jdbcType=INTEGER},
+      kc_cooking = #{kcCooking,jdbcType=INTEGER},
+      kc_orderTime = #{kcOrdertime,jdbcType=VARCHAR},
+      kc_operation = #{kcOperation,jdbcType=VARCHAR}
+    where kc_orderNumber = #{kcOrdernumber,jdbcType=VARCHAR}
+  </update>
+</mapper>

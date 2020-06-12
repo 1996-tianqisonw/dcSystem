@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.SpecificationMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.Specification">
+    <id column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="s_name" jdbcType="VARCHAR" property="sName" />
+    <result column="s_style" jdbcType="VARCHAR" property="sStyle" />
+    <result column="s_status" jdbcType="INTEGER" property="sStatus" />
+    <association column="c_id" property="categories" resultMap="com.hx.mapper.CategoriesMapper.BaseResultMap"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_id, s_name, s_style, s_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from specification
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from specification
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hx.entity.Specification">
+    insert into specification (s_id, c_id, s_name, 
+      s_style, s_status)
+    values (#{sId,jdbcType=INTEGER}, #{specification.categories.cId,jdbcType=INTEGER}, #{sName,jdbcType=VARCHAR},
+      #{sStyle,jdbcType=VARCHAR}, #{sStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hx.entity.Specification">
+    insert into specification
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="categories.cId != null">
+        c_id,
+      </if>
+      <if test="sName != null">
+        s_name,
+      </if>
+      <if test="sStyle != null">
+        s_style,
+      </if>
+      <if test="sStatus != null">
+        s_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="categories.cId != null">
+        #{categories.cId,jdbcType=INTEGER},
+      </if>
+      <if test="sName != null">
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sStyle != null">
+        #{sStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="sStatus != null">
+        #{sStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.Specification">
+    update specification
+    <set>
+      <if test="categories.cId != null">
+        c_id = #{categories.cId,jdbcType=INTEGER},
+      </if>
+      <if test="sName != null">
+        s_name = #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sStyle != null">
+        s_style = #{sStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="sStatus != null">
+        s_status = #{sStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.Specification">
+    update specification
+    set c_id = #{categories.cId,jdbcType=INTEGER},
+      s_name = #{sName,jdbcType=VARCHAR},
+      s_style = #{sStyle,jdbcType=VARCHAR},
+      s_status = #{sStatus,jdbcType=INTEGER}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectSpecification" parameterType="com.hx.entity.Specification" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from specification
+    where
+      c_id = #{categories.cId,jdbcType=INTEGER}
+  </select>
+  <select id="selectPage" parameterType="com.hx.entity.Specification" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from specification
+  where
+  <if test="categories.cId != null">
+    c_id = #{categories.cId,jdbcType=INTEGER}
+  </if>
+  <if test="sName != null">
+    and s_name = #{sName,jdbcType=VARCHAR}
+  </if>
+  <if test="sStyle != null">
+    and s_style = #{sStyle,jdbcType=VARCHAR}
+  </if>
+  and  s_status = 0
+</select>
+  <update id="delSpecification">
+    <foreach collection="array" item="sId" separator=";">
+      update specification
+      <set>
+        s_status=1
+      </set>
+      where
+      s_id=#{sId}
+    </foreach>
+
+  </update>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.CategoriesMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.Categories">
+    <id column="c_id" javaType="INTEGER" property="cId"/>
+    <result column="c_name" jdbcType="VARCHAR" property="cName" />
+    <result column="company" jdbcType="VARCHAR" property="cCompany" />
+    <result column="store" jdbcType="VARCHAR" property="cStore" />
+    <result column="c_status" jdbcType="INTEGER" property="cStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    c_id, c_name,company, store, c_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from categories
+    where c_id = #{cId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from categories
+    where c_id = #{cId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hx.entity.Categories">
+    insert into categories (c_name, company,
+      store, c_status)
+    values (#{cName,jdbcType=VARCHAR}, #{cCompany,jdbcType=VARCHAR},
+      #{cStore,jdbcType=VARCHAR}, #{cStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hx.entity.Categories">
+    insert into categories
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cId != null">
+        c_id,
+      </if>
+      <if test="cName != null">
+        c_name,
+      </if>
+      <if test="cCompany != null">
+        company,
+      </if>
+      <if test="cStore != null">
+        store,
+      </if>
+      <if test="cStatus != null">
+        c_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cId != null">
+        #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="cName != null">
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cCompany != null">
+        #{cCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="cStore != null">
+        #{cStore,jdbcType=VARCHAR},
+      </if>
+      <if test="cStatus != null">
+        #{cStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.Categories">
+    update categories
+    <set>
+      <if test="cName != null">
+        c_name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cCompany != null">
+        company = #{cCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="cStore != null">
+        store = #{cStore,jdbcType=VARCHAR},
+      </if>
+      <if test="cStatus != null">
+        c_status = #{cStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.Categories">
+    update categories
+    set c_name = #{cName,jdbcType=VARCHAR},
+      company = #{cCompany,jdbcType=VARCHAR},
+      store = #{cStore,jdbcType=VARCHAR},
+      c_status = #{cStatus,jdbcType=INTEGER}
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+  <select id="selectCategories" parameterType="com.hx.entity.Categories" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from categories
+    where company = #{cCompany} and store = #{cStore} and c_status = 0
+  </select>
+  <update id="delCategories" parameterType="com.hx.entity.Categories">
+     update categories
+    <set>
+      c_status = 1,
+    </set>
+    where c_id=#{cId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.BusOrderDetailsMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.BusOrderDetails">
+    <result column="sys_param_id" jdbcType="BIGINT" property="sysParamId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+    <result column="goods_order_id" jdbcType="VARCHAR" property="goodsOrderId" />
+    <result column="goods_count" jdbcType="INTEGER" property="goodsCount" />
+    <result column="goods_units" jdbcType="INTEGER" property="goodsUnits" />
+    <result column="goods_price" jdbcType="INTEGER" property="goodsPrice" />
+    <result column="goods_total" jdbcType="INTEGER" property="goodsTotal" />
+    <result column="goods_img_address" jdbcType="VARCHAR" property="goodsImgAddress" />
+    <result column="goods_title" jdbcType="VARCHAR" property="goodsTitle" />
+    <result column="goods_process" jdbcType="VARCHAR" property="goodsProcess" />
+    <result column="explains" jdbcType="VARCHAR" property="explains" />
+  </resultMap>
+
+  <!-- 批量添加 -->
+  <insert id="insertBatch">
+    insert into bus_order_details(order_id, goods_id,goods_order_id,
+    goods_count,goods_price, goods_total, goods_img_address,
+    goods_title,goods_process
+    )
+    values
+    <foreach collection="list" item="de" separator=",">
+      (#{de.orderId}, #{de.goodsId},
+      #{de.goodsOrderId}, #{de.goodsCount},#{de.goodsPrice},
+      #{de.goodsTotal}, #{de.goodsImgAddress},#{de.goodsTitle},
+      #{de.goodsProcess}
+      )
+    </foreach>
+  </insert>
+
+  <!-- 添加单个 -->
+  <insert id="insert" parameterType="com.hx.entity.BusOrderDetails">
+    insert into bus_order_details (order_id, goods_id,
+      goods_order_id, goods_count,goods_price, goods_total, goods_img_address,
+      goods_title,goods_process
+      )
+    values ( #{orderId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR},
+      #{goodsOrderId,jdbcType=VARCHAR}, #{goodsCount,jdbcType=INTEGER},#{goodsPrice,jdbcType=INTEGER},
+       #{goodsTotal,jdbcType=INTEGER}, #{goodsImgAddress,jdbcType=VARCHAR},
+      #{goodsTitle,jdbcType=VARCHAR},#{goodsProcess}
+      )
+  </insert>
+
+  <!-- 分页查询,sql不用分页的信息，留给插件处理 -->
+  <select id="selectPage" parameterType="BusOrderDetails" resultMap="BaseResultMap">
+    select order_id,goods_id,goods_order_id,goods_count,goods_price,
+      goods_total,goods_img_address,goods_title,goods_process
+    from bus_order_details
+    <where>
+      <if test="orderId!=null">and order_id = #{orderId}</if>
+      <if test="goodsId!=null">and goods_id = #{goodsId}</if>
+      <if test="goodsOrderId!=null">and goods_order_id = #{goodsOrderId}</if>
+      <if test="goodsCount!=null">and goods_count = #{goodsCount}</if>
+      <if test="goodsPrice!=null">and goods_price = #{goodsPrice}</if>
+      <if test="goodsTotal!=null">and goods_total = #{goodsTotal}</if>
+      <if test="goodsImgAddress!=null">and goods_img_address = #{goodsImgAddress}</if>
+      <if test="goodsTitle!=null">and goods_title = #{goodsTitle}</if>
+      <if test="goodsProcess!=null">and goods_process = #{goodsProcess}</if>
+    </where>
+
+    <!-- 使用分页插件后，这句：limit start,pageSize不用再写了  -->
+  </select>
+  <!--where goods_order_id = #{goodsOrderId}-->
+  <!--      <if test="orderId!=null">and order_id = #{orderId}</if>
+      <if test="goodsId!=null">and goods_id = #{goodsId}</if>
+      <if test="goodsOrderId!=null">and goods_order_id = #{goodsOrderId}</if>
+      <if test="goodsCount!=null">and goods_count = #{goodsCount}</if>
+      <if test="goodsPrice!=null">and goods_price = #{goodsPrice}</if>
+      <if test="goodsTotal!=null">and goods_total = #{goodsTotal}</if>
+      <if test="goodsImgAddress!=null">and goods_img_address = #{goodsImgAddress}</if>
+      <if test="goodsTitle!=null">and goods_title = #{goodsTitle}</if>
+      -->
+
+  <insert id="insertSelective" parameterType="com.hx.entity.BusOrderDetails">
+    insert into bus_order_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sysParamId != null">
+        sys_param_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsOrderId != null">
+        goods_order_id,
+      </if>
+      <if test="goodsCount != null">
+        goods_count,
+      </if>
+      <if test="goodsUnits != null">
+        goods_units,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="goodsTotal != null">
+        goods_total,
+      </if>
+      <if test="goodsImgAddress != null">
+        goods_img_address,
+      </if>
+      <if test="goodsTitle != null">
+        goods_title,
+      </if>
+      <if test="goodsProcess != null">
+        goods_process,
+      </if>
+      <if test="explains != null">
+        explains,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sysParamId != null">
+        #{sysParamId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsOrderId != null">
+        #{goodsOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCount != null">
+        #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodsUnits != null">
+        #{goodsUnits,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTotal != null">
+        #{goodsTotal,jdbcType=INTEGER},
+      </if>
+      <if test="goodsImgAddress != null">
+        #{goodsImgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTitle != null">
+        #{goodsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsProcess != null">
+        #{goodsProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="explains != null">
+        #{explains,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

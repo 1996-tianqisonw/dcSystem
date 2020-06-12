@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.CookDetailMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.CookDetail">
+    <id column="ds_name" jdbcType="VARCHAR" property="dsName" />
+    <result column="ds_pictures" jdbcType="VARCHAR" property="dsPictures" />
+    <result column="ds_price" jdbcType="INTEGER" property="dsPrice" />
+    <result column="ds_degreeChilli" jdbcType="INTEGER" property="dsDegreechilli" />
+    <result column="ds_status" jdbcType="INTEGER" property="dsStatus" />
+    <result column="ds_component" jdbcType="INTEGER" property="dsComponent" />
+    <result column="kc_orderNumber" jdbcType="VARCHAR" property="kcOrdernumber" />
+    <result column="ds_id" javaType="INTEGER" property="dsId" />
+  </resultMap>
+  <select id="selectAll" parameterType="com.hx.entity.CookDetail" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> FROM dc_cookdetail
+    <where>
+      <if test="kcOrdernumber!=null">and kc_orderNumber=#{kcOrdernumber}</if>
+    </where>
+  </select>
+  <sql id="Base_Column_List">
+    ds_name, ds_pictures, ds_price, ds_degreeChilli, ds_status, ds_component, kc_orderNumber ,ds_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.hx.entity.CookDetail" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_cookdetail
+    <where>
+      <if test="null!=dsId">and ds_id = #{dsId}</if>
+      <if test="null!=kcOrdernumber">and kc_orderNumber = #{kcOrdernumber}</if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dc_cookdetail
+    where kc_orderNumber = #{kcOrdernumber,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hx.entity.CookDetail">
+    insert into dc_cookdetail (ds_name, ds_pictures, ds_price, 
+      ds_degreeChilli, ds_status, ds_component, 
+      kc_orderNumber)
+    values (#{dsName,jdbcType=VARCHAR}, #{dsPictures,jdbcType=VARCHAR}, #{dsPrice,jdbcType=INTEGER}, 
+      #{dsDegreechilli,jdbcType=INTEGER}, #{dsStatus,jdbcType=INTEGER}, #{dsComponent,jdbcType=INTEGER}, 
+      #{kcOrdernumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hx.entity.CookDetail">
+    insert into dc_cookdetail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dsName != null">
+        ds_name,
+      </if>
+      <if test="dsPictures != null">
+        ds_pictures,
+      </if>
+      <if test="dsPrice != null">
+        ds_price,
+      </if>
+      <if test="dsDegreechilli != null">
+        ds_degreeChilli,
+      </if>
+      <if test="dsStatus != null">
+        ds_status,
+      </if>
+      <if test="dsComponent != null">
+        ds_component,
+      </if>
+      <if test="kcOrdernumber != null">
+        kc_orderNumber,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dsName != null">
+        #{dsName,jdbcType=VARCHAR},
+      </if>
+      <if test="dsPictures != null">
+        #{dsPictures,jdbcType=VARCHAR},
+      </if>
+      <if test="dsPrice != null">
+        #{dsPrice,jdbcType=INTEGER},
+      </if>
+      <if test="dsDegreechilli != null">
+        #{dsDegreechilli,jdbcType=INTEGER},
+      </if>
+      <if test="dsStatus != null">
+        #{dsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dsComponent != null">
+        #{dsComponent,jdbcType=INTEGER},
+      </if>
+      <if test="kcOrdernumber != null">
+        #{kcOrdernumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.CookDetail">
+    update dc_cookdetail
+    <set>
+      <if test="dsPictures != null">
+        ds_pictures = #{dsPictures,jdbcType=VARCHAR},
+      </if>
+      <if test="dsPrice != null">
+        ds_price = #{dsPrice,jdbcType=INTEGER},
+      </if>
+      <if test="dsDegreechilli != null">
+        ds_degreeChilli = #{dsDegreechilli,jdbcType=INTEGER},
+      </if>
+      <if test="dsStatus != null">
+        ds_status = #{dsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dsComponent != null">
+        ds_component = #{dsComponent,jdbcType=INTEGER},
+      </if>
+      <if test="kcOrdernumber != null">
+        kc_orderNumber = #{kcOrdernumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ds_name = #{dsName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.CookDetail">
+    update dc_cookdetail
+    set ds_pictures = #{dsPictures,jdbcType=VARCHAR},
+      ds_price = #{dsPrice,jdbcType=INTEGER},
+      ds_degreeChilli = #{dsDegreechilli,jdbcType=INTEGER},
+      ds_status = #{dsStatus,jdbcType=INTEGER},
+      ds_component = #{dsComponent,jdbcType=INTEGER},
+      kc_orderNumber = #{kcOrdernumber,jdbcType=VARCHAR}
+    where ds_id = #{dsId,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

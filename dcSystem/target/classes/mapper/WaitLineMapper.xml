@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.WaitLineMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.WaitLine">
+    <id column="line_id" jdbcType="INTEGER" property="lineId" />
+    <result column="dp_id" jdbcType="INTEGER" property="dpId" />
+    <result column="cust_name" jdbcType="VARCHAR" property="custName" />
+    <result column="cust_tel" jdbcType="VARCHAR" property="custTel" />
+    <result column="line_xh" jdbcType="VARCHAR" property="lineXh" />
+    <result column="peple_num" jdbcType="INTEGER" property="pepleNum" />
+    <result column="line_state" jdbcType="CHAR" property="lineState" />
+    <result column="begin_time" jdbcType="DATE" property="beginTime" />
+    <result column="deal_time" jdbcType="DATE" property="dealTime" />
+    <result column="deal_by" jdbcType="INTEGER" property="dealBy" />
+    <result column="line_remarks" jdbcType="VARCHAR" property="lineRemarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    line_id, dp_id, cust_name, cust_tel,line_xh, peple_num, line_state, begin_time, deal_time,
+    deal_by, line_remarks
+  </sql>
+
+  <select id="selectPage" parameterType="com.hx.entity.WaitLine" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cus_wait_line
+    <where> to_days(begin_time)= to_days(now())
+      <if test="dpId != null">
+        dp_id = #{dpId,jdbcType=INTEGER}
+      </if>
+      <if test="custName != null">
+        and cust_name = #{custName,jdbcType=VARCHAR}
+      </if><if test="custTel != null">
+        and cust_tel = #{custTel,jdbcType=VARCHAR}
+      </if>
+      <if test="lineXh != null">
+        and line_xh = #{lineXh,jdbcType=VARCHAR}
+      </if>
+      <if test="pepleNum != null">
+        and peple_num = #{pepleNum,jdbcType=INTEGER}
+      </if>
+      <if test="lineState != null">
+        and  line_state = #{lineState,jdbcType=CHAR}
+      </if>
+      <if test="beginTime != null">
+        and  begin_time = #{beginTime,jdbcType=DATE}
+      </if>
+      <if test="dealTime != null">
+        and deal_time = #{dealTime,jdbcType=DATE}
+      </if>
+      <if test="dealBy != null">
+        and deal_by = #{dealBy,jdbcType=INTEGER}
+      </if>
+      <if test="lineRemarks != null">
+        and  line_remarks = #{lineRemarks,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+<!--查询今天的排队记录-->
+  <select id="selectLast"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cus_wait_line
+    where to_days(begin_time)= to_days(now()) ORDER BY line_id DESC LIMIT 1
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cus_wait_line
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cus_wait_line
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hx.entity.WaitLine">
+    insert into cus_wait_line (line_id, dp_id, cust_name, 
+      line_xh, peple_num, line_state, 
+      begin_time, deal_time, deal_by, 
+     line_remarks)
+    values (#{lineId,jdbcType=INTEGER}, #{dpId,jdbcType=INTEGER}, #{custName,jdbcType=VARCHAR}, 
+      #{lineXh,jdbcType=VARCHAR}, #{pepleNum,jdbcType=INTEGER}, #{lineState,jdbcType=CHAR},
+      #{beginTime,jdbcType=DATE}, #{dealTime,jdbcType=DATE}, #{dealBy,jdbcType=INTEGER}, 
+      #{lineRemarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hx.entity.WaitLine">
+    insert into cus_wait_line
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lineId != null">
+        line_id,
+      </if>
+      <if test="dpId != null">
+        dp_id,
+      </if>
+      <if test="custName != null">
+        cust_name,
+      </if> <if test="custTel != null">
+      cust_tel,
+    </if>
+      <if test="lineXh != null">
+        line_xh,
+      </if>
+      <if test="pepleNum != null">
+        peple_num,
+      </if>
+      <if test="lineState != null">
+        line_state,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="dealTime != null">
+        deal_time,
+      </if>
+      <if test="dealBy != null">
+        deal_by,
+      </if>
+      <if test="lineRemarks != null">
+        line_remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lineId != null">
+        #{lineId,jdbcType=INTEGER},
+      </if>
+      <if test="dpId != null">
+        #{dpId,jdbcType=INTEGER},
+      </if>
+      <if test="custName != null">
+        #{custName,jdbcType=VARCHAR},
+      </if><if test="custTel != null">
+      #{custTel,jdbcType=VARCHAR},
+    </if>
+      <if test="lineXh != null">
+        #{lineXh,jdbcType=INTEGER},
+      </if>
+      <if test="pepleNum != null">
+        #{pepleNum,jdbcType=INTEGER},
+      </if>
+      <if test="lineState != null">
+        #{lineState,jdbcType=CHAR},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=DATE},
+      </if>
+      <if test="dealTime != null">
+        #{dealTime,jdbcType=DATE},
+      </if>
+      <if test="dealBy != null">
+        #{dealBy,jdbcType=INTEGER},
+      </if>
+      <if test="lineRemarks != null">
+        #{lineRemarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.WaitLine">
+    update cus_wait_line
+    <set>
+      <if test="dpId != null">
+        dp_id = #{dpId,jdbcType=INTEGER},
+      </if>
+      <if test="custName != null">
+        cust_name = #{custName,jdbcType=VARCHAR},
+      </if><if test="custTel != null">
+      #{custTel,jdbcType=VARCHAR},
+    </if>
+      <if test="lineXh != null">
+        line_xh = #{lineXh,jdbcType=VARCHAR},
+      </if>
+      <if test="pepleNum != null">
+        peple_num = #{pepleNum,jdbcType=INTEGER},
+      </if>
+      <if test="lineState != null">
+        line_state = #{lineState,jdbcType=CHAR},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=DATE},
+      </if>
+      <if test="dealTime != null">
+        deal_time = #{dealTime,jdbcType=DATE},
+      </if>
+      <if test="dealBy != null">
+        deal_by = #{dealBy,jdbcType=INTEGER},
+      </if>
+      <if test="lineRemarks != null">
+        line_remarks = #{lineRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.WaitLine">
+    update cus_wait_line
+    set dp_id = #{dpId,jdbcType=INTEGER},
+      cust_name = #{custName,jdbcType=VARCHAR},cust_tel = #{custTel,jdbcType=VARCHAR},
+      line_xh = #{lineXh,jdbcType=INTEGER},
+      peple_num = #{pepleNum,jdbcType=INTEGER},
+      line_state = #{lineState,jdbcType=CHAR},
+      begin_time = #{beginTime,jdbcType=DATE},
+      deal_time = #{dealTime,jdbcType=DATE},
+      deal_by = #{dealBy,jdbcType=INTEGER},
+     line_remarks = #{lineRemarks,jdbcType=VARCHAR}
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </update>
+</mapper>
