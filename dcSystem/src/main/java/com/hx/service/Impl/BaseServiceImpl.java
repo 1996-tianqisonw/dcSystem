@@ -1,7 +1,10 @@
 package com.hx.service.Impl;
 
 import com.github.pagehelper.PageInfo;
+import com.hx.entity.CookDetail;
+import com.hx.entity.Cooking;
 import com.hx.entity.Parameter;
+import com.hx.entity.TableState;
 import com.hx.mapper.*;
 import com.hx.service.BaseService;
 import com.hx.service.SPMapperService;
@@ -21,7 +24,16 @@ import java.util.Set;
 /**
  * Created by admin on 2020/5/22.
  */
-public class BaseServiceImpl implements BaseService<T>{
+public class BaseServiceImpl<T> implements BaseService<T>{
+    BaseMapper<T> baseMapper;
+    @Autowired
+    TableMapper tableMapper;
+    @Autowired
+    TableStateMapper tableStateMapper;
+    @Autowired
+    CookDetailMapper cookDetailMapper;
+    @Autowired
+    CookingMapper cookingMapper;
     @Resource
     private SPMapperService spMapperService;
     @Autowired

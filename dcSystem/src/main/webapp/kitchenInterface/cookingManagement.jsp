@@ -57,9 +57,6 @@
             handler:function(){
                 alert('订单完成')
                     cooking("/cooking/cookingDone.mvc","Done")
-                    /*$('#cooking').datagrid({
-                    href:'/cooking/cookingDone.mvc?ID='+$('#cooking').datagrid('getSelected').kcOrdernumber,
-                    },'load');*/
             }
         },'-',{
             text:'订单取消',

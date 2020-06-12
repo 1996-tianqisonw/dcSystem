@@ -12,6 +12,7 @@
     <title>Title</title>
 </head>
 <body>
+<script type="text/javascript" src="${proPath}/res/js/dataFormat.js"/>
 <form  method="post">
     <div>
         <label for="dtId">餐桌编号：</label>
@@ -55,11 +56,11 @@
                 textField:'text'}}},
             {field:'dtUsername',title:'使用者',width:100,editor:{type:'validatebox',options:{ required : true}}},
             {field:'dtMobilephonenumber',title:'预约手机号',width:100,editor:{type:'validatebox',options:{ required : true}}},
-            {field:'dtStarttime',title:'预约开始时间',width:100},
-            {field:'dtEndtime',title:'预约结束时间',width:100},
+            {field:'dtStarttime',title:'预约开始时间',width:100,formatter: formatDatebox},
+            {field:'dtEndtime',title:'预约结束时间',width:100,formatter: formatDatebox},
             {field:'dtNote',title:'备注',width:100,editor:{type:'validatebox',options:{}}},
-            {field:'dtCreatetime',title:'创建时间',width:100},
-            {field:'dtNewtime',title:'更新时间',width:100},
+            {field:'dtCreatetime',title:'创建时间',width:100,formatter: formatDatebox},
+            {field:'dtNewtime',title:'更新时间',width:100,formatter: formatDatebox},
             {field:'dtUpdatereason',title:'更新的原因',width:100,editor:{type:'validatebox',options:{}}}
         ]],
         fitColumns:true,

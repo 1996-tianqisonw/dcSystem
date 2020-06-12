@@ -156,7 +156,7 @@
         <version>1.0</version>
       </dependency>
 
-      <!-- 添加对websocket的支持 -->
+       <!--添加对websocket的支持-->
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-orm</artifactId>
@@ -172,6 +172,7 @@
         <artifactId>spring-messaging</artifactId>
         <version>${spring.version}</version>
       </dependency>
+
     </dependencies>
 
   <build>

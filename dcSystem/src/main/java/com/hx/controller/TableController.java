@@ -25,6 +25,7 @@ public class TableController extends BaseController {
     @RequestMapping("/table")
     @ResponseBody
     public Object table(Table table,Integer page,Integer rows){
+        System.out.println(page+","+rows);
         //这是调用业务层的查询全部的方法
         PageInfo<Table> pageInfo = tableService.selectServiceAll(table,page,rows);
         return getPageMap(pageInfo);

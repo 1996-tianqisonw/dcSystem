@@ -7,12 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../dcsystem/dcsystem.jsp"%>
-<% session.setAttribute("sdfs",request.getContextPath());%>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
+<script type="text/javascript" src="${proPath}/res/js/dataFormat.js"/>
 <form id="ff" method="post">
     <div>
         <label for="dcId">餐桌编号：</label>
@@ -84,8 +84,8 @@
                 valueField:'id',
                 textField:'text'}}},
             {field:'dcUpdatereason',title:'修改原因',width:100},
-            {field:'dcCreatetime',title:'创建时间',width:100},
-            {field:'dcUpdatetime',title:'更新时间',width:100},
+            {field:'dcCreatetime',title:'创建时间',width:100,formatter: formatDatebox},
+            {field:'dcUpdatetime',title:'更新时间',width:100,formatter: formatDatebox},
             {field:'dcFormText',title:'就餐形式',width:100,editor:{type:'combobox',options:{ required : true,
                 data:
                     [

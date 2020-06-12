@@ -1,12 +1,13 @@
 package com.hx.service.Impl;
 
-import com.hx.entity.SystemParameters;
+import com.hx.entity.SysParam;
 import com.hx.entity.Table;
-import com.hx.mapper.SystemParametersMapper;
+import com.hx.mapper.SysParamMapper;
 import com.hx.mapper.TableMapper;
 import com.hx.service.SPMapperService;
 import com.hx.util.Erweima;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -21,10 +22,13 @@ import static com.hx.util.Erweima.create;
 public class SPMapperServiceImpl implements SPMapperService{
 
     @Autowired
-    private SystemParametersMapper systemParametersMapper;
+    private SysParamMapper sysParamMapper;
 
     @Autowired
     private TableMapper tableMapper;
+
+    @Value("#{uploadProperties.pathErweima}")
+    private String pathErweima;
 
     static Map<String,Object> sysParMap = new HashMap<>();
 
@@ -33,15 +37,16 @@ public class SPMapperServiceImpl implements SPMapperService{
     public Map<String, Object> selectSP() {
         Map<String,Object> map = new HashMap<>();
         Map<String,String> valueMap = null;
-        List<SystemParameters> systemParametersList = systemParametersMapper.selectAll();
-        for(SystemParameters systemParameter:systemParametersList){
-            if(null==(map.get(systemParameter.getStField()))){
+        List<SysParam> systemParametersList = sysParamMapper.selectAll();
+        for(SysParam systemParameter:systemParametersList){
+            if(null==(map.get(systemParameter.getSysParamField()))){
+                System.out.println(map);
                 valueMap = new LinkedHashMap<>();
-                valueMap.put(systemParameter.getStValue(),systemParameter.getStText());
-                map.put(systemParameter.getStField(),valueMap);
+                valueMap.put(systemParameter.getSysParamValue(),systemParameter.getSysParamText());
+                map.put(systemParameter.getSysParamField(),valueMap);
             }else{
-                valueMap = (Map<String,String>)map.get(systemParameter.getStField());
-                valueMap.put(systemParameter.getStValue(),systemParameter.getStText());
+                valueMap = (Map<String,String>)map.get(systemParameter.getSysParamField());
+                valueMap.put(systemParameter.getSysParamValue(),systemParameter.getSysParamText());
             }
         }
         return map;
@@ -51,14 +56,17 @@ public class SPMapperServiceImpl implements SPMapperService{
     @PostConstruct  //表示在构造方法调用后执行
     public void select(){
         Map<String, Object> map = selectSP();
+        System.out.println(map);
         sysParMap = map;
     }
 
     //该方法表示生成二维码图片
     public void generationPice() throws Exception {
+
         //这是查询数据库的字符串,把它们遍历出来放入生成器。
         List<Table> table = tableMapper.selectTableAll();
-        String path = "E:/JAVA/GIT/Repo/dc/dcSystem/src/main/webapp/erweima";
+        String path=pathErweima;
+        System.out.printf("读配置文件得到的文件路径："+pathErweima);
         for(Table tab : table){
             //这是生成二维码的图片
             Erweima.create(tab.getDcQrcode(),tab.getDcId(),path);

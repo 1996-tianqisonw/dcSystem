@@ -40,20 +40,10 @@ public class BaseController {
         Map<String, Object> tableMap = new HashMap<>();
         tableMap.put("total", pageInfo.getTotal());
         tableMap.put("rows", pageInfo.getList());
-        //这是分页的json数据转换的方法
-        public <T> Map<String, Object> getPageMap (PageInfo < T > pageInfo) {
-            Map<String, Object> tableMap = new HashMap<>();
-            tableMap.put("total", pageInfo.getTotal());
-            tableMap.put("rows", pageInfo.getList());
-            return tableMap;
-        }
-
-        //这是公共路径发起请求的方法
- /*   @RequestMapping("/path/{bag}/{file}")*/
-  /*  public String getPath(@PathVariable("bag") String bag, @PathVariable("file") String file, HttpSession session, @RequestParam("ID") String ID) {
-        String path = null;
-        System.out.println(file);*/
-
+        return tableMap;
+    }
+    //这是公共路径发起请求的方法
+    @RequestMapping("/path/{bag}/{file}")
     public String getPath(@PathVariable("bag") String bag, @PathVariable("file") String file, HttpSession session, @RequestParam("ID") String ID) {
         String path = null;
         //当ID传过来的等于0时，为没ID的,取非时，证明有ID，把Id传给页面。

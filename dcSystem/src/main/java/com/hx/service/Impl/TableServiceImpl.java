@@ -6,6 +6,7 @@ import com.hx.entity.Parameter;
 import com.hx.entity.Table;
 import com.hx.service.TableService;;
 import com.hx.util.Erweima;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import javax.xml.ws.spi.http.HttpContext;
 import java.util.Date;
@@ -16,6 +17,8 @@ import java.util.List;
  */
 @Service("tableService")
 public class TableServiceImpl extends BaseServiceImpl<Table> implements TableService {
+    @Value("#{uploadProperties.pathErweima}")
+    private String pathErweima;
 
     @Override
     public <String> int deleteByPrimaryKey(String dcId) {
@@ -31,8 +34,10 @@ public class TableServiceImpl extends BaseServiceImpl<Table> implements TableSer
            /* String path = httpContext.getPath()+"erweima";
             System.out.println(path);*/
             String url="http://localhost:8080/"+record.getDcId();
+            String path=pathErweima;
+            System.out.printf("读配置文件得到的文件路径："+pathErweima);
             //这里生成餐桌二维码的地方
-            /*Erweima.create(url,record.getDcId(),path);*/
+            Erweima.create(url,record.getDcId(),path);
             record.setDcQrcode(url);
         }
         if(record.getDcCreatetime()==null){
@@ -111,6 +116,7 @@ public class TableServiceImpl extends BaseServiceImpl<Table> implements TableSer
             table.setDcName(null);
         }
         //这是使用分页工具对页大小和当前页进行封装
+        System.out.println(pageIndex+","+pageSize);
         PageHelper.startPage(pageIndex,pageSize);
         //这是查询所有的信息
         List<Table> list = tableMapper.selectAll(table);

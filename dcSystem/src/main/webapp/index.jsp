@@ -71,11 +71,12 @@
                 <a id="btn11" href="#" onclick="show('商品管理','goods.jsp');" class="easyui-linkbutton">商品信息管理</a>
                 <a id="btn12" href="#" onclick="show('商品菜单管理','goodsmenu.jsp');" class="easyui-linkbutton">商品菜单管理</a>
             </div>
-            <div title="呼叫与排队" data-options="iconCls:'icon-reload'" style="padding:10px;">
-                <a id="btn31" href="#" onclick="show('呼叫服务','${proPath}/BaseController/findUrl/call_queuing/cus_call.mvc');" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >呼叫服务</a>
-                <a id="btn32" href="#" onclick="show('店铺排队启用','/BaseController/findUrl/call_queuing/wait_on-off.mvc');" class="easyui-linkbutton" data-options="iconCls:'icon-search'">店铺排队启用</a>
-                <a id="btn33" href="#" onclick="show('店铺排队列表','/BaseController/findUrl/call_queuing/wait_line.mvc');" class="easyui-linkbutton" data-options="iconCls:'icon-search'">店铺排队列表</a>
-                <a id="btn34" href="#" onclick="show('消息推送','/BaseController/findUrl/call_queuing/websocket.mvc');" class="easyui-linkbutton" data-options="iconCls:'icon-search'">测试websocket</a>
+            <div title="呼叫与排队" data-options="iconCls:'icon-reload'" style="padding:10px;margin-left:10px;">
+                <a id="btn31" href="#" onclick="show('呼叫服务','${proPath}/BaseController/findUrl/call_queuing/cus_call.mvc');" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="margin-top: 10px;">呼叫服务</a>
+                <a id="btn32" href="#" onclick="show('店铺排队启用','/BaseController/findUrl/call_queuing/wait_on-off.mvc');" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="margin-top: 10px;">店铺排队启用</a>
+                <a id="btn33" href="#" onclick="show('店铺排队列表','/BaseController/findUrl/call_queuing/wait_line.mvc');" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="margin-top: 10px;">店铺排队列表</a>
+                <a id="btn34" href="#" onclick="show('消息推送','/reception/login/yonlie.mvc');" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="margin-top: 10px;">测试websocket</a>
+                <a id="btn35" href="#" onclick="show('发送消息','/BaseController/findUrl/call_queuing/sendMessage.mvc');" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="margin-top: 10px;">给客户发送消息</a>
             </div>
         </div>
     </div>

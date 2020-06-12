@@ -40,9 +40,9 @@
       </bean>-->
 
     <!--PropertiesFactoryBean对properties文件可用 ，可以用来注入properties配置文件的信息 -->
-    <!-- <bean id="uploadProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-         <property name="location" value="classpath:upload.properties"></property>
-     </bean>-->
+    <bean id="uploadProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location" value="classpath:upload.properties"></property>
+    </bean>
 
     <!-- 只要实现了HandlerExceptionResolver接口就是全局异常处理器 -->
     <!-- <bean class="com.hx.exception.CustomExceptionResolver"></bean>-->
