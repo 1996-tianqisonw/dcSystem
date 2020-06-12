@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hx.mapper.CookingMapper">
-  <resultMap id="BaseResultMap" type="com.hx.entity.cookingManagement">
+  <resultMap id="BaseResultMap" type="com.hx.entity.Cooking">
     <id column="kc_orderNumber" jdbcType="VARCHAR" property="kcOrdernumber" />
     <result column="kc_placeOrder" jdbcType="INTEGER" property="kcPlaceorder" />
     <result column="kc_backSingular" jdbcType="INTEGER" property="kcBacksingular" />
@@ -10,11 +10,11 @@
     <result column="kc_orderTime" jdbcType="VARCHAR" property="kcOrdertime" />
     <result column="kc_operation" jdbcType="VARCHAR" property="kcOperation" />
   </resultMap>
-  <select id="selectAll" parameterType="com.hx.entity.cookingManagement" resultMap="BaseResultMap">
+  <select id="selectAll" parameterType="com.hx.entity.Cooking" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/> FROM dc_kitchenCooking
     <where>
       <if test="kcOrdernumber!=null">and kc_orderNumber=#{kcOrdernumber}</if>
-      <if test="kcCooking!=null">and kc_cooking=#{kcCooking}</if>
+      <if test="kcCooking!=0">and kc_cooking=#{kcCooking}</if>
     </where>
   </select>
   <sql id="Base_Column_List">
@@ -31,7 +31,7 @@
     delete from dc_kitchencooking
     where kc_orderNumber = #{kcOrdernumber,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hx.entity.cookingManagement">
+  <insert id="insert" parameterType="com.hx.entity.Cooking">
     insert into dc_kitchencooking (kc_orderNumber, kc_placeOrder, kc_backSingular, 
       kc_rmeountShould, kc_cooking, kc_orderTime, 
       kc_operation)
@@ -39,7 +39,7 @@
       #{kcRmeountshould,jdbcType=INTEGER}, #{kcCooking,jdbcType=INTEGER}, #{kcOrdertime,jdbcType=VARCHAR}, 
       #{kcOperation,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.hx.entity.cookingManagement">
+  <insert id="insertSelective" parameterType="com.hx.entity.Cooking">
     insert into dc_kitchencooking
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="kcOrdernumber != null">
@@ -88,7 +88,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.cookingManagement">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.Cooking">
     update dc_kitchencooking
     <set>
       <if test="kcPlaceorder != null">
@@ -112,7 +112,7 @@
     </set>
     where kc_orderNumber = #{kcOrdernumber,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hx.entity.cookingManagement">
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.Cooking">
     update dc_kitchencooking
     set kc_placeOrder = #{kcPlaceorder,jdbcType=INTEGER},
       kc_backSingular = #{kcBacksingular,jdbcType=INTEGER},

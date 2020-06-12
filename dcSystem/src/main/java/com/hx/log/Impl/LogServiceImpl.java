@@ -1,6 +1,6 @@
 package com.hx.log.Impl;
 
-import com.hx.log.logService;
+import com.hx.log.LogService;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -9,7 +9,7 @@ import java.io.*;
  * Created by admin on 2020/6/3.
  */
 @Service
-public class logServiceImpl implements logService {
+public class LogServiceImpl implements LogService {
     //这是异常日志接口,用以纪录一场信息和改善程序。
     //那么采用永久化的技术，则包括文件存储异常信息和数据库异常表进行异常的存储
     @Override

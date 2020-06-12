@@ -19,8 +19,6 @@ import static com.hx.util.Erweima.create;
  */
 @Service
 public class SPMapperServiceImpl implements SPMapperService{
-    private static final int BLACK = 0xFF000000;
-    private static final int WHITE = 0xFFFFFFFF;
 
     @Autowired
     private SystemParametersMapper systemParametersMapper;
@@ -43,7 +41,6 @@ public class SPMapperServiceImpl implements SPMapperService{
                 map.put(systemParameter.getStField(),valueMap);
             }else{
                 valueMap = (Map<String,String>)map.get(systemParameter.getStField());
-                System.out.print((Map<String,String>)map.get(systemParameter.getStField()));
                 valueMap.put(systemParameter.getStValue(),systemParameter.getStText());
             }
         }
@@ -58,7 +55,6 @@ public class SPMapperServiceImpl implements SPMapperService{
     }
 
     //该方法表示生成二维码图片
-    @PostConstruct
     public void generationPice() throws Exception {
         //这是查询数据库的字符串,把它们遍历出来放入生成器。
         List<Table> table = tableMapper.selectTableAll();

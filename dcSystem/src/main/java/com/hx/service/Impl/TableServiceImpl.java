@@ -4,13 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hx.entity.Parameter;
 import com.hx.entity.Table;
-import com.hx.entity.cookingManagement;
-import com.hx.mapper.TableMapper;
-import com.hx.service.tableService;
+import com.hx.service.TableService;;
 import com.hx.util.Erweima;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import javax.xml.ws.spi.http.HttpContext;
 import java.util.Date;
 import java.util.List;
 
@@ -18,10 +15,7 @@ import java.util.List;
  * Created by admin on 2020/5/21.
  */
 @Service("tableService")
-public class tableServiceImpl extends BaseServiceImpl implements tableService {
-
-    @Autowired
-    private TableMapper tableMapper;
+public class TableServiceImpl extends BaseServiceImpl<Table> implements TableService {
 
     @Override
     public <String> int deleteByPrimaryKey(String dcId) {
@@ -30,11 +24,15 @@ public class tableServiceImpl extends BaseServiceImpl implements tableService {
     }
 
     @Override
-    public int insert(Table record) {
+    public int insert(Table record) throws Exception {
         Date date = null;
         if(record.getDcQrcode()==null&&record.getDcId()!=null){
-            //这里生成餐桌二维码的地方
+            //这是
+           /* String path = httpContext.getPath()+"erweima";
+            System.out.println(path);*/
             String url="http://localhost:8080/"+record.getDcId();
+            //这里生成餐桌二维码的地方
+            /*Erweima.create(url,record.getDcId(),path);*/
             record.setDcQrcode(url);
         }
         if(record.getDcCreatetime()==null){
@@ -67,6 +65,7 @@ public class tableServiceImpl extends BaseServiceImpl implements tableService {
 
     @Override
     public int updateByPrimaryKey(Table record) {
+
         //这是查询该主键下的信息
         Table table = selectByPrimaryKey(record.getDcId());
         //这是将没修改的信息在附属回去
@@ -96,14 +95,31 @@ public class tableServiceImpl extends BaseServiceImpl implements tableService {
 
     @Override
     public PageInfo<Table> selectServiceAll(Table table, Integer pageIndex, Integer pageSize) {
+        //由于查询条件的下拉框为数字，导致mapper文件的查询条件从!=null变为!=0
+        //由于页面加载时的查询没经过查询条件，所以不是0而是null,所以要转换成0.
+        if(table.getDcUsestatus()==null){
+            table.setDcUsestatus(0);
+        }
+        if(table.getDcForm()==null){
+            table.setDcForm(0);
+        }
+        //这是避免没输入的unfiend 的情况，没有当成null,而是空字符，导致查询不出结果。
+        if(table.getDcId()==""){
+            table.setDcId(null);
+        }
+        if(table.getDcName()==""){
+            table.setDcName(null);
+        }
+        //这是使用分页工具对页大小和当前页进行封装
         PageHelper.startPage(pageIndex,pageSize);
+        //这是查询所有的信息
         List<Table> list = tableMapper.selectAll(table);
+        //这是与系统参数进行匹配，返回对应的系统参数text值给页面
         for(Table lsi:list){
             if(lsi.getDcForm()!=null){
                 Parameter parameter = new Parameter();
                 parameter.setField("dc_form");
                 String ui = String.valueOf(lsi.getDcForm());
-                System.out.println(ui);
                 parameter.setValue(ui);
                 String text = sysParameterCheck(parameter);
                 lsi.setDcFormText(text);
@@ -112,7 +128,6 @@ public class tableServiceImpl extends BaseServiceImpl implements tableService {
                 Parameter parameter = new Parameter();
                 parameter.setField("dc_specifications");
                 String ui = String.valueOf(lsi.getDcSpecifications());
-                System.out.println(ui);
                 parameter.setValue(ui);
                 String text = sysParameterCheck(parameter);
                 lsi.setDcSpecificationsText(text);
@@ -121,7 +136,6 @@ public class tableServiceImpl extends BaseServiceImpl implements tableService {
                 Parameter parameter = new Parameter();
                 parameter.setField("dc_useStatus");
                 String ui = String.valueOf(lsi.getDcUsestatus());
-                System.out.println(ui);
                 parameter.setValue(ui);
                 String text = sysParameterCheck(parameter);
                 lsi.setDcUsestatusText(text);

@@ -3,12 +3,8 @@ package com.hx.service.Impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hx.entity.Parameter;
-import com.hx.entity.Table;
 import com.hx.entity.TableState;
-import com.hx.entity.cookingManagement;
-import com.hx.mapper.TableStateMapper;
-import com.hx.service.tableStateService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.hx.service.TableStateService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +13,7 @@ import java.util.List;
  * Created by admin on 2020/5/24.
  */
 @Service("tableStateService")
-public class tableStateServiceImpl extends BaseServiceImpl implements tableStateService {
-
-    @Autowired
-    private TableStateMapper tableStateMapper;
+public class TableStateServiceImpl extends BaseServiceImpl<TableState> implements TableStateService {
 
     @Override
     public <K> int deleteByPrimaryKey(K dcId) {
@@ -30,7 +23,6 @@ public class tableStateServiceImpl extends BaseServiceImpl implements tableState
 
     @Override
     public int insert(TableState record) {
-        System.out.print(record.getDtId());
         int i = tableStateMapper.insert(record);
         return i;
     }
@@ -54,13 +46,11 @@ public class tableStateServiceImpl extends BaseServiceImpl implements tableState
     @Override
     public int updateByPrimaryKey(TableState tableState) {
         //如果所传字符长度为1，代表为char的数字,否则为字符串
-        System.out.println(tableState.getDtEnvironmentText().length());
         if(tableState.getDtEnvironmentText().length()==1){
             tableState.setDtEnvironment(Integer.valueOf(tableState.getDtEnvironmentText()));
         }else {
             //如果所传数据为堂厅，则为1
             if ((tableState.getDtEnvironmentText()).equals("堂厅")) {
-                System.out.println(tableState.getDtEnvironmentText());
                 tableState.setDtEnvironment(1);
                 //如果所传数据为包厢，则为2
             } else if ((tableState.getDtEnvironmentText()).equals("包厢")) {
@@ -81,7 +71,6 @@ public class tableStateServiceImpl extends BaseServiceImpl implements tableState
                 Parameter parameter = new Parameter();
                 parameter.setField("dt_environment");
                 String ui = String.valueOf(lsi.getDtEnvironment());
-                System.out.println(ui);
                 parameter.setValue(ui);
                 String text = sysParameterCheck(parameter);
                 lsi.setDtEnvironmentText(text);

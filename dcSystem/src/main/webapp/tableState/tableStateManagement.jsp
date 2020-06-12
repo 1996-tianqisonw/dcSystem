@@ -15,11 +15,11 @@
 <form  method="post">
     <div>
         <label for="dtId">餐桌编号：</label>
-        <input class="easyui-validatebox" name="dtId" type="text">
+        <input class="easyui-validatebox" name="dtId" type="text" id="dtId">
     </div>
     <div>
         <label for="dtEnvironment">就餐环境:</label>
-        <select class="easyui-combobox" name="dtEnvironment">
+        <select class="easyui-combobox" name="dtEnvironment" id="dtEnvironment">
             <option value="0">请选择</option>
             <option value="1">堂厅</option>
             <option value="2">包厢</option>
@@ -27,7 +27,7 @@
     </div>
     <div>
         <label for="dtUsername">使用者:</label>
-        <input class="easyui-valiudatebox" type="text" name="dtUsername">
+        <input class="easyui-valiudatebox" type="text" name="dtUsername" id="dtUsername">
     </div>
     <input class="easyui-validatebox" onclick="queryTableState()" type="button" value="查询">
 </form>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hx.mapper.cookDetailMapper">
-  <resultMap id="BaseResultMap" type="com.hx.entity.cookDetail">
+<mapper namespace="com.hx.mapper.CookDetailMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.CookDetail">
     <id column="ds_name" jdbcType="VARCHAR" property="dsName" />
     <result column="ds_pictures" jdbcType="VARCHAR" property="dsPictures" />
     <result column="ds_price" jdbcType="INTEGER" property="dsPrice" />
@@ -11,7 +11,7 @@
     <result column="kc_orderNumber" jdbcType="VARCHAR" property="kcOrdernumber" />
     <result column="ds_id" javaType="INTEGER" property="dsId" />
   </resultMap>
-  <select id="selectAll" parameterType="com.hx.entity.cookDetail" resultMap="BaseResultMap">
+  <select id="selectAll" parameterType="com.hx.entity.CookDetail" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/> FROM dc_cookdetail
     <where>
       <if test="kcOrdernumber!=null">and kc_orderNumber=#{kcOrdernumber}</if>
@@ -20,7 +20,7 @@
   <sql id="Base_Column_List">
     ds_name, ds_pictures, ds_price, ds_degreeChilli, ds_status, ds_component, kc_orderNumber ,ds_id
   </sql>
-  <select id="selectByPrimaryKey" parameterType="com.hx.entity.cookDetail" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="com.hx.entity.CookDetail" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from dc_cookdetail
@@ -33,7 +33,7 @@
     delete from dc_cookdetail
     where kc_orderNumber = #{kcOrdernumber,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hx.entity.cookDetail">
+  <insert id="insert" parameterType="com.hx.entity.CookDetail">
     insert into dc_cookdetail (ds_name, ds_pictures, ds_price, 
       ds_degreeChilli, ds_status, ds_component, 
       kc_orderNumber)
@@ -41,7 +41,7 @@
       #{dsDegreechilli,jdbcType=INTEGER}, #{dsStatus,jdbcType=INTEGER}, #{dsComponent,jdbcType=INTEGER}, 
       #{kcOrdernumber,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.hx.entity.cookDetail">
+  <insert id="insertSelective" parameterType="com.hx.entity.CookDetail">
     insert into dc_cookdetail
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="dsName != null">
@@ -90,7 +90,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.cookDetail">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.CookDetail">
     update dc_cookdetail
     <set>
       <if test="dsPictures != null">
@@ -114,7 +114,7 @@
     </set>
     where ds_name = #{dsName,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hx.entity.cookDetail">
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.CookDetail">
     update dc_cookdetail
     set ds_pictures = #{dsPictures,jdbcType=VARCHAR},
       ds_price = #{dsPrice,jdbcType=INTEGER},

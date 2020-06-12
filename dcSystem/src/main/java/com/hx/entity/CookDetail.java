@@ -1,6 +1,6 @@
 package com.hx.entity;
 
-public class cookDetail {
+public class CookDetail {
     private String dsName;
 
     private String dsPictures;

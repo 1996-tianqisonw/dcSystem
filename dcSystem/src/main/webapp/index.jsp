@@ -25,11 +25,6 @@
         }
     </script>
     <style type="text/css">
-        /*#sd{
-            font-size: 20px;
-            color: red;
-            border-color: aqua;
-        }*/
         li{
             list-style:none;
             margin-left:1px;
@@ -56,6 +51,18 @@
                     <li><a id="petsAdd" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="show('后厨管理','/BaseController/path/kitchenInterface/cookingManagement.mvc?ID=0')">后厨管理</a> </li>
                 </ul>
             </div>
+            <div title="系统管理" data-options="iconCls:'icon-reload'" style="padding:10px;">
+                <a id="btn11" href="#" onclick="show('商品管理','goods.jsp');" class="easyui-linkbutton">商品信息管理</a>
+                <a id="btn12" href="#" onclick="show('商品菜单管理','goodsmenu.jsp');" class="easyui-linkbutton">商品菜单管理</a>
+            </div>
+            <div title="商品管理" data-options="iconCls:'icon-reload'" style="padding:10px;">
+                <a id="btn21" href="#" class="easyui-linkbutton">商品类目管理</a>
+                <a id="btn22" href="#" class="easyui-linkbutton">商品信息管理</a>
+            </div>
+            <div title="板块管理" data-options="iconCls:'icon-reload'" style="padding:10px;">
+                <a id="btn31" href="#" class="easyui-linkbutton">板块分类管理</a>
+                <a id="btn32" href="#" class="easyui-linkbutton">板块内容管理</a>
+            </div>
         </div>
     </div>
 
@@ -64,6 +71,7 @@
             <div title="系统介绍" data-options="iconCls:'icon-save',fit:true,closable:true">这是全球战略性餐饮集团旗下的门店管理系统，该系统涉及订单管理、角色管理、权限管理、后厨管理、餐桌管理、报表管理等内容。。。。</div>
         </div>
     </div>
+    <iframe src="http://www.baidu.com"></iframe>
 </div>
 </body>
 </html>

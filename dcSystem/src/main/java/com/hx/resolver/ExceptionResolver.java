@@ -1,7 +1,7 @@
 package com.hx.resolver;
 
-import com.hx.exceptions.customEcxeption;
-import com.hx.log.logService;
+import com.hx.exceptions.CustomEcxeption;
+import com.hx.log.LogService;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,21 +16,21 @@ import javax.servlet.http.HttpServletResponse;
     1.这是异常的总控制器
     2.给分布的异常怎么与统一异常进行对接。
     */
-public class exceptionResolver implements HandlerExceptionResolver {
+public class ExceptionResolver implements HandlerExceptionResolver {
 
     @Resource
-    private logService logService;
+    private LogService logService;
 
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        customEcxeption customEcxeption = null;
-        if(ex instanceof customEcxeption){
-           customEcxeption = (customEcxeption)ex;
+        CustomEcxeption customEcxeption = null;
+        if(ex instanceof CustomEcxeption){
+           customEcxeption = (CustomEcxeption)ex;
         }else{
             //这里写日志
           /*  logService.writeLog(ex.getLocalizedMessage());*/
             //这里自定义一个异常
-           customEcxeption = new customEcxeption("系统异常，请联系管理员!");
+           customEcxeption = new CustomEcxeption("系统异常，请联系管理员!");
         }
         return new ModelAndView("forward:/error.jsp","errMsg",customEcxeption.getMessage());
     }

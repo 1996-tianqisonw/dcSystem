@@ -4,9 +4,8 @@ package com.hx.service.Impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hx.entity.Parameter;
-import com.hx.entity.cookDetail;
-import com.hx.mapper.cookDetailMapper;
-import com.hx.service.cookDetailService;
+import com.hx.entity.CookDetail;
+import com.hx.service.CookDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,44 +15,40 @@ import java.util.List;
  * Created by admin on 2020/5/25.
  */
 @Service
-public class cookDetailServiceImpl extends BaseServiceImpl implements cookDetailService {
-
-    @Autowired
-    private cookDetailMapper cookDetailMapper;
-
+public class CookDetailServiceImpl extends BaseServiceImpl<CookDetail> implements CookDetailService {
     @Override
     public <K> int deleteByPrimaryKey(K dcId) {
         return 0;
     }
 
     @Override
-    public int insert(cookDetail record) {
+    public int insert(CookDetail record) {
         return 0;
     }
 
     @Override
-    public int insertSelective(cookDetail record) {
+    public int insertSelective(CookDetail record) {
         return 0;
     }
 
     @Override
-    public <K> cookDetail selectByPrimaryKey(K dcId) {
-        cookDetail cookDetail = cookDetailMapper.selectByPrimaryKey(dcId);
+    public <K> CookDetail selectByPrimaryKey(K dcId) {
+        CookDetail cookDetail = cookDetailMapper.selectByPrimaryKey(dcId);
         return cookDetail;
     }
 
     @Override
-    public int updateByPrimaryKeySelective(cookDetail record) {
+    public int updateByPrimaryKeySelective(CookDetail record) {
         return 0;
     }
 
     @Override
-    public int updateByPrimaryKey(cookDetail record) {
+    public int updateByPrimaryKey(CookDetail record) {
         return 0;
     }
 
     @Override
-    public int updateByPrimaryKey(cookDetail record,String mark) {
+    public int updateByPrimaryKey(CookDetail record, String mark) {
 
         if(mark.equals("cookingFinished")){
             record.setDsStatus(3);
@@ -65,16 +60,17 @@ public class cookDetailServiceImpl extends BaseServiceImpl implements cookDetail
     }
 
     @Override
-    public PageInfo<cookDetail> selectServiceAll(cookDetail table, Integer pageIndex, Integer pageSize) {
-        System.out.print(table.getKcOrdernumber());
+    public PageInfo<CookDetail> selectServiceAll(CookDetail table, Integer pageIndex, Integer pageSize) {
+        //这里是封装当前页和页大小
         PageHelper.startPage(pageIndex,pageSize);
-        List<cookDetail> list = cookDetailMapper.selectAll(table);
-        for(cookDetail lsi:list){
+        //查询所有的数据
+        List<CookDetail> list = cookDetailMapper.selectAll(table);
+        //与系统参数匹配，返回相对应的值
+        for(CookDetail lsi:list){
             if(lsi.getDsStatus()!=null){
                 Parameter parameter = new Parameter();
                 parameter.setField("ds_status");
                 String ui = String.valueOf(lsi.getDsStatus());
-                System.out.println(ui);
                 parameter.setValue(ui);
                 String text = sysParameterCheck(parameter);
                 lsi.setDsStatusText(text);
@@ -83,7 +79,6 @@ public class cookDetailServiceImpl extends BaseServiceImpl implements cookDetail
                 Parameter parameter = new Parameter();
                 parameter.setField("ds_component");
                 String ui = String.valueOf(lsi.getDsComponent());
-                System.out.println(ui);
                 parameter.setValue(ui);
                 String text = sysParameterCheck(parameter);
                 lsi.setDsComponentText(text);
@@ -98,7 +93,7 @@ public class cookDetailServiceImpl extends BaseServiceImpl implements cookDetail
                 lsi.setDsDegreeechilliText(text);
             }
         }
-        PageInfo<cookDetail> pageInfo = new PageInfo<>(list);
+        PageInfo<CookDetail> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
 }

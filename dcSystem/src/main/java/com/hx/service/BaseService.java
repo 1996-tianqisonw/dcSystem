@@ -9,7 +9,7 @@ import com.hx.entity.Table;
 public interface BaseService<T> {
     <K> int deleteByPrimaryKey(K dcId);
 
-    int insert(T record);
+    int insert(T record) throws Exception;
 
     int insertSelective(T record);
 

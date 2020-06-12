@@ -1,4 +1,4 @@
-<c:set var="proPath" value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}" />
+<c:set var="proPath" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" type="text/css"
       href="${proPath}/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="${proPath}/easyui/themes/icon.css">

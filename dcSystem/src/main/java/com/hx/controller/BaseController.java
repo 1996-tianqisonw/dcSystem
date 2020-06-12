@@ -1,12 +1,14 @@
 package com.hx.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.hx.service.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +19,21 @@ import java.util.Map;
 @Controller
 @RequestMapping("/BaseController")
 public class BaseController {
+    @Resource
+    TableService tableService;
+    @Resource
+    CookingsService cookingService;
+    @Resource
+    TableStateService tableStateService;
+    @Resource
+    CookDetailService cookDetailService;
+    @Resource
+    ServletContext application;
+    @Resource
+    private SpecificationService specificationService;
+    @Resource
+    GoodsService goodsService;
+
      //这是分页的json数据转换的方法
     public <T> Map<String,Object> getPageMap(PageInfo<T> pageInfo){
         Map<String,Object> tableMap = new HashMap<>();
@@ -29,8 +46,6 @@ public class BaseController {
     @RequestMapping("/path/{bag}/{file}")
     public String getPath(@PathVariable("bag") String bag, @PathVariable("file") String file,HttpSession session,@RequestParam("ID")String ID){
         String path =null;
-        System.out.println(file);
-
         //当ID传过来的等于0时，为没ID的,取非时，证明有ID，把Id传给页面。
         if(!(ID.equals("0"))){
             System.out.println(ID);
@@ -47,7 +62,7 @@ public class BaseController {
     //这里还可以写查询所有数据的方法，所有关于数据展示的界面，都会用到这个方法
     //但也存在一些问题：主要是参数带来的问题：比如有些参数要进行处理，才不会带来查询不出的问题，
     //但参数有的需要，有点不需要，这样就无法进行参数的统一和抽取。
-    //方案是把它们传到业务层在进行参数处理，controller层不进行处理。controller只进行业务逻辑的抽取。
+    //方案是把它们传到业务层在进行参数处理，controller层不进行处理。controller只进行跳转的业务逻辑的抽取。
     //因为该业务的逻辑代码不多，进行抽取还要进行对象的赋值处理，这样做得不偿失。
 
 

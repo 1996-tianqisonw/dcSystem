@@ -2,7 +2,6 @@ package com.hx.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.hx.entity.TableState;
-import com.hx.service.tableStateService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,10 +13,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("/tableState")
-public class tableStateController extends BaseController{
-
-    @Resource
-    private tableStateService tableStateService;
+public class TableStateController extends BaseController{
 
     //这是查询界面的所有数据的方法
     @RequestMapping("/stateSelect")
@@ -42,7 +38,6 @@ public class tableStateController extends BaseController{
     @RequestMapping("/stateUpdate")
     @ResponseBody
     public int stateUpdate(TableState tableState){
-
         //这是调用业务层的方法
         int i = tableStateService.updateByPrimaryKey(tableState);
         if(i>0){
@@ -55,7 +50,6 @@ public class tableStateController extends BaseController{
     @ResponseBody
     public int stateUseUp(TableState tableState){
         //这是将id放入类中。
-        System.out.println("dtId:"+tableState.getDtId());
         tableState.setDtId(tableState.getDtId());
         //这是调用业务层的完成方法。
         int i = tableStateService.stateUsedUp(tableState);
