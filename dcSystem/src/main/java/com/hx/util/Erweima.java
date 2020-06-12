@@ -116,7 +116,7 @@ public class Erweima {
     // public static void create(String sId,String tNo,Integer w,Integer h) throws Exception{
     public static void create( ) throws Exception{
         String text = "https://www.baidu.com"; //这里是URL ，扫描之后就跳转到这个界面
-        String path = "E:/work/repo/git-repo/dcSystem/src/main/webapp/erweima"; //图片生成的位置
+        String path = "D:/wordTool/git-repo/clone-repo1/rpo3/dcSystem/dcSystem/src/main/webapp/erweima"; //图片生成的位置
         int width = 10;
         int height = 10;
         // 二维码图片格式

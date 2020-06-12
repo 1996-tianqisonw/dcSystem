@@ -42,6 +42,16 @@ public class BaseController {
         tableMap.put("rows", pageInfo.getList());
         return tableMap;
     }
+
+    //easyui传递信息时使用
+    @RequestMapping("goURL/{folder}/{file}")
+    public String goURL(@PathVariable("folder")String folder, @PathVariable("file") String file)
+    {
+        System.out.println("url = "+folder+"/"+file);
+        return "forward:/WEB-INF/"+folder+"/"+file+".jsp";
+    }
+
+
     //这是公共路径发起请求的方法
     @RequestMapping("/path/{bag}/{file}")
     public String getPath(@PathVariable("bag") String bag, @PathVariable("file") String file, HttpSession session, @RequestParam("ID") String ID) {

@@ -1,13 +1,14 @@
 package com.hx.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.io.Serializable;
 import java.util.Date;
 
 public class Goods implements Serializable {
     private Integer goodsId;
+
+    private String shopCartId;
+
+    private Integer cId;
 
     private String goodsName;
 
@@ -17,28 +18,17 @@ public class Goods implements Serializable {
 
     private String goodsImg;
 
-    private Float goodsPrice;
-
-    private Integer goodsStatus;
-
-/*    @DateTimeFormat(pattern = "yyyy-MM-dd") //入参
-
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd") //出参*/
-    private String addTime;
-
-    private String specification;
+    private Integer goodsPrice;
 
     private String goodsDescriptive;
 
-    private Categories categories;
+    private String goodsStatus;
 
-    public void setCategories(Categories categories) {
-        this.categories = categories;
-    }
+    private Date addTime;
 
-    public Categories getCategories() {
-        return categories;
-    }
+    private String specification;
+
+    private BusShopCart busShopCart;
 
     public Integer getGoodsId() {
         return goodsId;
@@ -46,6 +36,22 @@ public class Goods implements Serializable {
 
     public void setGoodsId(Integer goodsId) {
         this.goodsId = goodsId;
+    }
+
+    public String getShopCartId() {
+        return shopCartId;
+    }
+
+    public void setShopCartId(String shopCartId) {
+        this.shopCartId = shopCartId;
+    }
+
+    public Integer getcId() {
+        return cId;
+    }
+
+    public void setcId(Integer cId) {
+        this.cId = cId;
     }
 
     public String getGoodsName() {
@@ -80,27 +86,35 @@ public class Goods implements Serializable {
         this.goodsImg = goodsImg;
     }
 
-    public Float getGoodsPrice() {
+    public Integer getGoodsPrice() {
         return goodsPrice;
     }
 
-    public void setGoodsPrice(Float goodsPrice) {
+    public void setGoodsPrice(Integer goodsPrice) {
         this.goodsPrice = goodsPrice;
     }
 
-    public Integer getGoodsStatus() {
+    public String getGoodsDescriptive() {
+        return goodsDescriptive;
+    }
+
+    public void setGoodsDescriptive(String goodsDescriptive) {
+        this.goodsDescriptive = goodsDescriptive;
+    }
+
+    public String getGoodsStatus() {
         return goodsStatus;
     }
 
-    public void setGoodsStatus(Integer goodsStatus) {
+    public void setGoodsStatus(String goodsStatus) {
         this.goodsStatus = goodsStatus;
     }
 
-    public String getAddTime() {
+    public Date getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(String addTime) {
+    public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
 
@@ -112,27 +126,30 @@ public class Goods implements Serializable {
         this.specification = specification;
     }
 
-    public String getGoodsDescriptive() {
-        return goodsDescriptive;
+    public BusShopCart getBusShopCart() {
+        return busShopCart;
     }
 
-    public void setGoodsDescriptive(String goodsDescriptive) {
-        this.goodsDescriptive = goodsDescriptive;
+    public void setBusShopCart(BusShopCart busShopCart) {
+        this.busShopCart = busShopCart;
     }
+
     @Override
     public String toString() {
         return "Goods{" +
                 "goodsId=" + goodsId +
+                ", shopCartId='" + shopCartId + '\'' +
+                ", cId=" + cId +
                 ", goodsName='" + goodsName + '\'' +
                 ", goodsTitle='" + goodsTitle + '\'' +
                 ", goodsNo='" + goodsNo + '\'' +
                 ", goodsImg='" + goodsImg + '\'' +
                 ", goodsPrice=" + goodsPrice +
-                ", goodsStatus=" + goodsStatus +
+                ", goodsDescriptive='" + goodsDescriptive + '\'' +
+                ", goodsStatus='" + goodsStatus + '\'' +
                 ", addTime=" + addTime +
                 ", specification='" + specification + '\'' +
-                ", goodsDescriptive='" + goodsDescriptive + '\'' +
-                ", categories=" + categories +
+                ", busShopCart=" + busShopCart +
                 '}';
     }
 }

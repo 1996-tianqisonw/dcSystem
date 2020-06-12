@@ -66,7 +66,7 @@ public class SPMapperServiceImpl implements SPMapperService{
         //这是查询数据库的字符串,把它们遍历出来放入生成器。
         List<Table> table = tableMapper.selectTableAll();
         String path=pathErweima;
-        System.out.printf("读配置文件得到的文件路径："+pathErweima);
+        System.out.printf("D:/wordTool/git-repo/clone-repo1/rpo3/dcSystem/dcSystem/src/main/webapp/erweima"+pathErweima);
         for(Table tab : table){
             //这是生成二维码的图片
             Erweima.create(tab.getDcQrcode(),tab.getDcId(),path);

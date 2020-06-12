@@ -18,10 +18,17 @@
     dc_id, dc_name, dc_specifications, dc_shop, dc_companies, dc_form, dc_useStatus, 
     dc_createTime, dc_updateTime, dc_updateReason, dc_QRcode
   </sql>
+
   <select id="selectTableAll" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from dc_tablemanagement
   </select>
+
+  <!-- 按餐桌dc_id 查出 dc_id和dc_name-->
+  <select id="selectDcId" parameterType="String" resultMap="BaseResultMap">
+    select dc_id,dc_name from  dc_tablemanagement where dc_id = #{dcId}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

@@ -11,6 +11,7 @@
   <sql id="Base_Column_List">
     sys_param_id, sys_param_field, sys_param_value, sys_param_text, sys_param_type
   </sql>
+
   <update id="setSysParam" parameterType="com.hx.entity.SysParam">
     update sys_param set
     sys_param_type ='是' where
@@ -21,12 +22,21 @@
     sys_param_type ='否'
     where sys_param_field=#{sysParamField}
   </update>
+
   <!--初始化参数时查询所有参数-->
   <select id="loadSysParam" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from sys_param
   </select>
+
+  <!--系统参数-->
+  <select id="selectSysParamList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_param
+  </select>
+
   <!--分页查询-->
   <select id="selectPage" parameterType="SysParam" resultMap="BaseResultMap">
     select
@@ -50,6 +60,8 @@
       </if>
     </where>
   </select>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
