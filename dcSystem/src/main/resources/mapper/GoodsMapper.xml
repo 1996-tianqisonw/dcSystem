@@ -3,47 +3,23 @@
 <mapper namespace="com.hx.mapper.GoodsMapper">
   <resultMap id="BaseResultMap" type="com.hx.entity.Goods">
     <id column="goods_id" jdbcType="INTEGER" property="goodsId" />
-    <result column="shop_cart_id" jdbcType="VARCHAR" property="shopCartId" />
-    <result column="c_id" jdbcType="INTEGER" property="cId" />
     <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
     <result column="goods_title" jdbcType="VARCHAR" property="goodsTitle" />
     <result column="goods_no" jdbcType="VARCHAR" property="goodsNo" />
     <result column="goods_img" jdbcType="VARCHAR" property="goodsImg" />
-    <result column="goods_price" jdbcType="INTEGER" property="goodsPrice" />
-    <result column="goods_descriptive" jdbcType="VARCHAR" property="goodsDescriptive" />
-    <result column="goods_status" jdbcType="VARCHAR" property="goodsStatus" />
+    <result column="goods_price" jdbcType="REAL" property="goodsPrice" />
+    <result column="goods_status" jdbcType="INTEGER" property="goodsStatus" />
+    <result column="goods_descriptive" jdbcType="LONGVARCHAR" property="goodsDescriptive" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="specification" jdbcType="VARCHAR" property="specification" />
-
+    <association column="c_id" property="categories" resultMap="com.hx.mapper.CategoriesMapper.BaseResultMap"></association>
   </resultMap>
-  <!--  三表查询时使用 -->
-  <resultMap id="goodsExtResultMap" type="Goods" extends="BaseResultMap">
-    <!-- 方式一:正常加载 -->
-    <association property="busShopCart" column="goods_id" javaType="BusShopCart" resultMap="com.hx.mapper.BusShopCartMapper.BaseResultMap"/>
-  </resultMap>
-
-
   <sql id="Base_Column_List">
-    goods_id, shop_cart_id, c_id, goods_name, goods_title, goods_no, goods_img, goods_price, 
-    goods_descriptive, goods_status, add_time, specification
+    goods_id, c_id, goods_name, goods_title, goods_no, goods_img, goods_price, goods_status,goods_descriptive,
+    add_time, specification
   </sql>
-
-  <!-- 分页查询,sql不用分页的信息，留给插件处理 -->
-  <select id="selectPage" parameterType="Goods" resultMap="BaseResultMap">
-    select goods_no,goods_title,goods_price,goods_img
-    from goods
-    <where>
-      <if test="goodsNo!=null">and goods_no = #{goodsNo}</if>
-      <if test="goodsTitle!=null">and goods_title = #{goodsTitle}</if>
-      <if test="goodsPrice!=null">and goods_price = #{goodsPrice}</if>
-      <if test="goodsImg!=null">and goods_img = #{goodsImg}</if>
-
-    </where>
-    <!-- 使用分页插件后，这句：limit start,pageSize不用再写了  -->
-  </select>
-
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from goods
     where goods_id = #{goodsId,jdbcType=INTEGER}
@@ -53,16 +29,14 @@
     where goods_id = #{goodsId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.hx.entity.Goods">
-    insert into goods (goods_id, shop_cart_id, c_id, 
-      goods_name, goods_title, goods_no, 
-      goods_img, goods_price, goods_descriptive, 
-      goods_status, add_time, specification
-      )
-    values (#{goodsId,jdbcType=INTEGER}, #{shopCartId,jdbcType=VARCHAR}, #{cId,jdbcType=INTEGER}, 
-      #{goodsName,jdbcType=VARCHAR}, #{goodsTitle,jdbcType=VARCHAR}, #{goodsNo,jdbcType=VARCHAR}, 
-      #{goodsImg,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=INTEGER}, #{goodsDescriptive,jdbcType=VARCHAR},
-      #{goodsStatus,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{specification,jdbcType=VARCHAR}
-      )
+    insert into goods (goods_id, c_id, goods_name,
+      goods_title, goods_no, goods_img,
+      goods_price, goods_status, add_time,
+      specification, goods_descriptive)
+    values (#{goodsId,jdbcType=INTEGER}, #{cId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR},
+      #{goodsTitle,jdbcType=VARCHAR}, #{goodsNo,jdbcType=VARCHAR}, #{goodsImg,jdbcType=VARCHAR},
+      #{goodsPrice,jdbcType=REAL}, #{goodsStatus,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP},
+      #{specification,jdbcType=VARCHAR}, #{goodsDescriptive,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hx.entity.Goods">
     insert into goods
@@ -70,10 +44,7 @@
       <if test="goodsId != null">
         goods_id,
       </if>
-      <if test="shopCartId != null">
-        shop_cart_id,
-      </if>
-      <if test="cId != null">
+      <if test="categories.cId != null">
         c_id,
       </if>
       <if test="goodsName != null">
@@ -91,9 +62,6 @@
       <if test="goodsPrice != null">
         goods_price,
       </if>
-      <if test="goodsDescriptive != null">
-        goods_descriptive,
-      </if>
       <if test="goodsStatus != null">
         goods_status,
       </if>
@@ -103,16 +71,16 @@
       <if test="specification != null">
         specification,
       </if>
+      <if test="goodsDescriptive != null">
+        goods_descriptive,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="goodsId != null">
         #{goodsId,jdbcType=INTEGER},
       </if>
-      <if test="shopCartId != null">
-        #{shopCartId,jdbcType=VARCHAR},
-      </if>
-      <if test="cId != null">
-        #{cId,jdbcType=INTEGER},
+      <if test="categories.cId != null">
+        #{categories.cId,jdbcType=INTEGER},
       </if>
       <if test="goodsName != null">
         #{goodsName,jdbcType=VARCHAR},
@@ -127,13 +95,10 @@
         #{goodsImg,jdbcType=VARCHAR},
       </if>
       <if test="goodsPrice != null">
-        #{goodsPrice,jdbcType=INTEGER},
-      </if>
-      <if test="goodsDescriptive != null">
-        #{goodsDescriptive,jdbcType=VARCHAR},
+        #{goodsPrice,jdbcType=REAL},
       </if>
       <if test="goodsStatus != null">
-        #{goodsStatus,jdbcType=VARCHAR},
+        #{goodsStatus,jdbcType=INTEGER},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -141,17 +106,14 @@
       <if test="specification != null">
         #{specification,jdbcType=VARCHAR},
       </if>
+      <if test="goodsDescriptive != null">
+        #{goodsDescriptive,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.Goods">
     update goods
     <set>
-      <if test="shopCartId != null">
-        shop_cart_id = #{shopCartId,jdbcType=VARCHAR},
-      </if>
-      <if test="cId != null">
-        c_id = #{cId,jdbcType=INTEGER},
-      </if>
       <if test="goodsName != null">
         goods_name = #{goodsName,jdbcType=VARCHAR},
       </if>
@@ -165,13 +127,10 @@
         goods_img = #{goodsImg,jdbcType=VARCHAR},
       </if>
       <if test="goodsPrice != null">
-        goods_price = #{goodsPrice,jdbcType=INTEGER},
-      </if>
-      <if test="goodsDescriptive != null">
-        goods_descriptive = #{goodsDescriptive,jdbcType=VARCHAR},
+        goods_price = #{goodsPrice,jdbcType=REAL},
       </if>
       <if test="goodsStatus != null">
-        goods_status = #{goodsStatus,jdbcType=VARCHAR},
+        goods_status = #{goodsStatus,jdbcType=INTEGER},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -179,22 +138,28 @@
       <if test="specification != null">
         specification = #{specification,jdbcType=VARCHAR},
       </if>
+      <if test="goodsDescriptive != null">
+        goods_descriptive = #{goodsDescriptive,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where goods_id = #{goodsId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hx.entity.Goods">
     update goods
-    set shop_cart_id = #{shopCartId,jdbcType=VARCHAR},
-      c_id = #{cId,jdbcType=INTEGER},
+    set c_id = #{cId,jdbcType=INTEGER},
       goods_name = #{goodsName,jdbcType=VARCHAR},
       goods_title = #{goodsTitle,jdbcType=VARCHAR},
       goods_no = #{goodsNo,jdbcType=VARCHAR},
       goods_img = #{goodsImg,jdbcType=VARCHAR},
-      goods_price = #{goodsPrice,jdbcType=INTEGER},
-      goods_descriptive = #{goodsDescriptive,jdbcType=VARCHAR},
-      goods_status = #{goodsStatus,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=REAL},
+      goods_status = #{goodsStatus,jdbcType=INTEGER},
       add_time = #{addTime,jdbcType=TIMESTAMP},
-      specification = #{specification,jdbcType=VARCHAR}
+      specification = #{specification,jdbcType=VARCHAR},
+      goods_descriptive = #{goodsDescriptive,jdbcType=LONGVARCHAR}
     where goods_id = #{goodsId,jdbcType=INTEGER}
   </update>
+  <select id="selectPage" resultMap="BaseResultMap">
+   select g.*,c_name,company,store from goods g LEFT  join categories c on
+		g.c_id=c.c_id
+  </select>
 </mapper>

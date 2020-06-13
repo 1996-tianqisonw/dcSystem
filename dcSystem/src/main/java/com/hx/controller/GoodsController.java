@@ -1,45 +1,60 @@
 package com.hx.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.hx.entity.Categories;
 import com.hx.entity.Goods;
+import com.hx.entity.GoodsCategories;
 import com.hx.service.GoodsService;
-import com.hx.util.EntitySave;
+import com.hx.util.FileUploadUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Created by Lenovo on 2020/5/28.
- */
 @Controller
-@RequestMapping("goods")
-public class GoodsController extends BaseController {
-
+@RequestMapping("/Goods")
+public class GoodsController {
     @Resource
-    private GoodsService goodsService;
+    FileUploadUtil fileUploadUtil;
+    @Resource
+    GoodsService goodsService;
 
-    //分页查询商品
-    @RequestMapping("selectGoodsPage")
+    @RequestMapping("/selectGoods")
     @ResponseBody
-    public Object selectPage(Goods goods, Integer page, Integer rows) {
-        //调用业务层查询数据
-        PageInfo<Goods> pageInfo = goodsService.selectPage(goods, page, rows);
-        //System.out.println("goods = " + getPageMap(pageInfo));
-
-        return getPageMap(pageInfo);
+    public Object selectGoods(Integer page, Integer rows) {
+        /* goodsService.selectGoods();*/
+        PageInfo<GoodsCategories> pageInfo = goodsService.selectGoods(null, page, rows);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("total", pageInfo.getTotal());
+        map.put("rows", pageInfo.getList());
+        return map;
     }
 
-
-
-    @RequestMapping("/selectGoods1")
+    @RequestMapping("/t")
     @ResponseBody
-    public void selectGoods1()
-    {
-        List<Goods> list = EntitySave.goodsList;
-        //System.out.println("select goods111111 list = "+list);
-
+    public Object t(String content1) {
+        System.out.println(content1);
+        return content1;
     }
+
+    @RequestMapping("/insetGoods")
+    @ResponseBody
+    public Object insetGoods(@RequestParam("file") MultipartFile file, Goods goods, Categories categories) {
+        goods.setCategories(categories);
+        String path = fileUploadUtil.upload(file);
+        goods.setGoodsImg(path);
+        return goodsService.insertSelective(goods);
+    }
+
+    @RequestMapping("/updataGoods")
+    @ResponseBody
+    public Object updataGoods(Goods goods) {
+        return goodsService.updateByPrimaryKeySelective(goods);
+    }
+
 }

@@ -1,14 +1,9 @@
 package com.hx.controller;
 
 import com.hx.entity.Categories;
-import com.hx.service.BaseService;
 import com.hx.service.CategoriesService;
-import com.hx.service.GoodsService;
-import com.hx.service.SpecificationService;
 import com.hx.util.CategoriesTree;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("Categories")
+@RequestMapping("/Categories")
 public class CategoriesController {
     @Resource
     CategoriesService categoriesService;

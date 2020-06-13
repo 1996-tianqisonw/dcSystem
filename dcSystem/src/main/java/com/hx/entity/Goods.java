@@ -1,34 +1,43 @@
 package com.hx.entity;
 
+
 import java.io.Serializable;
-import java.util.Date;
 
 public class Goods implements Serializable {
+    //商品id
     private Integer goodsId;
-
-    private String shopCartId;
-
-    private Integer cId;
-
+    //商品名字
     private String goodsName;
-
+    //商品标题
     private String goodsTitle;
-
+    //编号
     private String goodsNo;
-
+    //图片
     private String goodsImg;
-
+    //价格
     private Integer goodsPrice;
+    //状态
+    private Integer goodsStatus;
 
+    /*    @DateTimeFormat(pattern = "yyyy-MM-dd") //入参
+
+        @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd") //出参*/
+    //添加时间
+    private String addTime;
+    //规格样式
+    private String specification;
+    //商品描述
     private String goodsDescriptive;
 
-    private String goodsStatus;
+    private Categories categories;
 
-    private Date addTime;
+    public void setCategories(Categories categories) {
+        this.categories = categories;
+    }
 
-    private String specification;
-
-    private BusShopCart busShopCart;
+    public Categories getCategories() {
+        return categories;
+    }
 
     public Integer getGoodsId() {
         return goodsId;
@@ -36,22 +45,6 @@ public class Goods implements Serializable {
 
     public void setGoodsId(Integer goodsId) {
         this.goodsId = goodsId;
-    }
-
-    public String getShopCartId() {
-        return shopCartId;
-    }
-
-    public void setShopCartId(String shopCartId) {
-        this.shopCartId = shopCartId;
-    }
-
-    public Integer getcId() {
-        return cId;
-    }
-
-    public void setcId(Integer cId) {
-        this.cId = cId;
     }
 
     public String getGoodsName() {
@@ -94,27 +87,19 @@ public class Goods implements Serializable {
         this.goodsPrice = goodsPrice;
     }
 
-    public String getGoodsDescriptive() {
-        return goodsDescriptive;
-    }
-
-    public void setGoodsDescriptive(String goodsDescriptive) {
-        this.goodsDescriptive = goodsDescriptive;
-    }
-
-    public String getGoodsStatus() {
+    public Integer getGoodsStatus() {
         return goodsStatus;
     }
 
-    public void setGoodsStatus(String goodsStatus) {
+    public void setGoodsStatus(Integer goodsStatus) {
         this.goodsStatus = goodsStatus;
     }
 
-    public Date getAddTime() {
+    public String getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Date addTime) {
+    public void setAddTime(String addTime) {
         this.addTime = addTime;
     }
 
@@ -126,30 +111,27 @@ public class Goods implements Serializable {
         this.specification = specification;
     }
 
-    public BusShopCart getBusShopCart() {
-        return busShopCart;
+    public String getGoodsDescriptive() {
+        return goodsDescriptive;
     }
 
-    public void setBusShopCart(BusShopCart busShopCart) {
-        this.busShopCart = busShopCart;
+    public void setGoodsDescriptive(String goodsDescriptive) {
+        this.goodsDescriptive = goodsDescriptive;
     }
-
     @Override
     public String toString() {
         return "Goods{" +
                 "goodsId=" + goodsId +
-                ", shopCartId='" + shopCartId + '\'' +
-                ", cId=" + cId +
                 ", goodsName='" + goodsName + '\'' +
                 ", goodsTitle='" + goodsTitle + '\'' +
                 ", goodsNo='" + goodsNo + '\'' +
                 ", goodsImg='" + goodsImg + '\'' +
                 ", goodsPrice=" + goodsPrice +
-                ", goodsDescriptive='" + goodsDescriptive + '\'' +
-                ", goodsStatus='" + goodsStatus + '\'' +
+                ", goodsStatus=" + goodsStatus +
                 ", addTime=" + addTime +
                 ", specification='" + specification + '\'' +
-                ", busShopCart=" + busShopCart +
+                ", goodsDescriptive='" + goodsDescriptive + '\'' +
+                ", categories=" + categories +
                 '}';
     }
 }

@@ -3,15 +3,16 @@ package com.hx.entity;
 import java.io.Serializable;
 
 public class Specification implements Serializable {
+    //规格id
     private Integer sId;
-
+    //规格名字
     private String sName;
-
+    //规格样式
     private String sStyle;
-
+    //状态
     private Integer sStatus;
 
-    private  Categories categories;
+    private Categories categories;
 
     public Integer getsId() {
         return sId;

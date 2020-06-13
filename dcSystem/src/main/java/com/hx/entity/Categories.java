@@ -8,20 +8,6 @@ public class Categories implements Serializable {
     private Integer cId;
     //名字
     private String cName;
-
-    @Override
-    public String toString() {
-        return "Categories{" +
-                "cId=" + cId +
-                ", cName='" + cName + '\'' +
-                ", cCompany='" + cCompany + '\'' +
-                ", cStore='" + cStore + '\'' +
-                ", cStatus=" + cStatus +
-                ", goods=" + goods +
-                ", specifications=" + specifications +
-                '}';
-    }
-
     //所属公司
     private String cCompany;
     //所属店铺
@@ -88,4 +74,17 @@ public class Categories implements Serializable {
     public void setcStatus(Integer cStatus) {
         this.cStatus = cStatus;
     }
+    @Override
+     public String toString() {
+        return "Categories{" +
+                "cId=" + cId +
+                ", cName='" + cName + '\'' +
+                ", cCompany='" + cCompany + '\'' +
+                ", cStore='" + cStore + '\'' +
+                ", cStatus=" + cStatus +
+                ", goods=" + goods +
+                ", specifications=" + specifications +
+                '}';
+    }
+
 }

@@ -4,7 +4,6 @@ package com.hx.controller;
 import com.github.pagehelper.PageInfo;
 import com.hx.entity.Categories;
 import com.hx.entity.Specification;
-import com.hx.service.BaseService;
 import com.hx.service.SpecificationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("Specification")
+@RequestMapping("/Specification")
 public class SpecificationController {
     @Resource
     SpecificationService specificationService;
@@ -29,7 +28,7 @@ public class SpecificationController {
 
     @RequestMapping("/selectSpecification")
     @ResponseBody
-    public Object selectSpecification(Categories categories,Integer page,Integer rows){
+    public Object selectSpecification(Categories categories, Integer page, Integer rows){
 
         Specification specification = new Specification();
         specification.setCategories(categories);

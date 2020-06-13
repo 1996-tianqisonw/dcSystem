@@ -1,15 +1,15 @@
 package com.hx.util;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Map;
-import java.util.UUID;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+import java.util.UUID;
 
 /*
  * 1。读取配置文件的信息，后边可保存文件到该 目录下
@@ -49,9 +49,10 @@ public class FileUploadUtil {
     //保存文件,并返回新的文件保存地址（包括文件名)，如果不成功，返回null
     public String upload(MultipartFile file) {
         try {
-            String path2 = path + "/" + getNewName(file);
+            String  path3=getNewName(file);
+            String path2 = path + "/" +path3;
             FileUtils.copyInputStreamToFile(file.getInputStream(), new File(path2));
-            return path2;
+            return path3;
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

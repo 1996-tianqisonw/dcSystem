@@ -1,8 +1,8 @@
 package com.hx.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
+//商品-菜单实体
 public class GoodsCategories implements Serializable {
 
     private Integer goodsId;
@@ -25,11 +25,20 @@ public class GoodsCategories implements Serializable {
 
     private String goodsDescriptive;
 
+    private Integer cId;
+
     private String cName;
     //所属公司
     private String cCompany;
     //所属店铺
     private String cStore;
+    public Integer getcId() {
+        return cId;
+    }
+
+    public void setcId(Integer cId) {
+        this.cId = cId;
+    }
 
     public Integer getGoodsId() {
         return goodsId;
