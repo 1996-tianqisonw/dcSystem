@@ -26,6 +26,11 @@ public class pageController {
         return new ModelAndView("forward:/WEB-INF/"+fwc+"/"+xmz+".jsp");
     }
 
+    @RequestMapping("/goURL1/{fwc}/{xmz}")
+    public ModelAndView login2(@PathVariable String fwc, @PathVariable String xmz){
+        return new ModelAndView("forward:/"+fwc+"/"+xmz+".jsp");
+    }
+
     @RequestMapping("/permis")
     @ResponseBody
     public Object login2(String permissions){

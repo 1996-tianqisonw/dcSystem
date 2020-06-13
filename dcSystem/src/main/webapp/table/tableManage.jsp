@@ -16,7 +16,7 @@
 <div id="win"></div>
 <script type="text/javascript">
     $('#dg').datagrid({
-        url:'/tableController/table.mvc',
+        url:'${proPath}/tableController/table.mvc',
         columns:[[
             {field:'ck',checkbox:true},
             {field:'dcId',title:'餐桌编号',width:100},
