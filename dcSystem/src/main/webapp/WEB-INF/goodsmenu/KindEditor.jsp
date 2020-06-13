@@ -3,7 +3,7 @@
     request.setCharacterEncoding("UTF-8");
     String htmlData = request.getParameter("content1") != null ? request.getParameter("content1") : "";
 %>--%>
-<%@include file="/tou/head.jsp" %>
+<%@ include file="../../common/common.jspf"%>
 <!doctype html>
 <html>
 <head>

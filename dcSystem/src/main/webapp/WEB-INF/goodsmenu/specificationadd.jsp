@@ -1,7 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%@include file="/tou/head.jsp" %>
+<%@ include file="../../common/common.jspf"%>
 <!DOCTYPE html>
 <head>
     <title>Title</title>
