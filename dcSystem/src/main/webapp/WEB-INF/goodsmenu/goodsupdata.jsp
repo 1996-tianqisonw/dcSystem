@@ -69,7 +69,7 @@
         alert(goodsStatus);
         $.ajax({
             type: 'post',
-            url: ' ${proPath} / Goods / updataGoods.mvc',
+            url: ' ${proPath}/Goods/updataGoods.mvc',
             traditional: true,
             data: {
                 goodsId: goodsId,
@@ -119,7 +119,7 @@
         </div>
         <div title="商品描述" style="padding:20px;">商品描述：
             <iframe id="goodsDescriptive" name="goodsDescriptive" frameborder="0" height="100%" width="100%"
-                    src="${proPath}/base/goURL/goodsmenu/KindEditor.mvc"></iframe>
+                    src="${proPath}/BaseController/goURL/goodsmenu/KindEditor.mvc"></iframe>
         </div>
         <div title="规格样式" style="padding:20px;">
             <div id="ggys" name="ggys">

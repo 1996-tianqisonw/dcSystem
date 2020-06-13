@@ -42,7 +42,7 @@
                     <%--富文本编辑器--%>
                     商品描述：
                     <iframe id="myiframe" name="myiframe" frameborder="0" height="100%" width="100%"
-                            src="${proPath}/base/goURL/goodsmenu/KindEditor.mvc"></iframe>
+                            src="${proPath}/BaseController/goURL/goodsmenu/KindEditor.mvc"></iframe>
                 </div>
                 <div title="规格样式" name="" style="padding:20px;">
                     <div id="ggys" name="ggys">
@@ -85,7 +85,7 @@
             if (goodsname != '' && goodstitle != '' && goodsprice != '') {
                 $.ajax({
                     type: 'post',
-                    url: 'Goods/insetGoods.mvc',
+                    url: '${proPath}/Goods/insetGoods.mvc',
                     traditional: true,
                     data: myform,
                     dataType: 'JSON',
@@ -110,7 +110,7 @@
         }
     };
     $('#tt1').tree({
-        url: 'Categories/selectCategories.mvc',
+        url: '${proPath}/Categories/selectCategories.mvc',
         animate: true,
         onClick: function (node) {
             if ($('#tt2').tree('isLeaf', node.target)) {
@@ -118,7 +118,7 @@
                 $('#c_id').val(node.id);
                 $.ajax({
                     type: 'post',
-                    url: 'Specification/selectSpe.mvc',
+                    url: '${proPath}/Specification/selectSpe.mvc',
                     traditional: true,
                     data: {cId: node.id},
                     dataType: 'JSON',

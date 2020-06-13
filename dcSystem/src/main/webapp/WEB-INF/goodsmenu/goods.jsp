@@ -46,7 +46,7 @@
 
 <script type="text/javascript">
     $('#dg-goods').datagrid({
-        url: 'Goods/selectGoods.mvc',
+        url: '${proPath}/Goods/selectGoods.mvc',
         columns: [[
             {checkbox: true},
 
@@ -84,7 +84,7 @@
                     height: 600,
                     modal: true,
                     collapsible: false,
-                    href: '${proPath}/base/goURL/goodsmenu/goodsadd.mvc'
+                    href: '${proPath}/BaseController/goURL/goodsmenu/goodsadd.mvc'
                     /*  content: "<iframe src='' height='100%' width='100%' frameborder='0px' ></iframe>"*/
                 });
             }
@@ -105,7 +105,7 @@
                         height: 500,
                         modal: true,
                         collapsible: false,
-                        content: "<iframe src='${proPath}/base/goURL/goodsmenu/goodsupdata.mvc' height='100%' width='100%' frameborder='0px' ></iframe>"
+                        content: "<iframe src='${proPath}/BaseController/goURL/goodsmenu/goodsupdata.mvc' height='100%' width='100%' frameborder='0px' ></iframe>"
                     });
                 } else {
                     $.messager.show({

@@ -73,7 +73,7 @@
                                 height: 200,
                                 modal: true,
                                 collapsible: false,
-                                content: "<iframe src='${proPath}/base/goURL/goodsmenu/specificationadd.mvc' height='100%' width='100%' frameborder='0px' ></iframe>"
+                                content: "<iframe src='${proPath}/BaseController/goURL/goodsmenu/specificationadd.mvc' height='100%' width='100%' frameborder='0px' ></iframe>"
                             });
 
                         }
@@ -89,7 +89,7 @@
                                     height: 200,
                                     modal: true,
                                     collapsible: false,
-                                    content: "<iframe src='${proPath}/base/goURL/goodsmenu/specificationupdata.mvc' height='100%' width='100%' frameborder='0px' ></iframe>"
+                                    content: "<iframe src='${proPath}/BaseController/goURL/goodsmenu/specificationupdata.mvc' height='100%' width='100%' frameborder='0px' ></iframe>"
                                 });
                             } else {
                                 $.messager.show({
