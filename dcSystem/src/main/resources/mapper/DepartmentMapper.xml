@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.DepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.Department">
+    <id column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="department_name" jdbcType="VARCHAR" property="departmentName" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="store" jdbcType="VARCHAR" property="store" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="department_add" jdbcType="VARCHAR" property="departmentAdd" />
+    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+  </resultMap>
+
+  <select id="selectdept" parameterType="com.hx.entity.Department" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from department
+    <where>
+      <if test="departmentName != null">
+        department_name = #{departmentName}
+      </if>
+      <if test="company != null">
+        and company = #{company}
+      </if>
+      <if test="store != null">
+        and store = #{store}
+      </if>
+      <if test="position != null">
+        and position = #{position}
+      </if>
+    </where>
+  </select>
+
+
+
+  <sql id="Base_Column_List">
+    department_id, department_name, company, store, position, department_add, org_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from department
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from department
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hx.entity.Department">
+    insert into department (department_name, company,
+      store, position, department_add, 
+      org_name)
+    values (#{departmentName,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR},
+      #{store,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{departmentAdd,jdbcType=VARCHAR}, 
+      #{orgName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hx.entity.Department">
+    insert into department
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="departmentName != null">
+        department_name,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="store != null">
+        store,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="departmentAdd != null">
+        department_add,
+      </if>
+      <if test="orgName != null">
+        org_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="departmentName != null">
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="store != null">
+        #{store,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentAdd != null">
+        #{departmentAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null">
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.Department">
+    update department
+    <set>
+      <if test="departmentName != null">
+        department_name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="store != null">
+        store = #{store,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentAdd != null">
+        department_add = #{departmentAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null">
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.Department">
+    update department
+    set department_name = #{departmentName,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      store = #{store,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      department_add = #{departmentAdd,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR}
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </update>
+</mapper>

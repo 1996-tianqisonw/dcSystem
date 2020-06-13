@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.UsersMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.Users">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="state" jdbcType="CHAR" property="state" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="work" jdbcType="VARCHAR" property="work" />
+    <result column="onjob" jdbcType="TIMESTAMP" property="onjob" />
+    <result column="departure" jdbcType="TIME" property="departure" />
+  </resultMap>
+
+  <resultMap id="userroleResultMap" type="com.hx.entity.Users" extends="BaseResultMap">
+    <!-- collection中resultMap引用的是其它文件的map 需要命名空间+id,例如：com.hx.entity.EmpMapper.empResultMap -->
+    <collection property="roles" ofType="com.hx.entity.Role"
+                resultMap="com.hx.mapper.RoleMapper.BaseResultMap" />
+  </resultMap>
+
+  <resultMap id="userdeptResultMap" type="com.hx.entity.Users" extends="BaseResultMap">
+    <!-- collection中resultMap引用的是其它文件的map 需要命名空间+id,例如：com.hx.entity.EmpMapper.empResultMap -->
+    <collection property="department" ofType="com.hx.entity.Department"
+                resultMap="com.hx.mapper.DepartmentMapper.BaseResultMap" />
+  </resultMap>
+
+  <select id="selectusersro" parameterType="com.hx.entity.Users" resultMap="userroleResultMap">
+		select a.*, b.*,d.* from users a left Join users_role b on a.user_id=b.user_id left Join role d on b.role_id=d.role_id
+		where a.user_name = #{userName}
+	</select>
+
+  <select id="selectusersdept" parameterType="com.hx.entity.Users" resultMap="userdeptResultMap">
+		select a.*, b.* from users a left Join department b on a.department_id=b.department_id
+    <where>
+      <if test="userName != null">
+        a.user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null">
+        and a.name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="department.departmentName != null">
+        and b.department_name = #{department.departmentName,jdbcType=VARCHAR}
+      </if>
+      <if test="department.company != null">
+        and b.company = #{department.company,jdbcType=VARCHAR}
+      </if>
+      <if test="department.store != null">
+        and b.store = #{department.store,jdbcType=VARCHAR}
+      </if>
+      <if test="department.position != null">
+        and b.position = #{department.position,jdbcType=VARCHAR}
+      </if>
+      <if test="state != null">
+        and a.state = #{state,jdbcType=VARCHAR}
+      </if>
+    </where>
+	</select>
+
+  <select id="usersname" parameterType="com.hx.entity.Users" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from users where user_name=#{userName}
+  </select>
+
+  <select id="userspass" parameterType="com.hx.entity.Users" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from users where user_name=#{userName} and user_password=#{userPassword}
+  </select>
+
+  <update id="deleteUsers" >
+    <foreach collection="array" separator=";" item="pk">
+      update users set state='0' where user_id = ${pk}
+    </foreach>
+  </update>
+
+  <select id="usersstate" parameterType="com.hx.entity.Users" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from users where state=#{state}
+  </select>
+
+
+
+
+
+  <sql id="Base_Column_List">
+    user_id, user_name, user_password, name, department_id, state, phone
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from users
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hx.entity.Users">
+    insert into users (user_name, user_password,
+      name, department_id, state, 
+      phone)
+    values (#{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}, #{state,jdbcType=CHAR}, 
+      #{phone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hx.entity.Users">
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userPassword != null">
+        user_password,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="work != null">
+        work,
+      </if>
+      <if test="departure != null">
+        departure,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="work != null">
+        #{work,jdbcType=VARCHAR},
+      </if>
+      <if test="departure != null">
+        #{departure,jdbcType=TIME},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.Users">
+    update users
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=CHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="work != null">
+        work = #{work,jdbcType=VARCHAR},
+      </if>
+      <if test="departure != null">
+        departure= #{departure,jdbcType=TIME},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.Users">
+    update users
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=INTEGER},
+      state = #{state,jdbcType=CHAR},
+      phone = #{phone,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>
