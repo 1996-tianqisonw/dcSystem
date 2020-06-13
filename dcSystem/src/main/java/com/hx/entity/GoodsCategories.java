@@ -15,7 +15,7 @@ public class GoodsCategories implements Serializable {
 
     private String goodsImg;
 
-    private Float goodsPrice;
+    private Integer goodsPrice;
 
     private String goodsStatus;
 
@@ -80,11 +80,11 @@ public class GoodsCategories implements Serializable {
         this.goodsImg = goodsImg;
     }
 
-    public Float getGoodsPrice() {
+    public Integer getGoodsPrice() {
         return goodsPrice;
     }
 
-    public void setGoodsPrice(Float goodsPrice) {
+    public void setGoodsPrice(Integer goodsPrice) {
         this.goodsPrice = goodsPrice;
     }
 
