@@ -43,18 +43,11 @@ public class GoodsController {
             categories.setcName(null);
         }
         goods.setCategories(categories);
-        PageInfo<GoodsCategories> pageInfo = goodsService.selectGoods(null, page, rows);
+        PageInfo<GoodsCategories> pageInfo = goodsService.selectGoods(goods, page, rows);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("total", pageInfo.getTotal());
         map.put("rows", pageInfo.getList());
         return map;
-    }
-
-    @RequestMapping("/t")
-    @ResponseBody
-    public Object t(String content1) {
-        System.out.println(content1);
-        return content1;
     }
 
     @RequestMapping("/insetGoods")
