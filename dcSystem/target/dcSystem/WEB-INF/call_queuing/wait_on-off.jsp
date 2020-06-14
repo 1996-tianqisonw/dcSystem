@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="/dcsystem/dcsystem.jsp" %>
-
+<%@ include file="../../dcsystem/dcsystem.jsp"%>
 <html>
 <head>
     <title>Title</title>
@@ -38,7 +37,7 @@
 </form>
 <table id="wait_on"></table>
 <div id="paidui_win"></div>
-<script type="text/javascript">
+<%--<script type="text/javascript">
     $('#wait_on').datagrid({
         url: '${proPath}/wait_on/list.mvc',    //获取json字符串
         columns: [[
@@ -121,6 +120,6 @@
             }
         }
     }
-</script>
+</script>--%>
 </body>
 </html>

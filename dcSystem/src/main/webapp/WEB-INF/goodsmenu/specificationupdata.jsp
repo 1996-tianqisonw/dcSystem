@@ -12,7 +12,6 @@
             var arr = win.$('#dg').datagrid('getSelections');
             $('#ff').form('load', arr[0])
         });
-
         function yz() {
             $("[name = 'sNmae']").validatebox({
                 required: true,
