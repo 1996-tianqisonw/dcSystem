@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <script>
-    win = window.parent;
+    win =  parent.$("iframe[title='商品信息管理']").get(0).contentWindow;
     $(function () {
         var arr = win.$('#dg-goods').datagrid('getSelections');
         $('#ff1').form('load', arr[0]);

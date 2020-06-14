@@ -13,28 +13,28 @@
     <div>
         <label for="cCompany">总 公 司 :</label>
         <input id="cCompany" class="easyui-validatebox" type="text" name="bookname"
-               data-options="validType:['length[6,10]']"/>
+               data-options=""/>
 
         <label for="cStore">店铺名称:</label>
         <input id="cStore" class="easyui-validatebox" type="text" name="bookname"
-               data-options="validType:['length[6,10]']"/>
+               data-options=""/>
 
         <label for="cName">商品分类:</label>
         <input id="cName" class="easyui-validatebox" type="text" name="bookname"
-               data-options="validType:['length[6,10]']"/>
+               data-options=""/>
         <br>
         <label for="goodsName">商品名称:</label>
         <input id="goodsName" class="easyui-validatebox" type="text" name="bookname"
-               data-options="validType:['length[6,10]']"/>
+               data-options=""/>
 
         <label for="goodsNo">商品编号:</label>
         <input id="goodsNo" class="easyui-validatebox" type="text" name="bookprice"
-               data-options="validType:['length[6,10]']"/>
+               data-options=""/>
 
         <label for="goodsStatus">商品状态:</label>
         <select id="goodsStatus" class="easyui-combobox" style="width:100px;">
-            <option value="aa">上架</option>
-            <option>下架</option>
+            <option value="0">上架</option>
+            <option value="1">下架</option>
         </select>
         <a id="btnq" href="#" onclick="query()" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">查询</a>
     </div>
@@ -49,7 +49,6 @@
         url: '${proPath}/Goods/selectGoods.mvc',
         columns: [[
             {checkbox: true},
-
             {field: 'cCompany', title: '公司', width: 100},
             {field: 'cId', title: '菜单ID', hidden: true, width: 100},
             {field: 'cStore', title: '店铺', width: 100},
@@ -115,12 +114,6 @@
                         showType: 'slide'
                     });
                 }
-            }
-        }, '-', {
-            iconCls: 'icon-remove',
-            text: '删除',
-            handler: function () {
-                alert('删除按钮')
             }
         }],
         striped: true,

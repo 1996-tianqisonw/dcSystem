@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%@ include file="../../common/common.jspf"%>
+<%@ include file="../../common/common.jspf" %>
 <!DOCTYPE html>
 <head>
     <title>Title</title>
@@ -8,32 +8,37 @@
     <script type="text/javascript">
         var win;
         $(function () {
-            win = window.parent;
+            win = parent.$("iframe[title='商品类目管理']").get(0).contentWindow;
             var arr = win.$('#dg').datagrid('getSelections');
-            $('#ff').form('load',arr[0])
+            $('#ff').form('load', arr[0])
         });
+
         function yz() {
             $("[name = 'sNmae']").validatebox({
-                required:true,
-                missingMessage:"不为空"
+                required: true,
+                missingMessage: "不为空"
             });
             $("[name = 'sStyle']").validatebox({
-                required:true,
-                missingMessage:"不为空"
+                required: true,
+                missingMessage: "不为空"
             });
-            $('#ff').form('submit',{
-                url:'${proPath}/Specification/updataSpecification.mvc',
-                success:function (data) {
+            $.ajax({
+                type: 'post',
+                url: '${proPath}/Specification/updataSpecification.mvc',
+                traditional: true,
+                data: {sId: $('#sId').val(), sName: $('#sName').val(), sStyle: $('#sStyle').val()},
+                dataType: 'JSON',
+                cache: false,
+                success: function (data) {
+                    if (data > 0) {
+                        alert('操作成功');
+                    } else {
+                        alert('操作失败');
+                    }
                     win.$('#dg').datagrid('reload');
-
-
                 }
             })
-
-
-
         }
-
 
 
     </script>
