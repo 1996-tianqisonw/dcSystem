@@ -60,10 +60,6 @@
             <option>离职</option>
         </select>
     </div>
-    <div>
-        <label for="departure">离职时间</label>
-        <input id="departure" type="text" name="departure" class="easyui-datebox"/>
-    </div>
     <a id="btn" href="#" onclick="show()"  class="easyui-linkbutton" data-options="iconCls:'icon-ok'">查询</a>
 </form>
 </body>
