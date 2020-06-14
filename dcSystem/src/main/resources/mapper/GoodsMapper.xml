@@ -159,8 +159,8 @@
     where goods_id = #{goodsId,jdbcType=INTEGER}
   </update>
   <select id="selectPage" parameterType="com.hx.entity.Goods" resultMap="BaseResultMap">
-   select g.*,c_name,company,store from goods g LEFT  join categories d on
-		g.c_id=d.c_id
+    select g.*,c_name,company,store from goods g LEFT  join categories d on
+    g.c_id=d.c_id
     <where>
       <if test="goodsStatus != null">
         and goods_status = #{goodsStatus,jdbcType=INTEGER}
