@@ -10,4 +10,14 @@ import org.springframework.stereotype.Service;
 @Service("sysParamService")
 public class SysParamServiceImpl extends BaseServiceImpl<SysParam> implements SysParamService {
 
+    @Override
+    public void updateSysParam(SysParam sysParam) {
+        sysParamMapper.updateSysParam(sysParam);
+    }
+
+    @Override
+    public void setSysParam(SysParam sysParam) {
+        sysParamMapper.setSysParam(sysParam);
+    }
+
 }

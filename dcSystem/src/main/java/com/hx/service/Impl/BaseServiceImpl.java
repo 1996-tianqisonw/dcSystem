@@ -76,6 +76,11 @@ public class BaseServiceImpl<T> implements BaseService<T>{
     UsersMapper usersMapper;
     @Autowired
     UsersroMapper usersroMapper;
+    @Autowired
+    StatementMapper statementMapper;
+
+    @Autowired
+    StatementLogMapper statementLogMapper;
 
     //在构建父类完成后，baseMapper需要有对应的相关子Mapper的对象作为引用
     @PostConstruct//在构造方法后，初始数据的处理

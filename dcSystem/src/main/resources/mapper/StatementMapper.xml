@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.mapper.StatementMapper">
+  <resultMap id="BaseResultMap" type="com.hx.entity.Statement">
+    <id column="statement_id" jdbcType="VARCHAR" property="statementId" />
+    <result column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
+    <result column="goods_price" jdbcType="VARCHAR" property="goodsPrice" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="total_num" jdbcType="VARCHAR" property="totalNum" />
+    <result column="total_money" jdbcType="VARCHAR" property="totalMoney" />
+    <result column="return_num" jdbcType="VARCHAR" property="returnNum" />
+    <result column="return_money" jdbcType="VARCHAR" property="returnMoney" />
+    <result column="real_num" jdbcType="VARCHAR" property="realNum" />
+    <result column="real_money" jdbcType="VARCHAR" property="realMoney" />
+    <result column="count_date" jdbcType="DATE" property="countDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    statement_id, goods_id, goods_name, menu_id, goods_price, order_id, total_num, total_money, 
+    return_num, return_money, real_num, real_money, count_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from statement
+    where statement_id = #{statementId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from statement
+    where statement_id = #{statementId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hx.entity.Statement">
+    insert into statement (statement_id, goods_id, goods_name, 
+      menu_id, goods_price, order_id, 
+      total_num, total_money, return_num, 
+      return_money, real_num, real_money, 
+      count_date)
+    values (#{statementId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
+      #{menuId,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{totalNum,jdbcType=VARCHAR}, #{totalMoney,jdbcType=VARCHAR}, #{returnNum,jdbcType=VARCHAR}, 
+      #{returnMoney,jdbcType=VARCHAR}, #{realNum,jdbcType=VARCHAR}, #{realMoney,jdbcType=VARCHAR}, 
+      #{countDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hx.entity.Statement">
+    insert into statement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="statementId != null">
+        statement_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsName != null">
+        goods_name,
+      </if>
+      <if test="menuId != null">
+        menu_id,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="totalNum != null">
+        total_num,
+      </if>
+      <if test="totalMoney != null">
+        total_money,
+      </if>
+      <if test="returnNum != null">
+        return_num,
+      </if>
+      <if test="returnMoney != null">
+        return_money,
+      </if>
+      <if test="realNum != null">
+        real_num,
+      </if>
+      <if test="realMoney != null">
+        real_money,
+      </if>
+      <if test="countDate != null">
+        count_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="statementId != null">
+        #{statementId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuId != null">
+        #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="totalNum != null">
+        #{totalNum,jdbcType=VARCHAR},
+      </if>
+      <if test="totalMoney != null">
+        #{totalMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="returnNum != null">
+        #{returnNum,jdbcType=VARCHAR},
+      </if>
+      <if test="returnMoney != null">
+        #{returnMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="realNum != null">
+        #{realNum,jdbcType=VARCHAR},
+      </if>
+      <if test="realMoney != null">
+        #{realMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="countDate != null">
+        #{countDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hx.entity.Statement">
+    update statement
+    <set>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuId != null">
+        menu_id = #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="totalNum != null">
+        total_num = #{totalNum,jdbcType=VARCHAR},
+      </if>
+      <if test="totalMoney != null">
+        total_money = #{totalMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="returnNum != null">
+        return_num = #{returnNum,jdbcType=VARCHAR},
+      </if>
+      <if test="returnMoney != null">
+        return_money = #{returnMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="realNum != null">
+        real_num = #{realNum,jdbcType=VARCHAR},
+      </if>
+      <if test="realMoney != null">
+        real_money = #{realMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="countDate != null">
+        count_date = #{countDate,jdbcType=DATE},
+      </if>
+    </set>
+    where statement_id = #{statementId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hx.entity.Statement">
+    update statement
+    set goods_id = #{goodsId,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      menu_id = #{menuId,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      total_num = #{totalNum,jdbcType=VARCHAR},
+      total_money = #{totalMoney,jdbcType=VARCHAR},
+      return_num = #{returnNum,jdbcType=VARCHAR},
+      return_money = #{returnMoney,jdbcType=VARCHAR},
+      real_num = #{realNum,jdbcType=VARCHAR},
+      real_money = #{realMoney,jdbcType=VARCHAR},
+      count_date = #{countDate,jdbcType=DATE}
+    where statement_id = #{statementId,jdbcType=VARCHAR}
+  </update>
+
+
+
+  <!--通过店铺id和日期统计订单商品 -->
+  <select id="selectByOrder"  resultMap="BaseResultMap">
+    select DATE_FORMAT(o.end_time,'%Y-%m-%d') count_date,d.goods_id,d.goods_name,d.goods_price,d.mernu_id menu_id,sum(d.orders_amount) total_money,d.org_id,sum(d.place_number) total_num from orders o INNER JOIN orders_detai d where o.orders_id = d.orders_id and o.orders_status = 3 and
+    DATE_FORMAT(o.end_time,'%Y-%m-%d') = #{countDate} and o.org_id = #{deptId} and is_paid = 1 group by d.goods_id;
+  </select>
+
+  <!--定时统计订单 -->
+  <select id="selectByOrder2"  resultMap="BaseResultMap">
+    select DATE_FORMAT(o.end_time,'%Y-%m-%d') count_date,d.goods_id,d.order_id,d.goods_title,d.goods_price,sum(d.goods_total) total_money,sum(d.goods_count) total_num  from bus_order o INNER JOIN bus_order_details d where o.order_id = d.order_id and o.order_status = '已完成' and
+    DATE_FORMAT(o.end_time,'%Y-%m-%d') = #{countDate}  group by d.goods_order_id;
+  </select>
+
+  <!-- 通过店铺id和日期统计退款商品-->
+  <select id="selectByReturn" resultMap="BaseResultMap">
+    select DATE_FORMAT(o.return_time,'%Y-%m-%d') count_date,d.goods_id,d.goods_name,d.goods_price,
+    sum(d.orders_amount) return_money,os.org_id,sum(d.return_orders_number) return_num
+    from return_orders o INNER JOIN return_orders_detai d INNER JOIN orders os where os.orders_id = o.orders_id AND
+    o.return_orders_id = d.return_orders_id and o.return_orders_status = 6 and
+    DATE_FORMAT(o.return_time,'%Y-%m-%d') = #{countDate} and os.org_id = #{deptId} group by d.goods_id;
+  </select>
+
+  <!-- 定时统计退款单-->
+  <select id="selectByReturn2" resultMap="BaseResultMap">
+    select DATE_FORMAT(o.refund_time,'%Y-%m-%d') count_date,d.goods_name,o.order_id,
+    sum(d.refund_money) return_money,sum(d.goods_count) return_num
+    from bus_refund o INNER JOIN bus_refund_details d INNER JOIN bus_order os where os.order_id = o.order_id AND
+    o.refund_id = d.refund_id and o.refund_status = '退款中' and
+    DATE_FORMAT(o.refund_time,'%Y-%m-%d') = #{countDate};
+  </select>
+
+  <!--根据店铺id和日期段查询报表-->
+  <select id="selectByTimes" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from statement where  count_date BETWEEN #{startDate} and #{endDate}
+  </select>
+</mapper>
