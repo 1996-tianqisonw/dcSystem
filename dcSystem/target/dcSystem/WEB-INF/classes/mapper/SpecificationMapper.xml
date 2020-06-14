@@ -97,6 +97,7 @@
     from specification
     where
       c_id = #{categories.cId,jdbcType=INTEGER}
+      and  s_status = 0
   </select>
   <select id="selectPage" parameterType="com.hx.entity.Specification" resultMap="BaseResultMap">
   select
