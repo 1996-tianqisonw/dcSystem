@@ -161,5 +161,25 @@
   <select id="selectPage" resultMap="BaseResultMap">
    select g.*,c_name,company,store from goods g LEFT  join categories c on
 		g.c_id=c.c_id
+    <where>
+      <if test="goodsStatus != null">
+        and goods_status = #{goodsStatus,jdbcType=INTEGER}
+      </if>
+      <if test="categories.cCompany != null">
+        and company = #{categories.cCompany,jdbcType=INTEGER}
+      </if>
+      <if test="categories.cName != null">
+        and c_name #{categories.cName,jdbcType=INTEGER}
+      </if>
+      <if test="categories.cStore != null">
+        and store= #{categories.cStore,jdbcType=INTEGER}
+      </if>
+      <if test="goodsName != null">
+        and goods_name = #{goodsName,jdbcType=VARCHAR}
+      </if>
+      <if test="goodsNo != null">
+        and goods_no = #{goodsNo,jdbcType=VARCHAR}
+      </if>
+    </where>
   </select>
 </mapper>
