@@ -69,7 +69,7 @@
         alert(goodsStatus);
         $.ajax({
             type: 'post',
-            url: ' ${proPath}/Goods/updataGoods.mvc',
+            url: '${proPath}/Goods/updataGoods.mvc',
             traditional: true,
             data: {
                 goodsId: goodsId,
