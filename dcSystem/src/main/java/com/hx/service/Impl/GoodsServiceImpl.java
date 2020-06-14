@@ -31,6 +31,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
             gc.setGoodsImg(g.getGoodsImg());
             gc.setAddTime(g.getAddTime());
             gc.setGoodsNo(g.getGoodsNo());
+            gc.setSpecification(g.getSpecification());
             gc.setGoodsPrice(g.getGoodsPrice());
             //0,1改为上架下架
             if(g.getGoodsStatus().equals(1)){
