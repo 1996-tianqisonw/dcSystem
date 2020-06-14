@@ -77,8 +77,6 @@ public class UsersController {
     @RequestMapping("/updateUsers")
     @ResponseBody
     public Object login3(Users users,Department department) {
-        System.out.println(users.getDeparture());
-        if (users.getDeparture().equals("")){users.setDeparture(null);}
         if (department.getCompany()==""){department.setCompany(null);}
         if (department.getStore()==""){department.setStore(null);}
         if (department.getPosition()==""){department.setPosition(null);}

@@ -158,8 +158,28 @@
       goods_descriptive = #{goodsDescriptive,jdbcType=LONGVARCHAR}
     where goods_id = #{goodsId,jdbcType=INTEGER}
   </update>
-  <select id="selectPage" resultMap="BaseResultMap">
-   select g.*,c_name,company,store from goods g LEFT  join categories c on
+  <select id="selectPage" parameterType="com.hx.entity.Goods" resultMap="BaseResultMap">
+   select g.*,c_name,company,store from goods g LEFT  join categories d on
 		g.c_id=c.c_id
+    <where>
+      <if test="goodsStatus != null">
+        and goods_status = #{goodsStatus,jdbcType=INTEGER}
+      </if>
+      <if test="categories.cCompany != null">
+        and d.company = #{categories.cCompany,jdbcType=VARCHAR}
+      </if>
+      <if test="categories.cName != null">
+        and d.c_name #{categories.cName,jdbcType=VARCHAR}
+      </if>
+      <if test="categories.cStore != null">
+        and d.store= #{categories.cStore,jdbcType=VARCHAR}
+      </if>
+      <if test="goodsName != null">
+        and goods_name = #{goodsName,jdbcType=VARCHAR}
+      </if>
+      <if test="goodsNo != null">
+        and goods_no = #{goodsNo,jdbcType=VARCHAR}
+      </if>
+    </where>
   </select>
 </mapper>

@@ -8,8 +8,8 @@
         <input id="userName" class="easyui-validatebox" type="text" name="userName" />
     </div>
     <div>
-        <label for="userPassword">账号</label>
-        <input id="userPassword" class="easyui-validatebox" type="text" name="userPassword" />
+        <label for="userPassword">密码</label>
+        <input id="userPassword" class="easyui-validatebox" type="password" name="userPassword" />
     </div>
     <input type="submit" value="提交"/>
 </form>
