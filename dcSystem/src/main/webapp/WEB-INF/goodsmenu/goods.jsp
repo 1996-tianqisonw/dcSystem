@@ -140,7 +140,7 @@
         var cCompany = $("#cCompany").val();
         var cStore = $("#cStore").val();
         //调用 datagrid方法根据查询参数重新加载表格数据
-        $('#dg').datagrid('load', {
+        $('#dg-goods').datagrid('load', {
             cStore: cStore,
             cName: cName,
             cCompany: cCompany,

@@ -26,8 +26,23 @@ public class GoodsController {
 
     @RequestMapping("/selectGoods")
     @ResponseBody
-    public Object selectGoods(Integer page, Integer rows) {
-        /* goodsService.selectGoods();*/
+    public Object selectGoods(Goods goods, Categories categories, Integer page, Integer rows) {
+        if(goods.getGoodsName()==""){
+            goods.setGoodsName(null);
+        }
+        if(goods.getGoodsNo()==""){
+            goods.setGoodsNo(null);
+        }
+        if(categories.getcStore()==""){
+            categories.setcStore(null);
+        }
+        if(categories.getcCompany()==""){
+            categories.setcCompany(null);
+        }
+        if(categories.getcName()==""){
+            categories.setcName(null);
+        }
+        goods.setCategories(categories);
         PageInfo<GoodsCategories> pageInfo = goodsService.selectGoods(null, page, rows);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("total", pageInfo.getTotal());
