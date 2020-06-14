@@ -78,11 +78,7 @@ public class UsersServiceimpl extends BaseServiceImpl<Users> implements UsersSer
         Integer integer=0;
         List<Department> list = departmentMapper.selectdept(department);
         users.setDepartmentId(list.get(0).getDepartmentId());
-        if (usersMapper.usersname(users)==null){
             integer = usersMapper.updateByPrimaryKeySelective(users);
-        }else {
-            integer=2;
-        }
         return integer;
     }
 

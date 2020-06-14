@@ -18,10 +18,6 @@
         <input id="userId" class="easyui-validatebox" type="text" name="userId"/>
     </div>
     <div>
-        <label for="userName">账号</label>
-        <input id="userName" class="easyui-validatebox" type="text" name="userName" />
-    </div>
-    <div>
         <label for="userPassword">密码</label>
         <input id="userPassword" class="easyui-validatebox" type="password" name="userPassword" value="111111" />
     </div>
@@ -81,7 +77,6 @@
         alert(array[0].userId);
         $("#fm").form('load',{
             userId : array[0].userId,
-            userName : array[0].userName,
             userPassword : array[0].userPassword,
             name : array[0].name,
             departmentName : array[0].departmentName,
@@ -93,10 +88,6 @@
         });
     });
     function show(){
-        $("[name='userName']").validatebox({
-            required : true,
-            missingMessage : '1111'
-        });
         $("[name='name']").validatebox({
             required : true,
             missingMessage : '2222'
@@ -113,17 +104,8 @@
             url:"${proPath}/UsersController/updateUsers.mvc",
             success:function (msg) {
                 if (msg>0){
-                    if (msg==2){
-                        $.messager.show({
-                            title: '操作提示',
-                            msg: '角色名已存在',
-                            timeout: 2000,
-                            showType: 'slide'
-                        });
-                    }else {
-                        win.$('#dg').datagrid('reload');
-                        win.$('#win').dialog('close');
-                    }
+                    win.$('#dg').datagrid('reload');
+                    win.$('#win').dialog('close');
                 }else {
                     $.messager.show({
                         title: '操作提示',
