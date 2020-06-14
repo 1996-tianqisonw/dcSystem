@@ -18,7 +18,7 @@
         <!-- 数据库驱动 -->
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
         <!-- 相应驱动的jdbcUrl -->
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/xtgl?useUnicode=true&amp;characterEncoding=UTF-8" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/dc?useUnicode=true&amp;characterEncoding=UTF-8" />
         <!-- 数据库的用户名 -->
         <property name="username" value="root" />
         <!-- 数据库的密码 -->
