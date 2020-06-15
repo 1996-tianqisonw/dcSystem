@@ -45,6 +45,7 @@
 </form>
 <table id="cus_call"></table>
 <div id="call_add"></div>
+</body>
 <script type="text/javascript">
     $('#cus_call').datagrid({
         url: '${proPath}/cus_call/list.mvc',    //获取json字符串
@@ -54,8 +55,8 @@
             {field: 'czName', title: '餐桌名称', width: 100},
             {field: 'callText', title: '服务内容', width: 100},
             {field: 'stateName', title: '处理状态', width: 100},
-            {field: 'beginTime', title: '开始时间', width: 100, formatter: formatDatebox},
-            {field: 'dealTime', title: '处理时间', width: 100, formatter: formatDatebox}
+            {field: 'beginTime', title: '开始时间', width: 100},
+            {field: 'dealTime', title: '处理时间', width: 100}
         ]],
         fitColumns: true,
         toolbar: [{
@@ -165,5 +166,4 @@
     }
 
 </script>
-</body>
 </html>

@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<style type="text/css">
+<%--<style type="text/css">
     .easyui-combobox {
         width: 140px;
         margin-left: 10px;
@@ -17,7 +17,7 @@
         position: relative;
         top: -5px;
     }
-</style>
+</style>--%>
 <%--<script type="text/javascript" src="${proPath}/res/js/dataFormat.js"/>--%>
 <form id="ff" method="post" style="position: relative;top: 10px;">
     <div style="float:left;">
@@ -44,6 +44,7 @@
 </form>
 <table id="wait_line"></table>
 <div id="win_line"></div>
+</body>
 <script type="text/javascript">
     $('#wait_line').datagrid({
         url:'${proPath}/wait_line/list.mvc',    //获取json字符串
@@ -56,8 +57,8 @@
             {field:'custTel',title:'手机号',width:100},
             {field:'pepleNum',title:'用餐人数',width:100},
             {field:'stateName',title:'排队情况',width:100},
-            {field:'beginTime',title:'开始时间',width:100,formatter: formatDatebox},
-            {field:'dealTime',title:'处理时间',width:100,formatter: formatDatebox}
+            {field:'beginTime',title:'开始时间',width:100},
+            {field:'dealTime',title:'处理时间',width:100}
         ]] ,
         fitColumns:true,
         toolbar: [{
@@ -79,46 +80,46 @@
             text:'客人取消排队',
             handler: function(){updateLine_state(2)}
         },'-',{
-        iconCls: 'icon-edit',
-        text:'过号处理',
-        handler: function(){updateLine_state(3)}
-    },'-',{
+            iconCls: 'icon-edit',
+            text:'过号处理',
+            handler: function(){updateLine_state(3)}
+        },'-',{
             iconCls: 'icon-edit',
             text:'重置排号',
             handler: function(){
                 var q = confirm("确认要重新排号吗？");
                 if (q) {
-                        $.ajax({//进行ajax请求
-                            type: "post",
-                            url: "${proPath}/wait_line/reloadxh.mvc",
-                            cache: true,
-                            async: true,
-                            success: function (data, textStatus, jqXHR) {
-                                if (data.code == 200) {
-                                    $.messager.show({
-                                        title: '我的消息',
-                                        msg: data.message,
-                                        timeout: 5000,
-                                        showType: 'slide'
-                                    });
-                                } else {
-                                    alert(data.message);
-                                }
-                                $('#wait_line').datagrid("load");
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                //alert(typeof(errorThrown));
+                    $.ajax({//进行ajax请求
+                        type: "post",
+                        url: "${proPath}/wait_line/reloadxh.mvc",
+                        cache: true,
+                        async: true,
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.code == 200) {
+                                $.messager.show({
+                                    title: '我的消息',
+                                    msg: data.message,
+                                    timeout: 5000,
+                                    showType: 'slide'
+                                });
+                            } else {
+                                alert(data.message);
                             }
-                        });
-                    }
-                    }
+                            $('#wait_line').datagrid("load");
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            //alert(typeof(errorThrown));
+                        }
+                    });
+                }
+            }
         }],
         striped:true,
         pagination:true,
         rownumbers:true
     });
 
-$("#wait_line").datagrid("hideColumn","lineId");
+    $("#wait_line").datagrid("hideColumn","lineId");
 
     function query(){
         //获取填写的值
@@ -156,7 +157,7 @@ $("#wait_line").datagrid("hideColumn","lineId");
                         } else {
                             alert(data.message);
                         }
-                       $('#wait_line').datagrid("load");
+                        $('#wait_line').datagrid("load");
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         //alert(typeof(errorThrown));
@@ -173,5 +174,4 @@ $("#wait_line").datagrid("hideColumn","lineId");
         }
     }
 </script>
-</body>
 </html>
