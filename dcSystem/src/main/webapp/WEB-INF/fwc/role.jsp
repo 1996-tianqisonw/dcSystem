@@ -29,7 +29,6 @@
             iconCls : 'icon-add',
             text : '新增',
             handler : function() {
-                alert('添加按钮');
                 parent.$('#win').window({
                     title: '新增页面',
                     width: 600,
@@ -42,7 +41,6 @@
             iconCls : 'icon-edit',
             text : '修改',
             handler : function() {
-                alert('修改按钮');
                 var array = $("#dg").datagrid("getSelections");
                 if(array.length==1){
                         parent.$('#win').window({

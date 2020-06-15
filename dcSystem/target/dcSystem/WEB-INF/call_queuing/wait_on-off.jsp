@@ -20,7 +20,7 @@
         padding-left: 30px;//相对左元素的距离
     }
 </style>
-<script type="text/javascript" src="${proPath}/res/js/dataFormat.js"/>
+<%--<script type="text/javascript" src="${proPath}/res/js/dataFormat.js"/>--%>
 <form id="ff" method="post" style="position: relative;top: 10px;">
     <div class="y_float">
         <label for="">总公司:</label>
@@ -37,7 +37,7 @@
 </form>
 <table id="wait_on"></table>
 <div id="paidui_win"></div>
-<%--<script type="text/javascript">
+<script type="text/javascript">
     $('#wait_on').datagrid({
         url: '${proPath}/wait_on/list.mvc',    //获取json字符串
         columns: [[
@@ -120,6 +120,6 @@
             }
         }
     }
-</script>--%>
+</script>
 </body>
 </html>

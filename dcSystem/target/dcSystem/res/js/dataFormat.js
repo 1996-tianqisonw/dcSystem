@@ -11,7 +11,7 @@ Date.prototype.format = function (format) {
         "q+": Math.floor((this.getMonth() + 3) / 3), // quarter
         "S": this.getMilliseconds()
         // millisecond
-    }
+    };
     if (/(y+)/.test(format))
         format = format.replace(RegExp.$1, (this.getFullYear() + "")
             .substr(4 - RegExp.$1.length));
@@ -19,7 +19,7 @@ Date.prototype.format = function (format) {
         if (new RegExp("(" + k + ")").test(format))
             format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
     return format;
-}
+};
 
 
 function formatDatebox(value) {

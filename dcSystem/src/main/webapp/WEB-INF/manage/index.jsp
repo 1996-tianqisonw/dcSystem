@@ -7,8 +7,8 @@
 </head>
 <body>
 <div id="tt" class="easyui-tabs" style="">
-    <div title="餐营模式"  href="${proPath}/base/goURL/manage/cyMode.mvc"></div>
-    <div title="支付流程"  href="${proPath}/base/goURL/manage/payFlow.mvc"></div>
+    <div title="餐营模式"  href="${proPath}/BaseController/goURL/manage/cyMode.mvc"></div>
+    <div title="支付流程"  href="${proPath}/BaseController/goURL/manage/payFlow.mvc"></div>
 
 </div>
 
