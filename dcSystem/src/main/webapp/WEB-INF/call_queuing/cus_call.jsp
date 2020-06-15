@@ -45,6 +45,7 @@
 </form>
 <table id="cus_call"></table>
 <div id="call_add"></div>
+</body>
 <script type="text/javascript">
     $('#cus_call').datagrid({
         url: '${proPath}/cus_call/list.mvc',    //获取json字符串
@@ -165,5 +166,4 @@
     }
 
 </script>
-</body>
 </html>
