@@ -87,7 +87,7 @@
             success: function (data) {
                 if (data > 0) {
                     alert("操作成功");
-                    window.parent.$('#dg-goods').datagrid('reload');
+                    parent.$("iframe[title='商品信息管理']").get(0).contentWindow.$('#dg-goods').datagrid('reload');
                 } else {
                     alert("操作失败")
                 }

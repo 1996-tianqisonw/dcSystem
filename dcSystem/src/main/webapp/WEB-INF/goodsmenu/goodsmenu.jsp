@@ -28,7 +28,7 @@
         <table id="dg"></table>
     </div>
 </div>
-<div id="win_s"></div>
+<div id="win"></div>
 
 <script type="text/javascript">
     $('#tt2').tree({
@@ -67,7 +67,7 @@
                         iconCls: 'icon-add',
                         text: '新增',
                         handler: function () {
-                            parent.$('#win_s').window({
+                            parent.$('#win').window({
                                 title: '添加规格',
                                 width: 400,
                                 height: 200,
@@ -82,7 +82,7 @@
                         handler: function () {
                             var array = $('#dg').datagrid('getSelections');
                             if (array.length == 1) {
-                                parent.$('#win_s').window({
+                                parent.$('#win').window({
                                     title: '修改规格',
                                     width: 400,
                                     height: 200,

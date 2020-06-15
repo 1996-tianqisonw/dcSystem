@@ -7,10 +7,11 @@
     <title>Title</title>
     <script type="text/javascript">
         var win;
+        var arr;
         $(function () {
             win = parent.$("iframe[title='商品类目管理']").get(0).contentWindow;
-            var arr = win.$('#dg').datagrid('getSelections');
-            $('#ff').form('load', arr[0])
+            arr = win.$('#dg').datagrid('getSelections');
+            $('#ff').form('load', arr[0]);
         });
         function yz() {
             $("[name = 'sNmae']").validatebox({
@@ -30,11 +31,11 @@
                 cache: false,
                 success: function (data) {
                     if (data > 0) {
+                        win.$('#dg').datagrid('reload');
                         alert('操作成功');
                     } else {
                         alert('操作失败');
                     }
-                    win.$('#dg').datagrid('reload');
                 }
             })
         }
@@ -49,7 +50,7 @@
     <input class="easyui-validatebox" id="sName" type="text" name="sName" data-options="required:true"/><br>
     规格样式：
     <input class="easyui-validatebox" id="sStyle" type="text" name="sStyle" data-options="required:true"/><br>
-    <input id="btn" type="submit" value="提交" onclick="yz()"/>
+    <input id="btn" type="button" value="提交" onclick="yz()"/>
     <p style="float: right">规格样式用“/”隔开</p>
 </form>
 </div>

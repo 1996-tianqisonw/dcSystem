@@ -41,8 +41,8 @@
 
 </form>
 <table id="dg-goods"></table>
-<div id="win-xg"></div>
-<div id="win-tj"></div>
+<div id="win"></div>
+
 
 <script type="text/javascript">
     $('#dg-goods').datagrid({
@@ -77,7 +77,7 @@
             iconCls: 'icon-add',
             text: '新增',
             handler: function () {
-                $('#win-tj').window({
+                $('#win').window({
                     title: '添加商品',
                     width: 1000,
                     height: 600,
@@ -98,7 +98,7 @@
                 */
                 var rows = $('#dg-goods').datagrid("getSelections");
                 if (rows.length == 1) {
-                    parent.$('#win-xg').window({
+                    parent.$('#win').window({
                         title: '编辑用户',
                         width: 850,
                         height: 500,

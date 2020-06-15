@@ -42,11 +42,11 @@
     </div>
     <a id="btn1" href="#" onclick="query()"  class="easyui-linkbutton" data-options="iconCls:'icon-ok'">查询</a>
 </form>
-<table id="dg"></table>
+<table id="wait_line"></table>
 <div id="win_line"></div>
 </body>
 <script type="text/javascript">
-    $('#dg').datagrid({
+    $('#wait_line').datagrid({
         url:'${proPath}/wait_line/list.mvc',    //获取json字符串
         columns:[[
             {checkbox:true},

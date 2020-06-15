@@ -22,7 +22,7 @@
             <div id="" class="easyui-tabs" style="width:800px;height:400px;">
                 <div title="商品信息" style="padding:20px;">
                     商品名字：
-                    <input id="goodsName" style="margin: 20px" data-options="required:true" class="easyui-validatebox"/>
+                    <input id="g-name" style="margin: 20px" data-options="required:true" class="easyui-validatebox"/>
                     商品标题：
                     <input id="goodsTitle" style="margin: 20px" data-options="required:true"
                            class="easyui-validatebox"/><br>
@@ -65,7 +65,7 @@
         }
         var fuwenben = window.frames["myiframe"].document.getElementById("content1").value;
         var myform = new FormData();
-        var goodsname = $('#goodsName').val();
+        var goodsname = $('#g-name').val();
         var goodstitle = $('#goodsTitle').val();
         var goodsno = $('#goodsNo').val();
         var goodsstatus = $('#goodsStatus').combobox("getValue");
@@ -95,7 +95,7 @@
                     success: function (data) {
                         if (data > 0) {
                             alert("操作成功");
-                            window.parent.$('#dg-goods').datagrid('reload');
+                            parent.$("iframe[title='商品信息管理']").get(0).contentWindow.$('#dg-goods').datagrid('reload');
                         } else {
                             alert("操作失败")
                         }
