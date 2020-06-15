@@ -6,11 +6,12 @@
     <title>Title</title>
 </head>
 <script>
-    win = window.parent;
+    win =  parent.$("iframe[title='商品信息管理']").get(0).contentWindow;
     $(function () {
         var arr = win.$('#dg-goods').datagrid('getSelections');
         $('#ff1').form('load', arr[0]);
         $("img").attr("src", "/imges/" + arr[0].goodsImg);
+        $("#goodsg").text(arr[0].specification);
         $.ajax({
             type: 'post',
             url: '${proPath}/Specification/selectSpe.mvc',
@@ -69,7 +70,7 @@
         alert(goodsStatus);
         $.ajax({
             type: 'post',
-            url: ' ${proPath}/Goods/updataGoods.mvc',
+            url: '${proPath}/Goods/updataGoods.mvc',
             traditional: true,
             data: {
                 goodsId: goodsId,
@@ -122,6 +123,7 @@
                     src="${proPath}/BaseController/goURL/goodsmenu/KindEditor.mvc"></iframe>
         </div>
         <div title="规格样式" style="padding:20px;">
+            已选择：<p id="goodsg"></p>
             <div id="ggys" name="ggys">
             </div>
         </div>

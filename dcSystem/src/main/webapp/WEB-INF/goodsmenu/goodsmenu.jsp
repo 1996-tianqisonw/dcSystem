@@ -72,7 +72,6 @@
                                 width: 400,
                                 height: 200,
                                 modal: true,
-                                collapsible: false,
                                 content: "<iframe src='${proPath}/BaseController/goURL/goodsmenu/specificationadd.mvc' height='100%' width='100%' frameborder='0px' ></iframe>"
                             });
 
@@ -88,7 +87,6 @@
                                     width: 400,
                                     height: 200,
                                     modal: true,
-                                    collapsible: false,
                                     content: "<iframe src='${proPath}/BaseController/goURL/goodsmenu/specificationupdata.mvc' height='100%' width='100%' frameborder='0px' ></iframe>"
                                 });
                             } else {

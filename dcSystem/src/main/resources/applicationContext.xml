@@ -18,11 +18,11 @@
         <!-- 数据库驱动 -->
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
         <!-- 相应驱动的jdbcUrl -->
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/dc?useUnicode=true&amp;characterEncoding=UTF-8" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/xtgl?useUnicode=true&amp;characterEncoding=UTF-8" />
         <!-- 数据库的用户名 -->
         <property name="username" value="root" />
         <!-- 数据库的密码 -->
-        <property name="password" value="123456" />
+        <property name="password" value="root" />
         <!-- 每个分区最大的连接数 -->
         <property name="maxConnectionsPerPartition" value="3" />
         <!-- 每个分区最小的连接数 -->
@@ -83,6 +83,45 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
         <property name="basePackage" value="com.hx.mapper"/>
+    </bean>
+
+    <!-- 定义Job详细 -->
+    <bean name="orderJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <!-- 指定具体的job执行类 -->
+        <property name="jobClass" value="com.hx.quartz.StatementJob" />
+        <!-- 配置job的名称 -->
+        <property name="name" value="StatementJob" />
+        <!-- 指定job的分组 -->
+        <property name="group" value="shJobs" />
+        <!-- 一般设置为true，如果为false，该任务 在没有活动的触发器与之关联时会在调度器中被删除 -->
+        <property name="durability" value="true"/>
+        <!-- 指定spring容器的key，便于在job中的jobmap中是获取到spring容器信息 -->
+        <property name="applicationContextJobDataKey" value="applicationContext"/>
+    </bean>
+
+    <!-- 配置触发器，通过jobDetail获取信息的job信息 -->
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="orderJobDetail" />
+        <!-- 每5秒执行一次 -->
+        <property name="cronExpression" value="0 0/5 * * * ?" />
+    </bean>
+
+    <!-- 配置触发器 2-->
+    <!-- 一个job可以有多个trigger； -->
+    <!-- <bean id="cronTrigger2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="orderJobDetail" />
+        每分钟执行一次
+        <property name="cronExpression" value="0 */1 * * * ?" />
+    </bean> -->
+
+    <!-- 定义调度器 -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="cronTrigger" />
+                <!--  <ref bean="cronTrigger2" /> -->
+            </list>
+        </property>
     </bean>
 
 </beans>

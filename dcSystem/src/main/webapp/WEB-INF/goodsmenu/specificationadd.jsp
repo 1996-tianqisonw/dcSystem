@@ -6,7 +6,7 @@
 <head>
     <title>Title</title>
     <script type="text/javascript">
-        var win = window.parent;
+        var win =  parent.$("iframe[title='商品类目管理']").get(0).contentWindow;;
         var cid = win.$('#cid').val();
         function save() {
             var sname = $('#sName').val();

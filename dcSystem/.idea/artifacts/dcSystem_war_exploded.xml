@@ -5,6 +5,7 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="dcSystem" />
+          <element id="jpa-descriptors" facet="dcSystem/jpa/JPA" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
@@ -42,6 +43,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:5.0.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-websocket:5.0.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-messaging:5.0.2.RELEASE" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/zxing-core-3.3.1.jar" />
         </element>
       </element>
       <element id="directory" name="META-INF">

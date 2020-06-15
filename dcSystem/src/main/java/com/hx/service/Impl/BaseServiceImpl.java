@@ -76,6 +76,11 @@ public class BaseServiceImpl<T> implements BaseService<T>{
     UsersMapper usersMapper;
     @Autowired
     UsersroMapper usersroMapper;
+    @Autowired
+    StatementMapper statementMapper;
+
+    @Autowired
+    StatementLogMapper statementLogMapper;
 
     //在构建父类完成后，baseMapper需要有对应的相关子Mapper的对象作为引用
     @PostConstruct//在构造方法后，初始数据的处理
@@ -141,33 +146,33 @@ public class BaseServiceImpl<T> implements BaseService<T>{
         return null;
     }
     @Override
-    public <K> int deleteByPrimaryKey(K dcId) {
-        return 0;
+    public <K>int deleteByPrimaryKey(K id) {
+        return baseMapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public int insert(T record)throws Exception{
+    public int insert(T record) {
         return baseMapper.insert(record);
     }
 
     @Override
     public int insertSelective(T record) {
-        return 0;
+        return baseMapper.insertSelective(record);
     }
 
     @Override
-    public <K> T selectByPrimaryKey(K dcId) {
-        return null;
+    public <K>T selectByPrimaryKey(K id) {
+        return baseMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public int updateByPrimaryKeySelective(T record) {
-        return 0;
+        return baseMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(T record) {
-        return 0;
+        return baseMapper.updateByPrimaryKey(record);
     }
 
     @Override
