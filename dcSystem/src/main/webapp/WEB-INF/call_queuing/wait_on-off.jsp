@@ -45,8 +45,8 @@
             {field: 'onOffId', title: '门店名称', width: 100},
             {field: 'dpId', title: '门店名称', width: 100},
             {field: 'stateName', title: '是否启用排队', width: 100},
-            {field: 'createTime', title: '创建时间', width: 100, formatter: formatDatebox},
-            {field: 'updateTime', title: '修改时间', width: 100, formatter: formatDatebox}
+            {field: 'createTime', title: '创建时间', width: 100},
+            {field: 'updateTime', title: '修改时间', width: 100}
         ]],
         fitColumns: true,
         toolbar: [{

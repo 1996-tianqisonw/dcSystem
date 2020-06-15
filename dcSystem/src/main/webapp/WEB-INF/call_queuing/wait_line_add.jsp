@@ -5,7 +5,6 @@
     <title>Title</title>
 </head>
 <body>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/res/common/form.css" />
 <form id="line_add"  class="elegant-aero" >
     <div>
         <label for="dpId">就餐店铺:</label>

@@ -56,8 +56,8 @@
             {field:'custTel',title:'手机号',width:100},
             {field:'pepleNum',title:'用餐人数',width:100},
             {field:'stateName',title:'排队情况',width:100},
-            {field:'beginTime',title:'开始时间',width:100,formatter: formatDatebox},
-            {field:'dealTime',title:'处理时间',width:100,formatter: formatDatebox}
+            {field:'beginTime',title:'开始时间',width:100},
+            {field:'dealTime',title:'处理时间',width:100}
         ]] ,
         fitColumns:true,
         toolbar: [{

@@ -27,7 +27,6 @@ public class CusCallController extends BaseController {
     @RequestMapping(value = "list")
     @ResponseBody
     public Object Call_List(String page, String rows, CusCall cus_call) {
-        System.out.println("@@@@@@");
         PageInfo<CusCall> pageInfo = cus_callService.selectPage(Integer.parseInt(page), Integer.parseInt(rows), cus_call);
         return getEasyUIResult(pageInfo);
     }
