@@ -71,7 +71,7 @@
         //开始带参加载数据
         $('#dg').datagrid({	queryParams: {		name: 'easyui',		subject: 'datagrid'	}});
         $('#statementCount').datagrid({
-            url:"/statement/data.mvc",
+            url:"${proPath}/statement/data.mvc",
             queryParams: {
                 /*shopId:"s001",*/
                 startDate:$('#startDate').datebox('getValue'),

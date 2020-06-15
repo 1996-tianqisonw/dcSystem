@@ -59,7 +59,7 @@
             {field: 'goodsNo', title: '编号', width: 100},
             {
                 field: 'goodsImg', title: '图片', width: 100, formatter: function (value, row, index) {
-                    if (value.length > 0) {
+                    if (value!=null&&value!="") {
                         return "<img src='/imges/" + value + "' style='height: 40px ;width: 40px;'>";
                     } else {
                         return "";

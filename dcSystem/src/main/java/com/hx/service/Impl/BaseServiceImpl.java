@@ -151,7 +151,7 @@ public class BaseServiceImpl<T> implements BaseService<T>{
     }
 
     @Override
-    public int insert(T record) {
+    public int insert(T record) throws Exception {
         return baseMapper.insert(record);
     }
 

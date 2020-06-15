@@ -18,7 +18,7 @@
         top: -5px;
     }
 </style>
-<script type="text/javascript" src="${proPath}/res/js/dataFormat.js"/>
+<%--<script type="text/javascript" src="${proPath}/res/js/dataFormat.js"/>--%>
 <form id="ff" method="post" style="position: relative;top: 10px;">
     <div style="float:left;">
         <label for="">总公司:</label>

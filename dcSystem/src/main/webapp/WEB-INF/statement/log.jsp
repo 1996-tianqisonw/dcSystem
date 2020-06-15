@@ -41,7 +41,7 @@
 
         $('#dg1').datagrid({	queryParams: {		name: 'easyui',		subject: 'datagrid'	}});
         $('#statementCount1').datagrid({
-            url:"/sysLog/logData.mvc",
+            url:"${proPath}/sysLog/logData.mvc",
             queryParams: {
                 startDate:$('#startDate1').datebox('getValue'),
             },

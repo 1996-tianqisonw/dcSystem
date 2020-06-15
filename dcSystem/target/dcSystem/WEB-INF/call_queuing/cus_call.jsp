@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<script type="text/javascript" src="${proPath}/res/js/dataFormat.js"/>
+<%--<script type="text/javascript" src="${proPath}/res/js/dataFormat.js"/>--%>
 <style type="text/css">
     .easyui-combobox {
         width: 160px;

@@ -18,6 +18,7 @@
                 $('#tt').tabs('add',{
                     title:str,
                     content:"<iframe src='"+url+"' title='"+str+"' height='100%' width='100%' frameborder='0px'/>",
+                    //href:url,
                     closable:true,
                     selected:true
                 });
